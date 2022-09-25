@@ -1,0 +1,71 @@
+﻿@page "/admin/editrole/{id}"
+@inherits EditRoleBase
+@using Shopping.Web.Components
+
+@attribute [Authorize(Policy = "AdminRolePolicy")]
+
+<h3>Edit Role</h3>
+
+<ServerValidations IsVisible="IsVisible" Result="Result" Edit="Edit" Delete="Delete" ReturnUrl="admin/roles">
+    @RecordName
+</ServerValidations>
+
+<EditForm Model="EditRoleDto" OnValidSubmit="EditRole" class="card card-body bg-light mt-5">
+    <DataAnnotationsValidator />
+
+    <div class="form-group row">
+        <label for="Name" class="col-md-2 col-form-label">Name</label>
+        <div class="col-md-10">
+            <InputText id="Name" class="form-control" @bind-Value="EditRoleDto.Name" />
+            <ValidationMessage For="@(() => EditRoleDto.Name)" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-primary mr-1">Update</button>
+            
+            <AuthorizeView Context="AuthContext">
+                @if (AuthContext.User.HasClaim(c => c.Type == "Delete Role" && c.Value == "true"))
+                {
+                    <button class="btn btn-danger mr-1" type="button" @onclick="Delete_Click">Delete</button>
+                }
+            </AuthorizeView>          
+     
+        </div>
+    </div>
+
+    <div class=" card mt-3">
+
+        <div class="card-header">
+            <h3>Users in this role: @number</h3>
+        </div>
+
+        <div class="card-body">
+            @if (UserRoleDtos.Any())
+
+                @foreach (var user in UserRoleDtos)
+                {
+                    <h5 class="card-title">@user.UserName</h5>
+                }
+
+                else
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            No users in this role yet!
+                        </div>
+                    </div>
+                }
+        </div>
+
+        <div class="card-footer">
+            <a href="@($"admin/managerolemembership/{EditRoleDto.Id}")" class="btn btn-primary mr-1">Handle Membership</a>
+            <button type="button" class="btn btn-primary mr-1" @onclick="GoBack">Go Back</button>
+        </div>
+    </div>
+
+</EditForm>
+
+<Confirm @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"
+         ConfirmationMessage=@($"Are you sure you want to delete \"{EditRoleDto.Name}\"")>
+</Confirm>

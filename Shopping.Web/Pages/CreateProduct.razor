@@ -1,0 +1,76 @@
+﻿@page "/Admin/CreateProduct"
+@inherits CreateProductBase
+@using Shopping.Web.Components
+
+@attribute [Authorize(Roles = "Administrator")]
+
+
+<h3 >Create Product</h3>
+
+<ServerValidations IsVisible="IsVisible" Result="Result" Edit="Edit">
+    @RecordName
+</ServerValidations>
+
+<EditForm Model="productCreateDto" OnValidSubmit="CreateProduct" class="card card-body bg-light mt-5">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group row" >
+        <label for="Name" class="col-md-2 col-form-label">Name</label>
+        <div class="col-md-10">
+            <InputText id="Name" class="form-control" @bind-Value="productCreateDto.Name" />
+            <ValidationMessage For="@(() => productCreateDto.Name)" />
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="Description" class="col-md-2 col-form-label">Description</label>
+        <div class="col-md-10">
+            <InputText id="Description" class="form-control" @bind-Value="productCreateDto.Description" />
+            <ValidationMessage For="@(() => productCreateDto.Description)" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="Price" class="col-md-2 col-form-label">Price</label>
+        <div class="col-md-10">
+            <InputNumber min = "1" id="Price" class="form-control" @bind-Value="productCreateDto.Price" />
+            <ValidationMessage For="@(() => productCreateDto.Price)" />
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="Qty" class="col-md-2 col-form-label">Qty</label>
+        <div class="col-md-10">
+            <InputNumber id="Qty" class="form-control" @bind-Value="productCreateDto.Qty" />
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="ImageUrl" class="col-md-2 col-form-label">ImageUrl</label>
+        <div class="col-md-10">
+            <InputText id="ImageUrl" class="form-control" @bind-Value="productCreateDto.ImageURL" />
+            <ValidationMessage For="@(() => productCreateDto.ImageURL)" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="CategoryId" class="col-md-2 col-form-label">CategoryId</label>
+        <div class="col-md-10">
+            <InputNumber id="CategoryId" class="form-control" @bind-Value="productCreateDto.CategoryId" />
+            <ValidationMessage For="@(() => productCreateDto.CategoryId)" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-success mr-1">Create</button>
+            <button type="button" class="btn btn-primary mr-1" @onclick="Cancel_Click">Cancel</button>
+        </div>
+    </div>
+
+</EditForm>
+

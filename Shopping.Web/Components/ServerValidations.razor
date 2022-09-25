@@ -1,0 +1,37 @@
+﻿@inherits ServerValidationsBase
+
+@if (IsVisible)
+{
+    @if (Result)
+    {
+        <div id="divValidationMessage" class="col-10 alert alert-success row">
+            <div class="col-11" style="text-align:left">
+                @if (Edit == true)
+                {
+                    <span>@ChildContent has been saved successfully</span>
+                }
+                else
+                {
+                    <span>@ChildContent has been Deleted successfully</span>
+                }
+
+            </div>
+            <div class="col-1" style="text-align:right">
+                <a href="@(ReturnUrl)" style="text-underline-position:below; cursor:pointer" @onclick="(() => CloseValidation())">x</a>
+            </div>
+        </div>
+    }
+
+    else 
+    {
+        <div id="divValidationMessage" class="col-10 alert alert-danger row">
+            <div class="col-11" style="text-align:left">
+                <span style="font-style:italic; font-weight:bold">Something went wrong. Please contact system admin.</span>
+            </div>
+            <div class="col-1" style="text-align:right">
+                <a style="text-underline-position:below; cursor:pointer" @onclick="(() => CloseValidation())">x</a>
+            </div>
+        </div>
+    }
+
+}

@@ -1,0 +1,58 @@
+﻿@page "/admin/managerolemembership/{id}"
+@inherits ManageRoleMemberShipBase
+@using Shopping.Web.Components
+
+@attribute [Authorize(Policy = "AdminRolePolicy")]
+
+<ServerValidations IsVisible="IsVisible" Result="Result" Edit="Edit" ReturnUrl="admin/roles">
+    @RecordName
+</ServerValidations>
+
+@if (UserRoleDtos.Count < 1)
+{
+
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+}
+else
+{
+    <EditForm Model="EditRoleDto" OnValidSubmit="EditMemberShip">
+
+        <div class="card mt-3">
+
+            <div class="card-header">
+                <div class="card-header">
+                    <h3>RoleName: @EditRoleDto.Name - add or remove membership</h3>
+                </div>
+            </div>
+
+            <div class="card-body">
+                @if (UserRoleDtos.Any())
+
+                    @for (int i = 0; i < UserRoleDtos.Count; i++)
+                    {
+                        var temp = i;
+                        <InputCheckbox class="form-check-input ml-1" @bind-Value="UserRoleDtos[temp].Selected" />
+                        <h5 class="card-title ml-4">@UserRoleDtos[i].UserName</h5>
+
+                    }
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-primary">Update Membership</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </EditForm>
+}
+
+
+

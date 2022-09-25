@@ -1,0 +1,28 @@
+﻿@page "/admin/createrole"
+@inherits CreateRoleBase
+@using Shopping.Web.Components
+
+@attribute [Authorize(Policy = "AdminRolePolicy")]
+
+<h3>CreateRole</h3>
+
+<ServerValidations IsVisible="IsVisible" Result="Result" Edit="Edit" ReturnUrl="admin/roles">
+    @RecordName
+</ServerValidations>
+
+<EditForm Model="CreateRoleDto" OnValidSubmit="CreateRole" class="card card-body bg-light mt-5">
+    <DataAnnotationsValidator />
+
+    <div class="form-group row">
+        <label for="Name" class="col-md-2 col-form-label">Name</label>
+        <div class="col-md-10">
+            <InputText id="Name" class="form-control" @bind-Value="CreateRoleDto.Name" />
+            <ValidationMessage For="@(() => CreateRoleDto.Name)" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-success">Create</button>
+        </div>
+    </div>
+</EditForm>
