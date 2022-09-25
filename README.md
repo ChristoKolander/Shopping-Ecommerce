@@ -24,3 +24,4 @@ If you want to download and test the code:
 3. Set as multiple start-up projects from solution explorer, API on top and Web below.
 4. From Package Manager, make sure you run the Api - then to seed data once, from the cmd line: Update-database  - it s h o u l d work.
 5. Ctrl F5.
+6. Note: if u register as a new user in Development, u will be given "Administrator" role by default. Change this 
