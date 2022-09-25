@@ -9,6 +9,7 @@ Just trying out some ideas...
 If You want to try out this code live - instead of downloading - go to:
 
 To use admin priveligies, log in as TestUser1@hotmail.com, and use this password: "".
+
 Feel free to try out funcionality, either as admin, standardUser or Manager, or unauthorized user.
 
 If you want to download and try out the code:
