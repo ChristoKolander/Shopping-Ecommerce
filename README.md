@@ -1,5 +1,6 @@
 # ShoppingDemo
 
+A)
 This is a private Repo. 
 
 Blazor Web Assembly upfront. 
@@ -9,6 +10,7 @@ Using Net.Core 3.1
 Code is not for production. 
 Just lab.
 
+B)
 If You want to try out this code live - instead of downloading - go to: NotImplementedYet!
 
 StandardUser privileges - register with a FAKE email, such as FakeUser1@hotmail.com.
@@ -17,6 +19,7 @@ Admin privileges - log in as TestUser1@hotmail.com - password: "".
 
 Feel free to try out authorization policies funcionality, either as admin, standardUser or Manager.
 
+C)
 If you want to download and test the code:
 
 1. Download, extract, rebuild to check everything is downloaded.
