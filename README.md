@@ -8,7 +8,8 @@ Just trying out some ideas...and will build on this foundation.
 
 If You want to try out this code live - instead of downloading - go to:
 
-To use live admin priveligies, log in as TestUser1@hotmail.com, and use this password: "".
+To use standardUser priveligies, just register. 
+To use admin priveligies, log in as TestUser1@hotmail.com, and use this password: "".
 
 Feel free to try out funcionality, either as admin, standardUser or Manager, to try out auhtorization policies, or as unauthorized user.
 
