@@ -1,6 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
-using Shopping.Web.RequestFeatures;
+using Shopping.Web.Features.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Shopping.Web.Auth
+namespace Shopping.Web.Pages.Auth
 {
     public class AuthStateProvider : AuthenticationStateProvider
     {

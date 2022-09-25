@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Shopping.Models.Dtos.CRUDs;
-using Shopping.Web.RequestFeatures;
+using Shopping.Web.Features.RequestFeatures;
 using Shopping.Web.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;

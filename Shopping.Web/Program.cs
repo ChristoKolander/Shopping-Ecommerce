@@ -2,7 +2,7 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Shopping.Web.Auth;
+using Shopping.Web.Pages.Auth;
 using Shopping.Web.Services;
 using Shopping.Web.Services.Interfaces;
 using System;

@@ -2,7 +2,7 @@
 using Shopping.Web.Services.Interfaces;
 using System.Threading.Tasks;
 
-namespace Shopping.Web.Auth
+namespace Shopping.Web.Pages.Auth
 {
     public class LogoutBase : ComponentBase
     {

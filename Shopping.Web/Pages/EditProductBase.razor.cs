@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Shopping.Models.Dtos.CRUDs;
 using Shopping.Web.Services.Interfaces;
-using Shopping.Web.Shared;
 using System.Threading.Tasks;
 
 namespace Shopping.Web.Pages

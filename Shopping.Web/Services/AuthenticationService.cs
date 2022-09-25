@@ -1,10 +1,9 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Shopping.Models.Dtos.Auths;
-using Shopping.Web.Auth;
+using Shopping.Web.Pages.Auth;
 using Shopping.Web.Services.Interfaces;
 using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;

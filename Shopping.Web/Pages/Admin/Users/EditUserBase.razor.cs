@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shopping.Web.Admin.Users
+namespace Shopping.Web.Pages.Admin.Users
 {
     public class EditUserBase: ComponentBase
     {

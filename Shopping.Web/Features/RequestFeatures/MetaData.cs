@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shopping.Web.RequestFeatures
+namespace Shopping.Web.Features.RequestFeatures
 {
     public class MetaData
     {

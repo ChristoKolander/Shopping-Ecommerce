@@ -1,8 +1,8 @@
-﻿using Shopping.Web.RequestFeatures;
+﻿using Shopping.Web.Features.RequestFeatures;
 using System.Collections.Generic;
 
 
-namespace Shopping.Web.Features
+namespace Shopping.Web.Features.PagingFeatures
 {
     public class PagingResponse<T> where T : class
     {

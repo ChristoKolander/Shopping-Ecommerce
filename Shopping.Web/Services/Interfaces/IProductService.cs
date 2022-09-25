@@ -1,6 +1,6 @@
 ﻿using Shopping.Models.Dtos.CRUDs;
-using Shopping.Web.Features;
-using Shopping.Web.RequestFeatures;
+using Shopping.Web.Features.PagingFeatures;
+using Shopping.Web.Features.RequestFeatures;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;

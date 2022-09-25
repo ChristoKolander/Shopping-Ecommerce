@@ -3,7 +3,7 @@ using Shopping.Models.Dtos.RolesAndUsers;
 using Shopping.Web.Services.Interfaces;
 using System.Threading.Tasks;
 
-namespace Shopping.Web.Admin.Roles
+namespace Shopping.Web.Pages.Admin.Roles
 {
     public class CreateRoleBase: ComponentBase
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 
-namespace Shopping.Web.Admin
+namespace Shopping.Web.Pages.Admin
 {
     public class AdminBase: ComponentBase
     {

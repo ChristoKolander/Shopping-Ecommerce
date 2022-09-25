@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shopping.Web.Admin.Claims
+namespace Shopping.Web.Pages.Admin.Claims
 {
     public class ManageUserClaimsBase: ComponentBase
     {

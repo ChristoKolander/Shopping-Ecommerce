@@ -4,7 +4,7 @@ using Shopping.Web.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Shopping.Web.Admin.Roles
+namespace Shopping.Web.Pages.Admin.Roles
 {
     public class RolesBase: ComponentBase
     {

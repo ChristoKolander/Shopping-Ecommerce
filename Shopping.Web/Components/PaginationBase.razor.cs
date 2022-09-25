@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shopping.Web.Features;
-using Shopping.Web.RequestFeatures;
-using System;
+using Shopping.Web.Features.PagingFeatures;
+using Shopping.Web.Features.RequestFeatures;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shopping.Web.Components

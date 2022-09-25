@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shopping.Web.Admin.Roles
+namespace Shopping.Web.Pages.Admin.Roles
 {
     public class ManageUserRolesBase: ComponentBase
     {
