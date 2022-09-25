@@ -32,4 +32,4 @@ If you want to download and test the code:
 5. Ctrl F5.
 6. Note: if u register as a new user in Development, u will be given "Administrator" role by default. Change this to "standardUser" in AccountController/Registration,
    or something else(see db).
-  
+  /C.
