@@ -1,12 +1,13 @@
 # ShoppingDemo
 
 This is a private Repo. 
+
 Using Net.Core 3.1
 
 Code is not for production. 
 Just trying out some ideas...and will build on this foundation.
 
-If You want to try out this code live - instead of downloading - go to:
+If You want to try out this code live - instead of downloading - go to: NotImplementedYet!
 
 To use standardUser priveligies, just register. 
 To use admin priveligies, log in as TestUser1@hotmail.com, and use this password: "".
