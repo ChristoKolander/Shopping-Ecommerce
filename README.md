@@ -16,7 +16,7 @@ Next step: enhance shopping cart and bind to applicationUser.
 
 B)
 
-If You want to try out this code live - instead of downloading - go to: NotImplementedYet!
+If you want to try out this code live - instead of downloading - go to: NotImplementedYet!
 
 StandardUser privileges - register with a FAKE email, such as FakeUser1@hotmail.com.
 
