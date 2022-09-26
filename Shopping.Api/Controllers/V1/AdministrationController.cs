@@ -308,30 +308,6 @@ namespace Shopping.Api.Controllers.V1
         }
 
 
-        [HttpPost("DeleteRolesFromUser")]
-        public async Task<ActionResult> DeleteRolesFromUser(string Id)
-        {
-
-            var user = await userManager.FindByIdAsync(Id);
-            var roles = await userManager.GetRolesAsync(user);
-
-            var result = await userManager.RemoveFromRolesAsync(user, roles);
-
-            if (result.Succeeded)
-            {
-                return Ok(); /*RedirectToAction("Roles", "Administration");*/
-            }
-
-
-            foreach (IdentityError error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-
-
-            return null;
-
-        }
 
         #endregion
 
