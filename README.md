@@ -9,7 +9,9 @@ Blazor Web Assembly upfront.
 Using Net.Core 3.1
 
 Code is not for production. 
+
 Just lab.
+
 Next step: enhance shopping cart and bind to applicationUser.
 
 B)
