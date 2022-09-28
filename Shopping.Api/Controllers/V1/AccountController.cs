@@ -7,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Shopping.Api.Entities;
 using Shopping.Api.LoggerService;
 using Shopping.Api.TokenHelpers;
+using Shopping.Models;
 using Shopping.Models.Dtos.Auths;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Shopping.Api.Controllers
@@ -43,6 +45,7 @@ namespace Shopping.Api.Controllers
         }
 
         #endregion
+
 
         [HttpPost("Registration")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDto userForRegistration)

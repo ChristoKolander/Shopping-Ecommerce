@@ -53,6 +53,9 @@ namespace Shopping.Api.TokenHelpers
             var EmailClaim = new Claim(ClaimTypes.Name, user.Email);
             claims.Add(EmailClaim);
 
+            var UserCartIdClaim = new Claim(ClaimTypes.NameIdentifier, user.Id);
+            claims.Add(UserCartIdClaim);
+
             return (List<Claim>)claims;
         }
 

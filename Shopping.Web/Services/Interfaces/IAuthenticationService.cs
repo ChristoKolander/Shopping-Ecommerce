@@ -1,4 +1,5 @@
-﻿using Shopping.Models.Dtos.Auths;
+﻿using Shopping.Models;
+using Shopping.Models.Dtos.Auths;
 using System.Threading.Tasks;
 
 namespace Shopping.Web.Services.Interfaces

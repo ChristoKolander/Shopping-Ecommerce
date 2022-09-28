@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using Newtonsoft.Json;
 using Shopping.Models.Dtos.CRUDs;
 using Shopping.Web.Services.Interfaces;
 using System;
@@ -25,7 +26,7 @@ namespace Shopping.Web.Services
         }
   
         private readonly HttpClient httpClient;
- 
+
         public ShoppingCartService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
@@ -33,7 +34,8 @@ namespace Shopping.Web.Services
       
         public async Task<List<CartItemDto>> GetItems(int userId)
         {
-            
+           
+
             HttpResponseMessage response = await httpClient.GetAsync($"api/V1/ShoppingCart/{userId}/GetCartItems");
 
             if (response.IsSuccessStatusCode)
@@ -84,9 +86,7 @@ namespace Shopping.Web.Services
                 return default(CartItemDto);
         }                 
         public async Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto)
-        {
-
-           
+        {         
             var jsonRequest = JsonConvert.SerializeObject(cartItemQtyUpdateDto);
             var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
 

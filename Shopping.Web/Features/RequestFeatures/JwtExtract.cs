@@ -21,7 +21,11 @@ namespace Shopping.Web.Features.RequestFeatures
 
             ExtractRolesFromJWT(claims, keyValuePairs);
 
-            claims.AddRange(keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString())));
+            if (keyValuePairs !=null)
+            {
+                claims.AddRange(keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString())));
+            }
+            
             return claims;
         }
         private static byte[] ParseBase64WithoutPadding(string base64)

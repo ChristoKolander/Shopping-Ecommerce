@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Shopping.Models.Dtos.RolesAndUsers;
 using Shopping.Web.Services.Interfaces;
 using System.Collections.Generic;
@@ -25,21 +27,30 @@ namespace Shopping.Web.Pages.Admin.Roles
 
         public List<UserRoleDto> UserRoleDtos { get; set; } = new List<UserRoleDto>();
     
-
         [Inject]
         public IAdministrationService administrationService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+
+        [Inject]
+        IAuthorizationService AuthService { get; set; } = default!;
+
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
+
         protected async override Task OnInitializedAsync()
         {
+            var authState = await AuthenticationStateTask;
+            var CheckAdminPolicy = await AuthService.AuthorizeAsync(authState.User, "AdminRolePolicy");
 
-            EditRoleDto = await administrationService.GetRole(Id);
-            UserRoleDtos = await administrationService.ManageRoleMemberShip(EditRoleDto.Id);      
-
+            if (CheckAdminPolicy.Succeeded)
+            {
+                EditRoleDto = await administrationService.GetRole(Id);
+                UserRoleDtos = await administrationService.ManageRoleMemberShip(EditRoleDto.Id);
+            }                
         }
-
 
         public async Task EditMemberShip()
         {

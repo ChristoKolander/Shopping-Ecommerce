@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Shopping.Models.Dtos.RolesAndUsers;
 using Shopping.Web.Services.Interfaces;
@@ -38,14 +40,27 @@ namespace Shopping.Web.Pages.Admin.Roles
         [Inject]
         public IAdministrationService administrationService { get; set; }
 
+        [Inject]
+        IAuthorizationService AuthService { get; set; } = default!;
+
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
+
 
         protected async override Task OnInitializedAsync()
         {
 
-            EditRoleDto = await administrationService.GetRole(Id);
-            UserRoleDtos = await administrationService.GetUsersInRole(EditRoleDto.Id);
+            var authState = await AuthenticationStateTask;
+            var CheckAdminPolicy = await AuthService.AuthorizeAsync(authState.User, "AdminRolePolicy");
 
-            number = UserRoleDtos.Count;
+
+            if (CheckAdminPolicy.Succeeded)          
+            {
+                EditRoleDto = await administrationService.GetRole(Id);
+                UserRoleDtos = await administrationService.GetUsersInRole(EditRoleDto.Id);
+            }
+         
+             number = UserRoleDtos.Count;
         }
 
 

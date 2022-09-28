@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Shopping.Models.Dtos;
 using Shopping.Models.Dtos.RolesAndUsers;
 using Shopping.Web.Services.Interfaces;
@@ -33,14 +35,24 @@ namespace Shopping.Web.Pages.Admin.Claims
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        IAuthorizationService AuthService { get; set; } = default!;
+
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
+
         protected async override Task OnInitializedAsync()
         {
+            var authState = await AuthenticationStateTask;
+            var CheckAdminPolicy = await AuthService.AuthorizeAsync(authState.User, "AdminRolePolicy");
 
-            EditUserDto = await administrationService.EditUser(Id);
-            UserClaimsDto = await administrationService.ManageUserClaims(EditUserDto.Id);
-  
+            if (CheckAdminPolicy.Succeeded)
+            {
+                EditUserDto = await administrationService.EditUser(Id);
+                UserClaimsDto = await administrationService.ManageUserClaims(EditUserDto.Id);
+            }
+               
         }
-
 
         public async Task EditUserClaims()
         {

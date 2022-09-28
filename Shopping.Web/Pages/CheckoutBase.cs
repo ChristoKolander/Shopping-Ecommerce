@@ -1,23 +1,31 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Shopping.Models.Dtos.CRUDs;
 using Shopping.Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Shopping.Web.Pages
 {
     public class CheckoutBase : ComponentBase
     {
-        protected int TotalQty { get; set; }
 
-        protected string PaymentDescription { get; set; }
+        [Parameter]
+        public string userClaimId { get; set; }
 
-        protected decimal PaymentAmount { get; set; }
+        public int TotalQty { get; set; }
 
-        protected IEnumerable<CartItemDto> ShoppingCartItems { get; set; }
+        public string PaymentDescription { get; set; }
+
+        public decimal PaymentAmount { get; set; }
+
+        public string DisplayButtons { get; set; } = "block";
+
+        public IEnumerable<CartItemDto> ShoppingCartItems { get; set; }
 
         [Inject]
         public IJSRuntime Js { get; set; }
@@ -28,11 +36,12 @@ namespace Shopping.Web.Pages
         [Inject]
         public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }
 
-
-        protected string DisplayButtons { get; set; } = "block";
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
+            await GetUserClaimId();
 
             ShoppingCartItems = await ShoppingCartService.GetItems(HardCoded.UserId);
 
@@ -49,7 +58,6 @@ namespace Shopping.Web.Pages
             {
                 DisplayButtons = "none";
             }
-
         }
 
 
@@ -60,5 +68,16 @@ namespace Shopping.Web.Pages
                 await Js.InvokeVoidAsync("initPayPalButton");
             }
         }
-    }          
+
+        protected async Task GetUserClaimId()
+        {
+            var authState = await AuthenticationStateTask;
+            var user = authState.User;
+            if (user.Identity.IsAuthenticated)
+            {
+                var userId = authState.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
+                userClaimId = userId;
+            }
+        }
+    }
 }

@@ -83,8 +83,7 @@ namespace Shopping.Web.Services
             return pagingResponse;
 
         }
-   
-        
+         
         public async Task<IEnumerable<ProductDto>> GetItemsByCategory(int categoryId)
         {
             
@@ -123,8 +122,7 @@ namespace Shopping.Web.Services
                 throw new Exception($"Http Status Code - {response.StatusCode} Message - {message}");
             }
         }
-            
-      
+                 
         public async Task<ProductDto> UpdateProduct(ProductDto productDto)
         {
 
@@ -178,8 +176,7 @@ namespace Shopping.Web.Services
 
             return default(ProductDto);
         }
-          
-       
+              
         public async Task<string> UploadProductImage(MultipartFormDataContent content)
         {
             var postResult = await httpClient.PostAsync("UploadFiles", content);

@@ -1,15 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Shopping.Models.Dtos.CRUDs;
 using Shopping.Web.Features.RequestFeatures;
 using Shopping.Web.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 
 namespace Shopping.Web.Pages
 {
-    public class ProductsBase: ComponentBase
+    public class ProductsBase : ComponentBase
     {
 
         public IEnumerable<ProductDto> Products { get; set; }
@@ -22,10 +24,9 @@ namespace Shopping.Web.Pages
 
         [Inject]
         public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }
-     
+
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-  
 
         public List<ProductDto> ProductDtoList { get; set; } = new List<ProductDto>();
         public MetaData MetaData { get; set; } = new MetaData();
@@ -35,7 +36,7 @@ namespace Shopping.Web.Pages
         protected async override Task OnInitializedAsync()
         {
             await GetProducts();
-            
+
         }
 
         private async Task GetProducts()

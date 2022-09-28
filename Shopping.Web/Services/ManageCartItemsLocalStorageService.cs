@@ -1,7 +1,10 @@
 ﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Shopping.Models.Dtos.CRUDs;
 using Shopping.Web.Services.Interfaces;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,10 +15,9 @@ namespace Shopping.Web.Services
 
         #region Fields and CTOR
 
-        CancellationToken cancellationToken = new CancellationToken();    
-
         private readonly ILocalStorageService localStorageService;
         private readonly IShoppingCartService shoppingCartService;
+        CancellationToken cancellationToken = new CancellationToken();
 
         const string key = "CartItemCollection";
 
@@ -33,10 +35,10 @@ namespace Shopping.Web.Services
         {
             return await localStorageService.GetItemAsync<List<CartItemDto>>(key, cancellationToken)
                    ?? await AddCollection();
-        } 
+        }
 
         private async Task<List<CartItemDto>> AddCollection()
-        {
+        {          
             var shoppingCartCollection = await shoppingCartService.GetItems(HardCoded.UserId);
 
             if (shoppingCartCollection != null)
@@ -50,14 +52,13 @@ namespace Shopping.Web.Services
         public async Task SaveCollection(List<CartItemDto> cartItemDtos)
         {
             await localStorageService.SetItemAsync(key, cartItemDtos);
-    
+
         }
 
         public async Task RemoveCollection()
         {
             await localStorageService.RemoveItemAsync(key);
         }
-
-
+      
     }
 }

@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Shopping.Models.Dtos.CRUDs;
 using Shopping.Web.Services.Interfaces;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -22,7 +25,26 @@ namespace Shopping.Web.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        public async Task CreateProduct()
+        [Inject]
+        IAuthorizationService AuthService { get; set; } = default!;
+
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
+
+        protected override async Task OnInitializedAsync()
+        {
+            var authState = await AuthenticationStateTask;
+            var CheckAdminPolicy = await AuthService.AuthorizeAsync(authState.User, "AdminRolePolicy");
+
+
+            if (CheckAdminPolicy.Succeeded)
+            {
+                StateHasChanged();
+            }
+        }
+        
+
+            public async Task CreateProduct()
         {
             ProductCreateDto Success;
             

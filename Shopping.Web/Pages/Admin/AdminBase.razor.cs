@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
-
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using System.Threading.Tasks;
 
 namespace Shopping.Web.Pages.Admin
 {
@@ -11,5 +13,23 @@ namespace Shopping.Web.Pages.Admin
         {
 
         }
-	}
+
+        [Inject]
+        IAuthorizationService AuthService { get; set; } = default!;
+
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
+
+        protected async override Task OnInitializedAsync()
+        {
+            var authState = await AuthenticationStateTask;
+            var CheckRoleMemberShip = authState.User.IsInRole("Administrator") || authState.User.IsInRole("Manager");
+
+            if (CheckRoleMemberShip == true)
+            {
+                StateHasChanged();
+            }
+
+        }
+    }
 }
