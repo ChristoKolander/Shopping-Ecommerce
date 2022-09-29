@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ using Shopping.Api.Repositories.Interfaces;
 using Shopping.Api.Security;
 using Shopping.Api.SwaggerOpt;
 using Shopping.Api.TokenHelpers;
+using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -63,7 +65,7 @@ namespace Shopping.Api
 
             services.AddDbContextPool<ShoppingDbContext>(options =>
                                    options.UseSqlServer
-                                       (Configuration.GetConnectionString("ShoppingConnection3")));
+                                       (Configuration.GetConnectionString("ShoppingConnection4")));
 
         #endregion  
 
@@ -173,7 +175,17 @@ namespace Shopping.Api
             #endregion
 
         services.AddAutoMapper(typeof(ProductProfile));
-              
+
+            services.Configure<GzipCompressionProviderOptions>(options =>
+            {
+                options.Level = CompressionLevel.Optimal;
+            });
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<GzipCompressionProvider>();
+            });
+
         }
       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
@@ -214,6 +226,7 @@ namespace Shopping.Api
             app.UseCors("CorsPolicy");
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseResponseCompression();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
