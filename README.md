@@ -4,6 +4,8 @@ A)
 
 This is a private Repo. 
 
+My Testsite - trying out different approaches and techniques!
+
 Blazor Web Assembly upfront. 
 
 Using Net.Core 3.1
