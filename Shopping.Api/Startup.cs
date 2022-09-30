@@ -65,7 +65,7 @@ namespace Shopping.Api
 
             services.AddDbContextPool<ShoppingDbContext>(options =>
                                    options.UseSqlServer
-                                       (Configuration.GetConnectionString("ShoppingConnection3")));
+                                       (Configuration.GetConnectionString("ShoppingConnection4")));
 
         #endregion  
 
@@ -186,7 +186,6 @@ namespace Shopping.Api
                 options.Providers.Add<GzipCompressionProvider>();
             });
 
-
         }
       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
@@ -227,6 +226,7 @@ namespace Shopping.Api
             app.UseCors("CorsPolicy");
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseResponseCompression();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
