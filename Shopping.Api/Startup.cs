@@ -47,8 +47,9 @@ namespace Shopping.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //Strange behavoir if NOT added first in this "bucket"!
 
-        #region Controllers EF DB
+            #region Controllers EF DB
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                       .AddEntityFrameworkStores<ShoppingDbContext>();
@@ -67,125 +68,9 @@ namespace Shopping.Api
                                    options.UseSqlServer
                                        (Configuration.GetConnectionString("ShoppingConnection4")));
 
-        #endregion  
-
-        #region Auth and Auth
-
-            var jwtSettings = Configuration.GetSection("JWTSettings");
-
-            services.AddAuthentication(options => {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                    .AddJwtBearer(options =>
-                    {
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuer = true,
-                            ValidateAudience = true,
-                            ValidateLifetime = true,
-                            ValidateIssuerSigningKey = true,
-                            ValidIssuer = jwtSettings["validIssuer"],
-                            ValidAudience = jwtSettings["validAudience"],
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["securityKey"]))
-                        };
-
-                    });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("DeleteRolePolicy",
-                    policy => policy.RequireClaim("Delete Role", "true"));
-
-                options.AddPolicy("AdminRolePolicy",
-                    policy => policy.RequireRole("Administrator"));
-
-                options.AddPolicy("EditRolePolicy", policy =>
-                    policy.AddRequirements(new AdminRequirement()));
-              
-                //options.AddPolicy("EditRolePolicy", policy => policy.RequireAssertion(context =>
-                //    context.User.IsInRole("Administrator") &&
-                //    context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true")
-                //    ||
-                //    context.User.IsInRole("Super Admin")
-                //    ));
-
-            });
-          
-            services.AddSingleton<IAuthorizationHandler, AdminHandler>();
-            services.AddSingleton<IAuthorizationHandler, SuperAdminHandler>();
-
-        #endregion
-
-        #region Cors
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: _policyName,
-                   builder =>
-                   {
-                       builder.AllowAnyHeader()
-                              .AllowAnyMethod()
-                              //.WithHeaders(HeaderNames.ContentType)
-                              .AllowAnyOrigin()
-                              .WithExposedHeaders("X-Pagination");
-                       //.WithOrigins("http://localhost:47650", "https://localhost:44371");
-                   });
-            });
-
-        #endregion
-
-        #region Swagger
-
-            services.AddSwaggerGen();
-
-            services.ConfigureOptions<ConfigureSwaggerOptions>();
-
-            //Just for Versioning.
-            services.AddApiVersioning(options =>
-            {
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.ReportApiVersions = true;
-                options.ApiVersionReader = new UrlSegmentApiVersionReader();
-            });
-
-            //Needed to work with Swagger.
-            services.AddVersionedApiExplorer(options =>
-            {
-                options.GroupNameFormat = "'v'VVV";
-                options.SubstituteApiVersionInUrl = true;
-            });
-
-        #endregion
-
-        #region Injections
-
-            services.AddScoped<ITokenService, TokenService>();
-
-            services.AddSingleton<ILoggerManager, LoggerManager>();
-
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-
-            services.AddScoped<IProductRepository, ProductRepository>();
-
-            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
-
-
             #endregion
 
-        services.AddAutoMapper(typeof(ProductProfile));
-
-            services.Configure<GzipCompressionProviderOptions>(options =>
-            {
-                options.Level = CompressionLevel.Optimal;
-            });
-            services.AddResponseCompression(options =>
-            {
-                options.EnableForHttps = true;
-                options.Providers.Add<GzipCompressionProvider>();
-            });
-
+            services.AddServiceRegistration(Configuration); //see folder named Extensions.   
         }
       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
