@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Shopping.Models.Dtos.CRUDs;
 using Shopping.Web.Services.Interfaces;
 using System;

@@ -17,13 +17,6 @@ using Shopping.Api.Data;
 using Shopping.Api.Entities;
 using Shopping.Api.Extensions;
 using Shopping.Api.LoggerService;
-using Shopping.Api.Repositories;
-using Shopping.Api.Repositories.Interfaces;
-using Shopping.Api.Security;
-using Shopping.Api.SwaggerOpt;
-using Shopping.Api.TokenHelpers;
-using System.IO.Compression;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -32,7 +25,7 @@ namespace Shopping.Api
     public class Startup
     {
 
-        #region Fields and Configuration
+            #region Fields and Configuration
 
             private static string _policyName = "CorsPolicy";
 
@@ -47,6 +40,7 @@ namespace Shopping.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             //Strange behavoir if NOT added first in this "bucket"!
 
             #region Controllers EF DB
@@ -70,13 +64,14 @@ namespace Shopping.Api
 
             #endregion
 
-            services.AddServiceRegistration(Configuration); //see folder named Extensions.   
+            services.AddServiceRegistration(Configuration);  
+
         }
       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
                               ILoggerManager logger)
 
-        #region Request PipeLine
+            #region Request PipeLine
 
         {
             if (env.IsDevelopment())

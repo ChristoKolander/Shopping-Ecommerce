@@ -1,5 +1,4 @@
-﻿
-namespace Shopping.Api.Entities
+﻿namespace Shopping.Api.Entities
 {
     public class ProductCategory
     {

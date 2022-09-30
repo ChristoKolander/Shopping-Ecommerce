@@ -9,7 +9,6 @@ namespace Shopping.Models.Dtos.CRUDs
     public class ProductCreateDto
     {
 
-
         [StringLength(75, MinimumLength = 4)]
         [Required]
         public string Name { get; set; }

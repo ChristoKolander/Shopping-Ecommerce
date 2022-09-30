@@ -9,6 +9,7 @@ namespace Shopping.Api.Entities
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-
+        public string CartStringId { get; set; }
+        public string UserStringId { get; set; } 
     }
 }

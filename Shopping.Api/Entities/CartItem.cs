@@ -8,5 +8,8 @@ namespace Shopping.Api.Entities
         public int ProductId { get; set; }
         public int Qty { get; set; }
 
+        public string CartStringId { get; set; }
+ 
+
     }
 }

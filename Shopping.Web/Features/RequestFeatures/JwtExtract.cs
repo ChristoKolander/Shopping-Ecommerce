@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Shopping.Web.Features.RequestFeatures
 {
@@ -36,9 +35,7 @@ namespace Shopping.Web.Features.RequestFeatures
                 case 3: base64 += "="; break;
             }
             return Convert.FromBase64String(base64);
-        }
-
-       
+        }      
         private static void ExtractRolesFromJWT(List<Claim> claims, Dictionary<string, object> keyValuePairs)
         {
             keyValuePairs.TryGetValue(ClaimTypes.Role, out object roles);

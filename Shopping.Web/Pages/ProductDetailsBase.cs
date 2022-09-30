@@ -25,7 +25,6 @@ namespace Shopping.Web.Pages
 
         private List<CartItemDto> ShoppingCartItems { get; set; }
 
-
         [Inject]
         public IProductService ProductService { get; set; }
 
@@ -34,7 +33,6 @@ namespace Shopping.Web.Pages
 
         [Inject]
         public IShoppingCartService ShoppingCartService { get; set; }
-
 
         [Inject]
         public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }

@@ -10,5 +10,7 @@ namespace Shopping.Models.Dtos.CRUDs
         public int ProductId { get; set; }
         public int Qty { get; set; }
 
+        public string CartStringId { get; set; }
+
     }
 }

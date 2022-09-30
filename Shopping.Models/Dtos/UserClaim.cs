@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Shopping.Models.Dtos
+﻿namespace Shopping.Models.Dtos
 {
     public class UserClaim
     {

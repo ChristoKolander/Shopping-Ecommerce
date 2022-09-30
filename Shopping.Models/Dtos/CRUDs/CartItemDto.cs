@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shopping.Models.Dtos.CRUDs
+﻿namespace Shopping.Models.Dtos.CRUDs
 {
  
        public class CartItemDto
@@ -17,7 +13,9 @@ namespace Shopping.Models.Dtos.CRUDs
             public decimal TotalPrice { get; set; }
             public int Qty { get; set; }
 
-        }
+            public string CartStringId { get; set; }
+
+    }
 
  }
 

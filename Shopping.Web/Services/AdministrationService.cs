@@ -287,7 +287,6 @@ namespace Shopping.Web.Services
         #endregion
 
         // The rest...
-
         public async Task<UserDto> GetRolesForUser(UserDto userDto)
         {
            
@@ -305,8 +304,7 @@ namespace Shopping.Web.Services
 
             return userDto;
 
-        }
-            
+        }        
         public async Task<List<UserRoleDto>> GetUsersInRole(string Id)
 
         {
@@ -329,8 +327,7 @@ namespace Shopping.Web.Services
             }
 
         }
-    
-        
+            
         public async Task<List<UserRolesDto>> ManageUserRoles(string id)
 
         {
@@ -352,8 +349,7 @@ namespace Shopping.Web.Services
                 throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
             }
 
-        }
-                
+        }                
         public async Task<List<UserRolesDto>> ManageUserRoles(string id, List<UserRolesDto> userRolesDtos)
 
         { 
@@ -373,8 +369,7 @@ namespace Shopping.Web.Services
                 return userRolesDtos;
 
         }
-     
-        
+             
         public async Task<List<UserRoleDto>> ManageRoleMemberShip(string Id)
 
         {
@@ -396,8 +391,7 @@ namespace Shopping.Web.Services
                 throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
             }
 
-        }
-           
+        }           
         public async Task<List<UserRoleDto>> ManageRoleMemberShip(string Id, List<UserRoleDto> userRoleDtos)
 
         {
@@ -418,7 +412,6 @@ namespace Shopping.Web.Services
 
         }
             
-
         public async Task<UserClaimsDto> ManageUserClaims(string id)
         {
            
@@ -441,8 +434,7 @@ namespace Shopping.Web.Services
                 throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
             }
 
-        }
-          
+        }         
         public async Task<UserClaimsDto> ManageUserClaims(string Id, UserClaimsDto userClaimsDto) 
 
         {

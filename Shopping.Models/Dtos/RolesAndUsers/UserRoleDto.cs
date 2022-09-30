@@ -10,9 +10,5 @@ namespace Shopping.Models.Dtos.RolesAndUsers
         public string UserName { get; set; }
         public bool Selected { get; set; }
 
-        //public string RoleId { get; set; }
-        //public string RoleName { get; set; }
-
-
     }
 }
