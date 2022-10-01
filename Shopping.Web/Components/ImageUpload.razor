@@ -1,11 +1,14 @@
 ﻿@inherits ImageUploadBase
-@using BlazorInputFile
 
 <h3>Image Upload</h3>
 
-<InputFile OnChange="@HandleSelected" multiple />
-
-<p>@status</p>
+<input type="file" @ref="input" @onchange="HandleSelected" accept=".jpg, .jpeg, png" />
+@if (ImgUrl != null)
+{
+    <div>
+        <img src="@ImgUrl" style="width:300px" />
+    </div>
+}
 
 
 

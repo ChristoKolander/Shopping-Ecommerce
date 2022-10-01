@@ -15,7 +15,7 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <div class="form-group row" >
+    <div class="form-group row">
         <label for="Name" class="col-md-2 col-form-label">Name</label>
         <div class="col-md-10">
             <InputText id="Name" class="form-control" @bind-Value="productCreateDto.Name" />
@@ -35,7 +35,7 @@
     <div class="form-group row">
         <label for="Price" class="col-md-2 col-form-label">Price</label>
         <div class="col-md-10">
-            <InputNumber min = "1" id="Price" class="form-control" @bind-Value="productCreateDto.Price" />
+            <InputNumber min="1" id="Price" class="form-control" @bind-Value="productCreateDto.Price" />
             <ValidationMessage For="@(() => productCreateDto.Price)" />
         </div>
     </div>
@@ -49,19 +49,26 @@
     </div>
 
 
-    <div class="form-group row">
+    @*<div class="form-group row">
         <label for="ImageUrl" class="col-md-2 col-form-label">ImageUrl</label>
         <div class="col-md-10">
             <InputText id="ImageUrl" class="form-control" @bind-Value="productCreateDto.ImageURL" />
             <ValidationMessage For="@(() => productCreateDto.ImageURL)" />
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group row">
         <label for="CategoryId" class="col-md-2 col-form-label">CategoryId</label>
         <div class="col-md-10">
             <InputNumber id="CategoryId" class="form-control" @bind-Value="productCreateDto.CategoryId" />
             <ValidationMessage For="@(() => productCreateDto.CategoryId)" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="image" class="col-md-2 col-form-label">Image:</label>
+        <div class="col-md-10">
+            <ImageUpload OnChange="AssignImageUrl" />
         </div>
     </div>
 

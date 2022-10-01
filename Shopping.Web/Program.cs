@@ -9,7 +9,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-
+using Tewr.Blazor.FileReader;
 
 namespace Shopping.Web
 {
@@ -46,6 +46,8 @@ namespace Shopping.Web
             builder.Services.AddScoped<RefreshTokenService>();
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
             builder.Services.AddScoped<IAdministrationService, AdministrationService>();
+
+            builder.Services.AddFileReaderService(o => o.UseWasmSharedBuffer = true);
 
             await builder.Build().RunAsync();
         }

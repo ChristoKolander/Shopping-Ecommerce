@@ -18,8 +18,9 @@ namespace Shopping.Web.Services.Interfaces
         Task<ProductDto> DeleteProduct(int id);
         Task<ProductDto> UpdateProduct(ProductDto productDto);
         Task<ProductCreateDto> CreateProduct(ProductCreateDto productCreateDto);
-       
-        Task<string> UploadProductImage(MultipartFormDataContent content);
 
+        Task<string> UploadProductImage(MultipartFormDataContent content);
     }
+
 }
+

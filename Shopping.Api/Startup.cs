@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Shopping.Api.AutoMapper;
@@ -17,6 +19,7 @@ using Shopping.Api.Data;
 using Shopping.Api.Entities;
 using Shopping.Api.Extensions;
 using Shopping.Api.LoggerService;
+using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -42,7 +45,6 @@ namespace Shopping.Api
         {
 
             //Strange behavoir if NOT added first in this "bucket"!
-
             #region Controllers EF DB
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -95,16 +97,14 @@ namespace Shopping.Api
             }
 
             app.UseConfigureExceptionHandler(logger);
-
-            //app.UseStaticFiles(new StaticFileOptions()
-            //{
-            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"StaticFiles")),
-            //    RequestPath = new PathString("/StaticFiles")
-            //});
-
             app.UseHttpsRedirection();         
             app.UseCors("CorsPolicy");
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"StaticFiles")),
+                RequestPath = new PathString("/StaticFiles")
+            });
             app.UseRouting();
             app.UseResponseCompression();
             app.UseAuthentication();

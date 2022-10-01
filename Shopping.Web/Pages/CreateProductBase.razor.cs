@@ -65,6 +65,8 @@ namespace Shopping.Web.Pages
 
         }
 
+        public void AssignImageUrl(string imgUrl) => productCreateDto.ImageURL = imgUrl;
+
     }
 }
 

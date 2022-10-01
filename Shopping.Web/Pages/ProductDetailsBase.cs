@@ -1,16 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
 using Shopping.Models.Dtos.CRUDs;
-using Shopping.Web.Features.RequestFeatures;
-using Shopping.Web.Pages.Auth;
 using Shopping.Web.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Shopping.Web.Pages

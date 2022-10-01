@@ -176,10 +176,10 @@ namespace Shopping.Web.Services
 
             return default(ProductDto);
         }
-              
+
         public async Task<string> UploadProductImage(MultipartFormDataContent content)
         {
-            var postResult = await httpClient.PostAsync("UploadFiles", content);
+            var postResult = await httpClient.PostAsync("api/V1/upload", content);
             var postContent = await postResult.Content.ReadAsStringAsync();
 
             if (!postResult.IsSuccessStatusCode)
@@ -188,7 +188,7 @@ namespace Shopping.Web.Services
             }
             else
             {
-                var imgUrl = Path.Combine("api /V1/UploadFiles", postContent);
+                var imgUrl = Path.Combine("https://localhost:44386/", postContent);
                 return imgUrl;
             }
         }
