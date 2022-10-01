@@ -14,7 +14,7 @@ Code is not for production.
 
 Just lab.
 
-Next step: enhance shopping cart and bind to applicationUser.
+Next step: enhance shopping cart and bind to applicationUser - merge cart from Db and cart from LocalStorage.
 
 B)
 
