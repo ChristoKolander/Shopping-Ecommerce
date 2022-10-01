@@ -14,37 +14,6 @@ namespace Shopping.Api.Controllers
 
         public string uniqueFileName = null;
 
-
-        //[HttpPost]
-        //public IActionResult Upload()
-        //{
-
-
-        //    var file = Request.Form.Files[0];
-        //    var folderName = Path.Combine("StaticFiles", "Images");
-        //    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-        //    if (file.Length > 0)
-        //    {
-        //        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-
-
-
-        //        var fullPath = Path.Combine(pathToSave, fileName);
-        //        var dbPath = Path.Combine(folderName, fileName);
-        //        using (var stream = new FileStream(fullPath, FileMode.Create))
-        //        {
-        //            file.CopyTo(stream);
-        //        }
-        //        return Ok(dbPath);
-        //    }
-        //    else
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //}
-
         [HttpPost]
         public IActionResult Upload()
         {
