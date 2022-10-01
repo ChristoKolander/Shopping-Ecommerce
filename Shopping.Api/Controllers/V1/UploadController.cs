@@ -43,25 +43,6 @@ namespace Shopping.Api.Controllers
 
         }
 
-
-
-
-        //private string ProcessUploadedFile(EmployeeCreateViewModel model)
-        //{
-        //    string uniqueFileName = null;
-        //    if (model.Photo != null)
-        //    {
-        //        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-        //        uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-        //        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
-        //        {
-        //            model.Photo.CopyTo(fileStream);
-        //        }
-        //    }
-
-        //    return uniqueFileName;
-        //}
     }
 
 }
