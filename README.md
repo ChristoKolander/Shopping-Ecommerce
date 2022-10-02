@@ -14,7 +14,13 @@ Code is not for production.
 
 Just lab.
 
-Next step: enhance shopping cart and bind to applicationUser - merge cart from Db and cart from LocalStorage.
+Next step 1: enhance shopping cart and bind to applicationUser - merge cart from Db and cart from LocalStorage.
+Next step 2: Strong believer in not moving forward too fast. Need time to digest certain techniques, pros and cons
+             when it comes to design and implementation choices. But as far as API concerns, I am going to try
+             make my generic repository asynchronous all way threw, and use this new async, generic approach in a 
+             more stream-lined fashion, aka following dry, reduce code duplication. Then, when that is done, t h e n I will look
+             into aggregate technique, seperating domain logic use cases from search, where you typically don't
+             need to interact with domain entities the same way(you just want query and summarize business results).
 
 B)
 
