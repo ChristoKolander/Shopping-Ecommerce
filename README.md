@@ -21,15 +21,9 @@ B)
 
 If you want to try out this code live - instead of downloading - go to: NotImplementedYet!
 
-StandardUser privileges - register with a FAKE email, such as FakeUser1@hotmail.com.
-
-Admin privileges - log in as TestUser1@hotmail.com - password: "".
-
-Feel free to try out authorization policies funcionality, either as admin, standardUser or Manager.
-
 C)
 
-If you want to download and test the code:
+If you want to download and test the code you will have to use Visual Studio 2022:
 
 1. Download, extract, rebuild to check everything is downloaded.
 
@@ -66,7 +60,7 @@ Hard to find material on how to implement a shopping cart solution, but this is 
   
   Gavin Lon:  https://www.youtube.com/channel/UCa-Qgwt5VxN0iP3q6reHN6g
   
-  Vladimir Pecanac and Marinko Spasojevic : https://code-maze.com/
+  Vladimir Pecanac and Marinko Spasojevic : https://code-maze.com
   
   ds
   
