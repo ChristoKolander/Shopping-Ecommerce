@@ -1,12 +1,12 @@
 # ShoppingCQRS
 
-# A)
+A)
 
 This is a private Repo. 
 
 My Testsite - trying out different approaches and techniques!
 
-Blazor Web Assembly upfront. 
+Blazor Web Assembly upfront. Wanted to try it out.
 
 Code is not for production. 
 
@@ -14,7 +14,7 @@ Just lab.
 
 Initially used 3.1 but recently upgraded to .Net 6.
 
-Title a little bit off, but wanted to try out CQRS - which is the next step when finalizing, implementing Orders.
+Title a little bit off, but wanted to learn CQRS - which is the next step when finalizing, implementing Orders.
 
 
 B)
@@ -53,6 +53,8 @@ Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
 5. Ctrl F5.
 6. Note: if you register as a new user in Development, you will be given "Administrator" role by default. Change this to "standardUser" in AccountController/Registration,
    or something else(see db for all roles seeded).
+   
+Hard to find material on how to implement a shopping cart solution, but this is my initial approach.
   
   /C.
   
@@ -60,7 +62,13 @@ Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
   
   Cred goes to these for providing the teaching on which this labApp(some code) is based:
   
+  Kudvenkat:  https://www.youtube.com/c/Csharp-video-tutorialsBlogspot
   
+  Gavin Lon:  https://www.youtube.com/channel/UCa-Qgwt5VxN0iP3q6reHN6g
+  
+  Vladimir Pecanac and Marinko Spasojevic : https://code-maze.com/
+  
+  ds
   
   
   
