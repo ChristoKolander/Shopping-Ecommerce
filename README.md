@@ -1,6 +1,6 @@
 # ShoppingCQRS
 
-A)
+# A)
 
 This is a private Repo. 
 
