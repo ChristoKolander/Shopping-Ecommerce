@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Shopping.Api.Security
 {
@@ -26,7 +24,7 @@ namespace Shopping.Api.Security
             string adminIdBeingEdited =
                    authFilterContext.HttpContext.Request.Query["userId"];
 
-            if (context.User.IsInRole("Administrator") &&
+            if (context.User.IsInRole("Administrators") &&
                 context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") &&
                 adminIdBeingEdited.ToLower() != loggedInAdminId.ToLower())
             {

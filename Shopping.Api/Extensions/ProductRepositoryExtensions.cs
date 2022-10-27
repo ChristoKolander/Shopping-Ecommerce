@@ -1,5 +1,4 @@
-﻿using Shopping.Api.Entities;
-using System.Linq;
+﻿using Shopping.Core.Entities;
 
 namespace Shopping.Api.Extensions
 {

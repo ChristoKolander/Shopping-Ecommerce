@@ -1,25 +1,229 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.OpenApi.Models;
+using Shopping.Core;
+using Shopping.Core.Interfaces;
+using Shopping.Infrastructure.Data;
+using Shopping.Infrastructure.Identity;
+using Shopping.Shared;
+using Shopping.Infrastructure.Data.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.ResponseCompression;
+using Shopping.Api.Attributes;
 using NLog;
-using System.IO;
+using NLog.Web;
+using Shopping.Api.Extensions;
+using Shopping.Api.SwaggerOptions;
+using Shopping.Api;
+using MediatR;
 
-namespace Shopping.Api
+LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+        .AddEntityFrameworkStores<AppIdentityDbContext>()
+        .AddDefaultTokenProviders();
+
+var configSection = builder.Configuration.GetRequiredSection(BaseUrlConfiguration.CONFIG_NAME);
+builder.Services.Configure<BaseUrlConfiguration>(configSection);
+var baseUrlConfig = configSection.Get<BaseUrlConfiguration>();
+
+//builder.Logging.AddConsole();
+
+Shopping.Infrastructure.Dependencies.ConfigureDBServices(builder.Configuration, builder.Services);
+
+builder.Services.AddServiceRegistration(builder.Configuration);
+
+#region Cors
+
+//Configure CORS in Production...
+const string CORS_POLICY = "CorsPolicy";
+builder.Services.AddCors(options =>
 {
-    public class Program
+    options.AddPolicy(name: CORS_POLICY,
+       builder =>
+       {
+           builder.AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowAnyOrigin()
+                  .WithExposedHeaders("X-Pagination");
+       });
+});
+#endregion
+
+
+#region Injected Services
+
+builder.Services.AddScoped<ValidationFilterAttribute>();
+
+//Original Services from 3.1
+builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+
+builder.Services.Configure<ProductSettings>(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddMediatR(typeof(Program));
+
+builder.Services.AddMemoryCache();
+builder.Services.AddControllers();
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<GzipCompressionProvider>();
+});
+
+
+#endregion
+
+
+#region SwaggerStuff...
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.EnableAnnotations();
+    c.SchemaFilter<CustomSchemaFilters>();
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-            LogManager.LoadConfiguration(string.Concat(Directory.
-            GetCurrentDirectory(), "/nlog.config"));
-        }
+        Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                          Enter 'Bearer' [space] and then your token in the text input below.
+                          \r\n\r\nExample: 'Bearer 12345abcdef'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                                Scheme = "oauth2",
+                                Name = "Bearer",
+                                In = ParameterLocation.Header,
 
-                    webBuilder.UseStartup<Startup>();
-                });
+                        },
+                        new List<string>()
+                    }
+            });
+});
+
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+
+//Just for Versioning.
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = new UrlSegmentApiVersionReader();
+});
+
+//Needed to work with Swagger.
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
+#endregion
+
+
+
+#region Request PipeLine
+
+
+var app = builder.Build();
+
+app.Logger.LogInformation("Shopping.Api App created...");
+
+app.Logger.LogInformation("Seeding database if needed...");
+
+using (var scope = app.Services.CreateScope())
+{
+    var scopedProvider = scope.ServiceProvider;
+    try
+    {
+        var productContext = scopedProvider.GetRequiredService<ProductContext>();
+        await ProductContextSeed.SeedAsync(productContext, app.Logger);
+
+        var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var identityContext = scopedProvider.GetRequiredService<AppIdentityDbContext>();
+        await AppIdentityDbContextSeed.SeedAsync(identityContext, userManager, roleManager);
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogError(ex, "An error occurred seeding the DB.");
     }
 }
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseConfigureExceptionHandler();
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+
+app.UseResponseCompression();
+
+app.UseCors(CORS_POLICY);
+
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"StaticFiles")),
+    RequestPath = new PathString("/StaticFiles")
+});
+
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+    foreach (var description in provider.ApiVersionDescriptions)
+    {
+        options.SwaggerEndpoint(
+                $"/swagger/{description.GroupName}/swagger.json",
+                description.ApiVersion.ToString()
+                );
+    }
+
+});
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+app.Logger.LogInformation("LAUNCHING Shopping.Api");
+app.Run();
+
+public partial class Program { }
+
+#endregion
+
+
+
+
+

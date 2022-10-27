@@ -1,0 +1,43 @@
+﻿@implements IDisposable
+@inject IShoppingCartService shoppingCartService
+@using System.Security.Claims;
+
+<a href="ShoppingCart" class="btn btn-info">
+    <i class="oi oi-cart"></i>&nbsp;Cart
+    <span class="badge bg-dark">@shoppingCartItemCount</span>
+</a>
+
+
+@code {
+
+   
+    private int shoppingCartItemCount = 0;
+
+      protected override void OnInitialized()
+    {
+        shoppingCartService.OnShoppingCartChanged += ShoppingCartChanged;
+    }
+
+    protected void ShoppingCartChanged(int totalQty)
+    {
+        shoppingCartItemCount = totalQty;
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        shoppingCartService.OnShoppingCartChanged -= ShoppingCartChanged;
+    }
+
+    //protected async Task GetUserClaimId()
+    //{
+    //    var authState = await AuthenticationStateTask;
+    //    var user = authState.User;
+    //    if (user.Identity.IsAuthenticated)
+    //    {
+    //        var userId = authState.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
+    //        userClaimId = userId;
+    //    }
+       
+    //}
+}

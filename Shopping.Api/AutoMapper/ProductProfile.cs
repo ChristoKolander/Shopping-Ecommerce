@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Shopping.Api.Entities;
-using Shopping.Models.Dtos.CRUDs;
+using Shopping.Shared.Dtos;
+using Shopping.Shared.Dtos.CRUDs;
+using Shopping.Core.Entities;
 
-
-namespace Shopping.Api.AutoMapper
+namespace Shopping.Api.Automapper
 {
     public class ProductProfile: Profile
     {
@@ -11,11 +11,18 @@ namespace Shopping.Api.AutoMapper
         {
             CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
+
             CreateMap<ProductCreateDto, Product>();
             CreateMap<Product, ProductCreateDto>();
 
             CreateMap<ProductUpdateDto, Product>();
+            CreateMap<Product, ProductUpdateDto>();
 
+            CreateMap<CartItemDto, Product>();
+            CreateMap<Product, CartItemDto>();
+
+            CreateMap<CartItemToAddDto, Product>();
+            CreateMap<Product, CartItemToAddDto>();
         }
 
     }

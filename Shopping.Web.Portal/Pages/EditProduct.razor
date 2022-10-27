@@ -1,0 +1,95 @@
+﻿@page "/EditProduct/{Id:int}"
+@inherits EditProductBase
+@using Shopping.Web.Portal.Components
+
+<h3>Edit Product</h3>
+
+<ServerValidations IsVisible="IsVisible" Result="Result" Delete="Delete" Edit="Edit">
+    @RecordName
+</ServerValidations>
+
+
+<EditForm Model="ProductUpdateDto" OnValidSubmit="Update" class="card card-body bg-light mt-5">
+    <DataAnnotationsValidator />
+
+    <div class="form-group row">
+        <label for="Id" class="col-md-2 col-form-label">Id:</label>
+        <div class="col-md-10">
+            <InputNumber disabled="disabled" id="Id" class="form-control" @bind-Value="ProductUpdateDto.Id" />
+            <ValidationMessage For="@(() => ProductUpdateDto.Id)" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="Name" class="col-md-2 col-form-label">Name:</label>
+        <div class="col-md-10 mt-2">
+            <InputText id="Name" class="form-control" @bind-Value="ProductUpdateDto.Name" />
+            <ValidationMessage For="@(() => ProductUpdateDto.Name)" />
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="Description" class="col-md-2 col-form-label">Description:</label>
+        <div class="col-md-10 mt-2">
+            <InputText id="Description" class="form-control" @bind-Value="ProductUpdateDto.Description" />
+            <ValidationMessage For="@(() => ProductUpdateDto.Description)" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="Price" class="col-md-2 col-form-label">Price:</label>
+        <div class="col-md-10 mt-2">
+            <InputNumber id="Price" class="form-control" @bind-Value="ProductUpdateDto.Price" />
+            <ValidationMessage For="@(() => ProductUpdateDto.Price)" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="Qty" class="col-md-2 col-form-label">Qty:</label>
+        <div class="col-md-10 mt-2">
+            <InputNumber id="Qty" class="form-control" @bind-Value="ProductUpdateDto.Qty" />
+            <ValidationMessage For="@(() => ProductUpdateDto.Qty)" />
+        </div>
+    </div>
+
+
+ @*   <div class="form-group row">
+        <label for="ImageUrl" class="col-md-2 col-form-label">ImageUrl:</label>
+        <div class="col-md-10">
+            <InputText id="ImageUrl" class="form-control" @bind-Value="productDto.ImageUrl" />
+            <ValidationMessage For="@(() => productDto.ImageUrl)" />
+        </div>
+    </div>*@
+
+    <div class="form-group row">
+        <label for="CategoryId" class="col-md-2 col-form-label">CategoryId:</label>
+        <div class="col-md-10 mt-2">
+            <InputNumber id="CategoryId" class="form-control" @bind-Value="ProductUpdateDto.ProductCategoryId" />
+            <ValidationMessage For="@(() => ProductUpdateDto.ProductCategoryId)" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="CategoryName" class="col-md-2 col-form-label">CategoryName:</label>
+        <div class="col-md-10 mt-2">
+            <InputText id="CategoryName" disabled="disabled" class="form-control" @bind-Value="ProductUpdateDto.ProductCategoryName" />
+            <ValidationMessage For="@(() => ProductUpdateDto.ProductCategoryName)" />
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12 text-right mt-2">
+            <button type="submit" class="btn btn-success">Update</button>
+            <button class="btn btn-danger" type="button" @onclick="Delete_Click">Delete</button>
+        </div>
+      
+    </div>
+
+</EditForm>
+
+<Confirm @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"
+         ConfirmationMessage=@($"Are you sure you want to delete \"{ProductUpdateDto.Name}\"")>
+</Confirm>
+
