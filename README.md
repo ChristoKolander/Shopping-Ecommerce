@@ -8,8 +8,6 @@ My Testsite - trying out different approaches and techniques!
 
 Blazor Web Assembly upfront. 
 
-Upgraded to .Net 6
-
 Code is not for production. 
 
 Just lab.
@@ -57,3 +55,13 @@ Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
    or something else(see db for all roles seeded).
   
   /C.
+  
+  ps
+  
+  Cred goes to these for providing the teaching on which this labApp(some code) is based:
+  
+  
+  
+  
+  
+  
