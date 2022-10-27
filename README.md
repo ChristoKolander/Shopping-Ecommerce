@@ -62,6 +62,8 @@ Hard to find material on how to implement a shopping cart solution, but this is 
   
   Vladimir Pecanac and Marinko Spasojevic : https://code-maze.com
   
+  "Ardalis": https://github.com/dotnet-architecture/eShopOnWeb
+  
   ds
   
   
