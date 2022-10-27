@@ -8,7 +8,7 @@ My Testsite - trying out different approaches and techniques!
 
 Blazor Web Assembly upfront. 
 
-Updated to .Net 6
+Upgraded to .Net 6
 
 Code is not for production. 
 
