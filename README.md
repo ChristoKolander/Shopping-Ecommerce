@@ -1,4 +1,4 @@
-# ShoppingDemo
+# ShoppingCQRS
 
 A)
 
@@ -14,14 +14,10 @@ Code is not for production.
 
 Just lab.
 
-Next step 1: enhance shopping cart and bind to applicationUser - merge cart from Db and cart from LocalStorage.
+Initially used 3.1 but recently upgraded to .Net 6.
 
-Next step 2: Strong believer in not moving forward too fast. Need time to digest certain techniques, pros and cons
-             when it comes to design and implementation choices. But as far as API concerns, I am going to try
-             make my generic repository asynchronous all way threw, and use this new async, generic approach in a 
-             more stream-lined fashion, aka following dry, reduce code duplication. Then, when that is done, t h e n I will look
-             into aggregate technique, seperating domain logic use cases from search, where you typically don't
-             need to interact with domain entities the same way(you just want query and summarize business results).
+Title a little bit off, but wanted to try out CQRS - which is the next step when finalizing, implementing Orders.
+
 
 B)
 
@@ -38,11 +34,26 @@ C)
 If you want to download and test the code:
 
 1. Download, extract, rebuild to check everything is downloaded.
-2. Insert/change DB connectionstring in Appsettings.json and adjust Start.cs - on the wep api.
-3. Set as multiple start-up projects from solution explorer, API on top and Web below.
-4. From Package Manager, make sure you run the Api - then to seed data once, from the cmd line: Update-database  - it s h o u l d work.
+
+2. You might have to run these commands - and dont forget to adjust SqlServer Connection settings if so (and to remove old migrations folder first!).
+
+Adjusting settings done via file Dependencies inside Project Shopping.Infrastructure and AppSettings inside Project Shopping.Api
+
+Commands if needed: 
+
+Add-Migration InitialProd -Context ProductContext -StartupProject Shopping.Api -OutputDir Migrations/Prod
+
+Update-Database -Context ProductContext -StartupProject Shopping.Api
+
+Add-Migration InitialAppId -Context AppIdentityDbContext -StartupProject Shopping.Api -OutputDir Migrations/AppId
+
+Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
+
+
+3. Set as multiple start-up projects from solution explorer, API on top and Shopping.Web.Portal below.
+4. There are 2 initial Users seeded, but u can try registering one, TestUser@hotmail.com for instance.
 5. Ctrl F5.
 6. Note: if you register as a new user in Development, you will be given "Administrator" role by default. Change this to "standardUser" in AccountController/Registration,
-   or something else(see db).
+   or something else(see db for all roles seeded).
   
   /C.
