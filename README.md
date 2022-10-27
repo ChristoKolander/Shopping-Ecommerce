@@ -8,7 +8,7 @@ My Testsite - trying out different approaches and techniques!
 
 Blazor Web Assembly upfront. 
 
-Using Net.Core 3.1
+Updated to .Net 6
 
 Code is not for production. 
 
