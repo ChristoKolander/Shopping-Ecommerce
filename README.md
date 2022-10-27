@@ -1,4 +1,4 @@
-# ShoppingCQRS
+# Shopping Demo Lab
 
 A)
 
@@ -14,7 +14,7 @@ Just lab.
 
 Initially used 3.1 but recently upgraded to .Net 6.
 
-Title a little bit off, but wanted to learn CQRS - which is the next step when finalizing, implementing Orders.
+Order implementation the final piece, going to use CQRS pattern for that. Soon.
 
 
 B)
