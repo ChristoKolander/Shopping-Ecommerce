@@ -2,20 +2,19 @@
 
 A)
 
-This is a private Repo. 
+This is a private Repo... 
 
-My Testsite - trying out different approaches and techniques!
+Testsite - trying out different approaches and techniques!
 
-Blazor Web Assembly upfront. Wanted to try it out.
+Blazor Web Assembly upfront.
 
 Code is not for production. 
 
 Just lab.
 
-Initially used 3.1 but recently upgraded to .Net 6.
+Recently upgraded from 3.1 to .Net 6.
 
-Order implementation the final piece, going to use CQRS pattern for that. Soon.
-
+Order implementation the final piece, going to use CQRS pattern for that. Hence tha misleading folder name.Soon.
 
 B)
 
@@ -48,13 +47,13 @@ Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
 6. Note: if you register as a new user in Development, you will be given "Administrator" role by default. Change this to "standardUser" in AccountController/Registration,
    or something else(see db for all roles seeded).
    
-Hard to find material on how to implement a shopping cart solution, but this is my initial approach.
+Finally: Hard to find material on how to implement a disconnected shopping cart solution, which wasn't my original intention - I like back end a little bit more - but this is my initial approach. 
   
   /C.
   
   ps
   
-  Cred goes to these for providing the teaching on which this labApp(some code) is based:
+  Cred goes to these for providing the teaching on which this labApp(and some code) is based:
   
   Kudvenkat:  https://www.youtube.com/c/Csharp-video-tutorialsBlogspot
   
