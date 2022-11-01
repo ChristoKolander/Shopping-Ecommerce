@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Shopping.Core.Entities.RequestFeatures;
+using Shopping.Core.Entities;
+using Shopping.Core.Paging;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Shopping.Infrastructure.Data.GenericRepositoriesRemake
 {
@@ -13,6 +17,7 @@ namespace Shopping.Infrastructure.Data.GenericRepositoriesRemake
         Task<TEntity> GetByID(object id);
         Task<TEntity> Insert(TEntity entity);
         Task<TEntity> Update(TEntity entityToUpdate);
+
     }
 
  }

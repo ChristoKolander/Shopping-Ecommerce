@@ -82,7 +82,7 @@ namespace Shopping.Web.Portal.Pages
                     this.OldCollection = await ManageCartItemsLocalStorageService.GetCollection();
                     await ManageCartItemsLocalStorageService.RemoveCollection();
 
-                    this.OldList = await ShoppingCartService.GetItems2(UserClaimStringId);
+                    this.OldList = await ShoppingCartService.GetCartItems2(UserClaimStringId);
                     await ShoppingCartService.DeleteShoppingCart(UserClaimStringId);
 
                     

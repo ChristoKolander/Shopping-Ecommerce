@@ -1,0 +1,3 @@
+﻿Not everything in this folder is used at the moment.
+Keeping some stuff just in case I might change or 
+develop something new.

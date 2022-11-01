@@ -10,7 +10,6 @@ namespace Shopping.Web.Portal.Services.Interfaces
         Task RemoveCollection();
         Task<List<CartItemDto>> GetCollection();
         Task SaveCollection(List<CartItemDto> cartItemDtos);
-
      
         Task RemoveUserClaimStringId();
         Task<string> GetUserClaimStringId();

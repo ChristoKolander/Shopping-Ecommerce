@@ -40,7 +40,7 @@ namespace Shopping.Web.Portal.Services
 
         # endregion   
 
-        public async Task<CartItemDto> AddItem(CartItemToAddDto cartItemToAddDto)
+        public async Task<CartItemDto> AddCartItem(CartItemToAddDto cartItemToAddDto)
         {
 
             HttpResponseMessage response = await httpClient.PostAsJsonAsync<CartItemToAddDto>("api/ShoppingCart", cartItemToAddDto);
@@ -63,8 +63,27 @@ namespace Shopping.Web.Portal.Services
 
 
         }
-        
-        public async Task<CartItemDto> DeleteItem(int Id)
+
+        public async Task<CartItemDto> UpdateCartItem(CartItemDto cartItemDto)
+        {
+            var jsonRequest = JsonConvert.SerializeObject(cartItemDto);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+            HttpResponseMessage response = await httpClient.PatchAsync($"api/shoppingcart/updateCartItem/{cartItemDto.Id}", content);
+
+            var patchContent = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(patchContent);
+
+
+            }
+
+            return cartItemDto;
+
+        }
+
+        public async Task<CartItemDto> DeleteCartItem(int Id)
         {
             HttpResponseMessage response = await httpClient.DeleteAsync($"api/ShoppingCart/{Id}");
 
@@ -74,23 +93,8 @@ namespace Shopping.Web.Portal.Services
             }
             return default(CartItemDto);
         }
-       
-        public async Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto)
-        {
-            var jsonRequest = JsonConvert.SerializeObject(cartItemQtyUpdateDto);
-            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
 
-            HttpResponseMessage response = await httpClient.PatchAsync($"api/ShoppingCart/{cartItemQtyUpdateDto.CartItemId}", content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<CartItemDto>();
-            }
-            return null;
-
-        }
-
-        public async Task<List<CartItemDto>> GetItems2(string userClaimId)
+        public async Task<List<CartItemDto>> GetCartItems2(string userClaimId)
         {
 
             HttpResponseMessage response = await httpClient.GetAsync($"api/ShoppingCart/{userClaimId}/GetCartItems2");
@@ -109,6 +113,23 @@ namespace Shopping.Web.Portal.Services
                 throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
             }
         }
+
+        public async Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto)
+        {
+            var jsonRequest = JsonConvert.SerializeObject(cartItemQtyUpdateDto);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+            HttpResponseMessage response = await httpClient.PatchAsync($"api/ShoppingCart/{cartItemQtyUpdateDto.CartItemId}", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<CartItemDto>();
+            }
+            return null;
+
+        }
+
+      
 
         public async Task<ShoppingCart> GetShoppingCart(string cartStringId)
         {
@@ -173,29 +194,12 @@ namespace Shopping.Web.Portal.Services
             return default(ShoppingCart);
         }
     
-        public async Task<CartItemDto> UpdateCartItem(CartItemDto cartItemDto)
-        {
-            var jsonRequest = JsonConvert.SerializeObject(cartItemDto);
-            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+       
 
-            HttpResponseMessage response = await httpClient.PatchAsync($"api/shoppingcart/updateCartItem/{cartItemDto.Id}", content);
-
-            var patchContent = await response.Content.ReadAsStringAsync();
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new ApplicationException(patchContent);
-
-
-            }
-
-            return cartItemDto;
-
-        }
-
-
+        # region NotUsedAtTheMoment Stuff...
 
         //Not used at the moment, predesessor...keeping in case need something similar..
-        public async Task<List<CartItemDto>> GetItems(string userStringId)
+        public async Task<List<CartItemDto>> GetCartItems(string userStringId)
         {
 
 
@@ -216,7 +220,7 @@ namespace Shopping.Web.Portal.Services
             }
 
         }
-        public async Task<List<ShoppingCartItem>> DeleteItems(string cartStringId)
+        public async Task<List<ShoppingCartItem>> DeleteCartItems(string cartStringId)
         {
             HttpResponseMessage response = await httpClient.DeleteAsync($"api/ShoppingCart/{cartStringId}/deleteCartItems");
 
@@ -227,7 +231,7 @@ namespace Shopping.Web.Portal.Services
 
             return default(List<ShoppingCartItem>);
         }
-        public async Task<CartItemDto> ReplaceItems(CartItemDto cartItemDto)
+        public async Task<CartItemDto> ReplaceCartItems(CartItemDto cartItemDto)
         {
             HttpResponseMessage response = await httpClient.PostAsJsonAsync<CartItemDto>("api/ShoppingCart/ReplaceItems", cartItemDto);
 
@@ -247,6 +251,8 @@ namespace Shopping.Web.Portal.Services
                 throw new Exception($"Http status:{response.StatusCode} Message -{message}");
             }
         }
+
+        # endregion
     }
 
 }   

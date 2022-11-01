@@ -34,8 +34,11 @@ namespace Shopping.Web.Portal.Services
 
         #endregion
 
+        # region Services 
+
         public async Task<RegistrationResponseDto> RegisterUser(UserRegistrationDto userForRegistration)
         {
+
             var jsonRequest = JsonSerializer.Serialize(userForRegistration);
             var bodyContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 
@@ -55,6 +58,7 @@ namespace Shopping.Web.Portal.Services
 
         public async Task<AuthResponseDto> Login(UserAuthenticationDto userForAuthentication)
         {
+
             var jsonRequest = JsonSerializer.Serialize(userForAuthentication);
             var bodyContent = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 
@@ -73,19 +77,23 @@ namespace Shopping.Web.Portal.Services
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Token);
 
             return new AuthResponseDto { IsAuthSuccessful = true };
+
         }
         
         public async Task Logout()
         {
+
             await localStorage.RemoveItemAsync("authToken");
             await localStorage.RemoveItemAsync("refreshToken");
 
             ((AuthStateProvider)authStateProvider).NotifyUserLogout();
             httpClient.DefaultRequestHeaders.Authorization = null;
+
         }
 
         public async Task<string> RefreshToken()
         {
+
             var token = await localStorage.GetItemAsync<string>("authToken");
             var refreshToken = await localStorage.GetItemAsync<string>("refreshToken");
 
@@ -105,6 +113,7 @@ namespace Shopping.Web.Portal.Services
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Token);
 
             return result.Token;
+
         }
 
         
@@ -113,7 +122,10 @@ namespace Shopping.Web.Portal.Services
         {
             var result = await httpClient.GetFromJsonAsync<CurrentUser>("api/account/currentuserinfo");
             return result;
+
         }
+
+        # endregion
 
     }
 }
