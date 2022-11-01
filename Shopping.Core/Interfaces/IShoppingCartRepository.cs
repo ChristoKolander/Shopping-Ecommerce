@@ -7,6 +7,9 @@ namespace Shopping.Core.Interfaces
 {
     public interface IShoppingCartRepository : IRepositoryBase<ShoppingCartItem>
     {
+        
+    
+    
         Task<IEnumerable<ShoppingCartItem>> GetCartItems(string userStringId);
         Task<ShoppingCartItem> GetCartItem(int id);
         Task<ShoppingCartItem> AddCartItem(CartItemToAddDto cartItemToAddDto);

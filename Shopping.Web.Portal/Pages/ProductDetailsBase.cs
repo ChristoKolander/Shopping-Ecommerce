@@ -73,7 +73,7 @@ namespace Shopping.Web.Portal.Pages
 
             //For some reason, UserClaimStringId ran out of scope(?), so need to use it here.
             cartItemToAddDto.UserClaimStringId = this.UserClaimStringId;
-            var cartItemDto = await ShoppingCartService.AddItem(cartItemToAddDto);
+            var cartItemDto = await ShoppingCartService.AddCartItem(cartItemToAddDto);
 
             cartItemDto.UserClaimStringId = this.UserClaimStringId;
             if (cartItemDto != null)
@@ -103,7 +103,7 @@ namespace Shopping.Web.Portal.Pages
                     this.OldCollection = await ManageCartItemsLocalStorageService.GetCollection();
                     await ManageCartItemsLocalStorageService.RemoveCollection();
 
-                    this.OldList = await ShoppingCartService.GetItems2(UserClaimStringId);
+                    this.OldList = await ShoppingCartService.GetCartItems2(UserClaimStringId);
                     await ShoppingCartService.DeleteShoppingCart(UserClaimStringId);
                    
 

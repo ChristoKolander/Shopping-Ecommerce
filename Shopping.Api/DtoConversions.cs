@@ -17,7 +17,8 @@ namespace Shopping.Api
                         Description = product.Description,
                         ImageUrl = product.ImageURL,
                         Price = product.Price,
-                        ProductCategoryId = product.ProductCategory.Id
+                        ProductCategoryId = product.ProductCategory.Id,
+                        ProductCategoryName = product.ProductCategory.Name,
                     }).ToList();
 
         }

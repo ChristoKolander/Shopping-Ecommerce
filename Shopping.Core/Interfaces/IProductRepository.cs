@@ -1,7 +1,10 @@
 ﻿using Shopping.Core.Entities;
 using Shopping.Core.Entities.RequestFeatures;
 using Shopping.Core.Paging;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -22,11 +25,16 @@ namespace Shopping.Core.Interfaces
         Task<IEnumerable<Product>> GetProductsByCategory(int id);
 
         Task<PagedList<Product>> GetProductsWithParams(QueryStringParameters queryStringParameters = null);
-        Task<PagedList<Product>> GetProductsFiltered(ProductParameters productParameters = null);
+        Task<PagedList<Product>> GetProductsFilteredByPrice(ProductParameters productParameters = null);
+
+
+        Task<IEnumerable<Product>> Search(
+            Expression<Func<Product, bool>> filter = null,
+            Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null,
+            string includeProperties = "");
+
 
         //Task<PagedList<Product>> Search(SearchParameters searchParameters);
-
-
 
 
     }

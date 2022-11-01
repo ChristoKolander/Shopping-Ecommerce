@@ -7,6 +7,7 @@ using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Core.Entities;
 using Shopping.Core.Entities.RequestFeatures;
 using Shopping.Core.Interfaces;
+using Shopping.Infrastructure.Data.GenericRepositoriesRemake;
 
 namespace Shopping.Api.Controllers
 {
@@ -51,9 +52,27 @@ namespace Shopping.Api.Controllers
 
             return Ok(productDto);
         }
-        
-        [HttpGet]
-        public async Task<ActionResult<List<ProductDto>>> GetProductsWithParams([FromQuery] QueryStringParameters queryStringParameters)
+
+        [HttpGet("Products")]
+        public async Task<ActionResult<List<ProductDto>>> GetProducts()
+        {
+
+            var products = await productRepository.GetProducts();
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            var productDtos = products.ConvertToDto();
+
+            return Ok(productDtos);
+
+        }
+
+
+        [HttpGet("AllProducts")]
+        public async Task<ActionResult<ProductDto>> GetProductsWithParams([FromQuery] QueryStringParameters queryStringParameters)
         {
 
             var products = await productRepository.GetProductsWithParams(queryStringParameters);
@@ -72,15 +91,15 @@ namespace Shopping.Api.Controllers
 
         }
 
-        [HttpGet("Filter")]
-        public async Task<ActionResult<List<ProductDto>>> GetProductsFiltered([FromQuery] ProductParameters productParameters)
+        [HttpGet("FilterByPrice")]
+        public async Task<ActionResult<ProductDto>> GetProductsFilteredByPrice([FromQuery] ProductParameters productParameters)
         {
             if (!productParameters.ValidPriceRange)
             {
                 return BadRequest("MaxPrice must be larger than MinPrice");
             }
 
-            var products = await productRepository.GetProductsFiltered(productParameters);
+            var products = await productRepository.GetProductsFilteredByPrice(productParameters);
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
 
@@ -180,7 +199,7 @@ namespace Shopping.Api.Controllers
        
         [HttpGet]
         [Route("{categoryId}/GetItemsByCategory")]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetItemsByCategory(int categoryId)
+        public async Task<ActionResult<ProductDto>> GetItemsByCategory(int categoryId)
         {
 
             var products = await productRepository.GetProductsByCategory(categoryId);
@@ -199,7 +218,7 @@ namespace Shopping.Api.Controllers
 
         [HttpGet]
         [Route(nameof(GetProductCategories))]
-        public async Task<ActionResult<IEnumerable<ProductCategoryDto>>> GetProductCategories()
+        public async Task<ActionResult<ProductCategoryDto>> GetProductCategories()
         {
 
             var productCategories = await productRepository.GetCategories();
@@ -216,26 +235,34 @@ namespace Shopping.Api.Controllers
 
         }
 
+        [HttpGet("{Name}/searchbyname")]
+        public async Task<ActionResult<APIListOfEntityResponse<Product>>> SearchByName(string Name)
+        {
+            var result = await productRepository.Search(x => x.Name.ToLower().Contains(Name.ToLower()), null, "ProductCategory");
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<ProductDto>>> GetProducts()
-        //{
+            if (result != null && result.Count() > 0)
+            {
+                return Ok(new APIListOfEntityResponse<Product>()
+                {
+                    Success = true,
+                    Data = result
+                });
+            }
+            else
+            {
+                return Ok(new APIEntityResponse<Product>()
+                {
+                    Success = false,
+                    ErrorMessages = new List<string>() { "SearchByName;  No searchresults found" },
+                    Data = null
+                });
+            }
 
-        //    var products = await productRepository.GetProducts();
-
-        //    if (products == null)
-        //    {
-        //        return NotFound();
-        //    }          
-
-        //    var productDtos = products.ConvertToDto();
-
-        //    return Ok(productDtos);
-
-        //}
+        }
 
 
-
+        # region NotUsedNow
+  
         //[HttpGet]
         //[Route(nameof(Search))]
         //public async Task<IActionResult> Search([FromQuery] SearchParameters searchParameters)
@@ -249,6 +276,8 @@ namespace Shopping.Api.Controllers
         //    return Ok(productDtos);
 
         //}
+
+        # endregion
     }
 
 

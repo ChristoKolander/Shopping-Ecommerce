@@ -259,7 +259,6 @@ namespace Shopping.Api.Controllers
 
    
 
-
         //Not used right now
         [HttpGet]
         [Route("{userId}/GetCartItems")]

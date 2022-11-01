@@ -1,10 +1,6 @@
-﻿using Ardalis.Specification;
-using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shopping.Api.CQRS.Handlers.QueryHandler.OrderHandler;
 using Shopping.Api.CQRS.Queries.OrderQuery;
-using Shopping.Core.Entities;
 using Shopping.Infrastructure.Data;
 
 namespace Shopping.Api.CQRS.Handlers.QueryHandler

@@ -15,7 +15,7 @@ namespace Shopping.Web.Portal.Pages
     {
 
         [Parameter]
-        public string userClaimId { get; set; }
+        public string userClaimStringId { get; set; }
 
         ClaimsPrincipal User { get; set; }
 
@@ -55,7 +55,7 @@ namespace Shopping.Web.Portal.Pages
 
                 PaymentAmount = ShoppingCartItems.Sum(p => p.TotalPrice);
                 TotalQty = ShoppingCartItems.Sum(p => p.Qty);
-                PaymentDescription = $"O_{userClaimId}_{orderGuid}";
+                PaymentDescription = $"O_{userClaimStringId}_{orderGuid}";
 
 
             }
@@ -81,7 +81,7 @@ namespace Shopping.Web.Portal.Pages
             if (User.Identity.IsAuthenticated)
             {
                 var userId = authState.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
-                userClaimId = userId;
+                userClaimStringId = userId;
             }
         }
     }

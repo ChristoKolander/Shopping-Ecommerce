@@ -19,12 +19,22 @@ using Shopping.Api.SwaggerOptions;
 using Shopping.Api;
 using MediatR;
 
+// Note 1: extracting too many services outside this container, using extensionmethods did not work out as expected.
+// Note 2: in some cases, order in here did matter.
+
+# region Builder and NLog
+
+
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
+
+# endregion
+
+# region EF, Identity and BaseUrl
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<AppIdentityDbContext>()
@@ -34,10 +44,14 @@ var configSection = builder.Configuration.GetRequiredSection(BaseUrlConfiguratio
 builder.Services.Configure<BaseUrlConfiguration>(configSection);
 var baseUrlConfig = configSection.Get<BaseUrlConfiguration>();
 
-//builder.Logging.AddConsole();
 
 Shopping.Infrastructure.Dependencies.ConfigureDBServices(builder.Configuration, builder.Services);
 
+//builder.Logging.AddConsole();
+
+# endregion
+
+//See folder Extensions!
 builder.Services.AddServiceRegistration(builder.Configuration);
 
 #region Cors
@@ -61,13 +75,11 @@ builder.Services.AddCors(options =>
 #region Injected Services
 
 builder.Services.AddScoped<ValidationFilterAttribute>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
-//Original Services from 3.1
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-
 
 builder.Services.Configure<ProductSettings>(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
@@ -80,7 +92,6 @@ builder.Services.AddResponseCompression(options =>
     options.EnableForHttps = true;
     options.Providers.Add<GzipCompressionProvider>();
 });
-
 
 #endregion
 
@@ -142,7 +153,6 @@ builder.Services.AddVersionedApiExplorer(options =>
 });
 
 #endregion
-
 
 
 #region Request PipeLine
@@ -209,8 +219,10 @@ app.UseSwaggerUI(options =>
     }
 
 });
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
