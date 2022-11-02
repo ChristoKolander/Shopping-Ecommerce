@@ -27,145 +27,103 @@ namespace Shopping.Web.Portal.Services
 
         }
 
-        # endregion
+        #endregion
 
         #region Role Services
 
-        public async Task<List<RoleDto>> GetRoles()
+        public async Task<EditRoleDto> GetRole(string Id)
         {
-            try
+
+            HttpResponseMessage response = await httpClient.GetAsync($"api/administration/editrole/{Id}");
+
+            if (response.IsSuccessStatusCode)
             {
-                HttpResponseMessage response = await httpClient.GetAsync($"api/administration/Roles");
-
-                if (response.IsSuccessStatusCode)
+                if (response.StatusCode == HttpStatusCode.NoContent)
                 {
-                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-                    {
-                        return Enumerable.Empty<RoleDto>().ToList();
-                    }
-                    return await response.Content.ReadFromJsonAsync<List<RoleDto>>();
-                }
-                else
-                {
-                    var message = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
+                    return default(EditRoleDto);
                 }
 
+                return await response.Content.ReadFromJsonAsync<EditRoleDto>();
             }
-            catch (Exception)
+            else
             {
-                //Log exception
-                throw;
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception(message);
             }
 
         }
 
-        public  async Task<EditRoleDto> GetRole(string Id)
+        public async Task<List<RoleDto>> GetRoles()
         {
+         
+            HttpResponseMessage response = await httpClient.GetAsync($"api/administration/Roles");
 
-            try
+            if (response.IsSuccessStatusCode)
             {
-                HttpResponseMessage response = await httpClient.GetAsync($"api/administration/editrole/{Id}");
-
-                if (response.IsSuccessStatusCode)
+                if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
-                    if (response.StatusCode == HttpStatusCode.NoContent)
-                    {
-                        return default(EditRoleDto);
-                    }
-
-                    return await response.Content.ReadFromJsonAsync<EditRoleDto>();
+                    return Enumerable.Empty<RoleDto>().ToList();
                 }
-                else
-                {
-                    var message = await response.Content.ReadAsStringAsync();
-                    throw new Exception(message);
-                }
+                return await response.Content.ReadFromJsonAsync<List<RoleDto>>();
             }
-
-            catch (Exception)
+            else
             {
-                //Log exception
-                throw;
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
             }
-
+                   
         }
 
         public async Task<CreateRoleDto> CreateRole(CreateRoleDto createRoleDto)
         {
 
-            try
+            var jsonRequest = JsonConvert.SerializeObject(createRoleDto);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+            HttpResponseMessage response = await httpClient.PostAsync($"api/administration/CreateRole", content);
+
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
             {
-                var jsonRequest = JsonConvert.SerializeObject(createRoleDto);
-                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
-
-                HttpResponseMessage response = await httpClient.PostAsync($"api/administration/CreateRole", content);
-
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new ApplicationException(responseContent);
-                }
-
-                return createRoleDto;
-
-            }
-            catch (Exception)
-            {
-                //Log exception
-                throw;
+                throw new ApplicationException(responseContent);
             }
 
+            return createRoleDto;
+                       
         }
 
         public async Task<EditRoleDto> EditRole(EditRoleDto editRoleDto)
         {
 
-            try
+            var jsonRequest = JsonConvert.SerializeObject(editRoleDto);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+            HttpResponseMessage response = await httpClient.PostAsync($"api/administration/EditRole", content);
+
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
             {
-                var jsonRequest = JsonConvert.SerializeObject(editRoleDto);
-                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
-
-                HttpResponseMessage response = await httpClient.PostAsync($"api/administration/EditRole", content);
-
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new ApplicationException(responseContent);
-                }
-
-                return editRoleDto;
-
+                throw new ApplicationException(responseContent);
             }
-            catch (Exception)
-            {
-                //Log exception
-                throw;
-            }
+
+            return editRoleDto;
 
         }
 
         public async Task<RoleDto> DeleteRole(string id)
         {
-            try
-            {
-                HttpResponseMessage response = await httpClient.DeleteAsync($"api/administration/deleterole/{id}");
+            
+            HttpResponseMessage response = await httpClient.DeleteAsync($"api/administration/deleterole/{id}");
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadFromJsonAsync<RoleDto>();
-                }
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<RoleDto>();
+            }
                 
-                return default(RoleDto);
-            }
-            catch (Exception)
-            {
-                //Log exception
-                throw;
-            }
-
+            return default(RoleDto);
+                    
         }
 
         #endregion
@@ -174,97 +132,72 @@ namespace Shopping.Web.Portal.Services
 
         public async Task<List<UserDto>> GetUsers()
         {
-            try
+            
+            HttpResponseMessage response = await httpClient.GetAsync($"api/administration/Users");
+
+            if (response.IsSuccessStatusCode)
             {
-                HttpResponseMessage response = await httpClient.GetAsync($"api/administration/Users");
-
-                if (response.IsSuccessStatusCode)
+                if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
-                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-                    {
-                        return Enumerable.Empty<UserDto>().ToList();
-                    }
-                    return await response.Content.ReadFromJsonAsync<List<UserDto>>();
+                    return Enumerable.Empty<UserDto>().ToList();
                 }
-                else
-                {
-                    var message = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
-                }
-
+                return await response.Content.ReadFromJsonAsync<List<UserDto>>();
             }
-            catch (Exception)
+            else
             {
-
-                throw;
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
             }
-
+                    
         }
 
         public async Task<EditUserDto> EditUser(string Id)
         {
-            try
+
+            HttpResponseMessage response = await httpClient.GetAsync($"api/administration/edituser/{Id}");
+
+
+            if (response.IsSuccessStatusCode)
             {
-                HttpResponseMessage response = await httpClient.GetAsync($"api/administration/edituser/{Id}");
-
-
-                if (response.IsSuccessStatusCode)
+                if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
-                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-                    {
-                        return default(EditUserDto);
-                    }
-                    return await response.Content.ReadFromJsonAsync<EditUserDto>();
+                    return default(EditUserDto);
                 }
-                else
-                {
-                    var message = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
-                }
-
+                return await response.Content.ReadFromJsonAsync<EditUserDto>();
             }
-            catch (Exception)
+            else
             {
-
-                throw;
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
             }
-
+                    
         }
 
         public async Task<EditUserDto> EditUser(EditUserDto editUserDto)
         {
 
-            try
+            
+            var jsonRequest = JsonConvert.SerializeObject(editUserDto);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+            HttpResponseMessage response = await httpClient.PostAsync($"api/administration/EditUser", content);
+
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
             {
-                var jsonRequest = JsonConvert.SerializeObject(editUserDto);
-                var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
-
-                HttpResponseMessage response = await httpClient.PostAsync($"api/administration/EditUser", content);
-
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new ApplicationException(responseContent);
-                }
-
-                return editUserDto;
-
-            }
-            catch (Exception)
-            {
-                //Log exception
-                throw;
+                throw new ApplicationException(responseContent);
             }
 
+            return editUserDto;
+                     
         }
 
         public async Task<UserDto> DeleteUser(string id)
         {
 
-            try
-            {
+            
                 HttpResponseMessage response = await httpClient.DeleteAsync($"api/administration/deleteuser/{id}");
 
                 if (response.IsSuccessStatusCode)
@@ -272,12 +205,7 @@ namespace Shopping.Web.Portal.Services
                     return await response.Content.ReadFromJsonAsync<UserDto>();
                 }
                 return default(UserDto);
-            }
-            catch (Exception)
-            {
-                //Log exception
-                throw;
-            }
+                     
         }
 
         #endregion

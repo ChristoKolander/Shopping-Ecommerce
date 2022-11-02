@@ -43,7 +43,7 @@ namespace Shopping.Web.Portal.Pages
         protected async Task DeleteCartItem_Click(int id)
         {
 
-            var cartItemDto = await ShoppingCartService.DeleteItem(id);
+            var cartItemDto = await ShoppingCartService.DeleteCartItem(id);
             await RemoveCartItem(id);
             CartChanged();
 

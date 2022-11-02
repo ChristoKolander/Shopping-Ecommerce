@@ -12,19 +12,21 @@ namespace Shopping.Web.Portal.Services.Interfaces
         event Action<int> OnShoppingCartChanged;
         void RaiseEventOnShoppingCartChanged(int totalQty);
 
-        Task<List<CartItemDto>> GetItems(string userStringId);
-        Task<CartItemDto> AddItem(CartItemToAddDto cartItemToAddDto);
-        Task<CartItemDto> DeleteItem(int Id);
-        Task <List<ShoppingCartItem>> DeleteItems(string cartStringId);
+        
+        Task<CartItemDto> UpdateCartItem(CartItemDto cartItemDto);
+        Task<List<CartItemDto>> GetCartItems2(string userClaimId);
+        Task<CartItemDto> AddCartItem(CartItemToAddDto cartItemToAddDto);
+        Task<CartItemDto> DeleteCartItem(int Id);
+    
         Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto);
 
-        Task<CartItemDto> ReplaceItems(CartItemDto cartItemDto);
+        Task<List<CartItemDto>> GetCartItems(string userStringId);
+        Task<CartItemDto> ReplaceCartItems(CartItemDto cartItemDto);
+        Task<List<ShoppingCartItem>> DeleteCartItems(string cartStringId);
 
-        Task<CartItemDto> UpdateCartItem(CartItemDto cartItemDto);
-    
+
         Task<ShoppingCart> GetShoppingCart (string cartStringId);
-        Task<ShoppingCart> CreateShoppingCart(ShoppingCart shoppingCart);
-        Task<List<CartItemDto>> GetItems2(string userClaimId); 
+        Task<ShoppingCart> CreateShoppingCart(ShoppingCart shoppingCart);    
         Task<ShoppingCart> DeleteShoppingCart(string cartStringId);
 
     }

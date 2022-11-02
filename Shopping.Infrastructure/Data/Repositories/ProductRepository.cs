@@ -3,8 +3,10 @@ using Shopping.Core.Entities;
 using Shopping.Core.Entities.RequestFeatures;
 using Shopping.Core.Interfaces;
 using Shopping.Core.Paging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 
@@ -28,14 +30,27 @@ namespace Shopping.Infrastructure.Data.Repositories
 
         }
       
+        //public async Task<IEnumerable<Product>> GetProducts()
+        //{
+        //   return await FindAll()
+        //               .Include(p => p.ProductCategory)
+        //               .OrderBy(p => p.Id)
+        //               .ToListAsync();
+
+        //}
+
+
         public async Task<IEnumerable<Product>> GetProducts()
         {
-           return await FindAll()
-                       .Include(p => p.ProductCategory)
-                       .OrderBy(p => p.Id)
-                       .ToListAsync();
+            return await productContext.Products
+                        .Include(p => p.ProductCategory)
+                        .OrderBy(p => p.Id)
+                        .ToListAsync();
 
         }
+
+
+
 
         public async Task<IEnumerable<Product>> GetProductsByCategory(int id)
         {
@@ -59,7 +74,7 @@ namespace Shopping.Infrastructure.Data.Repositories
 
         }
 
-        public async Task<PagedList<Product>> GetProductsFiltered(ProductParameters productParameters)
+        public async Task<PagedList<Product>> GetProductsFilteredByPrice(ProductParameters productParameters)
         {
 
 
@@ -132,8 +147,38 @@ namespace Shopping.Infrastructure.Data.Repositories
             return category;
         }
 
-    
-        
+
+        public async Task<IEnumerable<Product>> Search(Expression<Func<Product, bool>> filter = null, Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "")
+        {
+                    
+                IQueryable<Product> query = productcontext.Set<Product>();
+
+                // Apply the filter
+                if (filter != null)
+                {
+                    query = query.Where(filter);
+                }
+
+                // Include the specified properties
+                foreach (var includeProperty in includeProperties.Split
+                    (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+
+                // Sort
+                if (orderBy != null)
+                {
+                    return orderBy(query).ToList();
+                }
+                else
+                {
+                    return await query.ToListAsync();
+                }
+            
+          
+        }
+
 
         //public async Task<PagedList<Product>> Search(SearchParameters searchParameters)
         //{
@@ -146,7 +191,7 @@ namespace Shopping.Infrastructure.Data.Repositories
         //        .ToPagedList(products, searchParameters.PageNumber, searchParameters.PageSize);
         //}
 
-       
+
 
     }
 

@@ -12,7 +12,7 @@ namespace Shopping.Web.Portal.Services
 
         private readonly ILocalStorageService localStorageService;
         private readonly IShoppingCartService shoppingCartService;
-        CancellationToken cancellationToken = new CancellationToken();
+        private readonly CancellationToken cancellationToken = new CancellationToken();
 
         public string KeyCartCreated = "CartCreatedValue";
         public string Key = "CKCartItemCollection";
@@ -41,9 +41,11 @@ namespace Shopping.Web.Portal.Services
 
         #endregion
 
+        # region Cart
 
         public async Task<string> GetCartCreatedValue()
         {
+
             return await localStorageService.GetItemAsync<string>(KeyCartCreated, cancellationToken);
 
         }
@@ -55,6 +57,9 @@ namespace Shopping.Web.Portal.Services
 
         }
 
+        # endregion
+
+        # region Collection
 
         public async Task<List<CartItemDto>> GetCollection()
         {
@@ -65,22 +70,25 @@ namespace Shopping.Web.Portal.Services
        
         private async Task<List<CartItemDto>> AddCollection()
         {
+
             if (UserClaimStringId == null)
             {
                 this.UserClaimStringId = await GetUserClaimStringId();
             }
 
-            var shoppingCartCollection = await this.shoppingCartService.GetItems(this.UserClaimStringId);
+            var shoppingCartCollection = await this.shoppingCartService.GetCartItems(this.UserClaimStringId);
             if (shoppingCartCollection != null)
             {
                 await this.localStorageService.SetItemAsync(Key, shoppingCartCollection);
             }
 
             return shoppingCartCollection;
+
         }        
       
         public async Task SaveCollection(List<CartItemDto> cartItemDtos)
         {
+            
             await localStorageService.SetItemAsync(Key, cartItemDtos);
 
         }
@@ -90,47 +98,56 @@ namespace Shopping.Web.Portal.Services
             await localStorageService.RemoveItemAsync(Key);
         }
 
+        # endregion
 
+        # region UserClaimStringId
 
         public async Task SaveUserClaimStringId(string userClaimStringId)
         {
-            await localStorageService.SetItemAsync(KeyUser, userClaimStringId);
 
-      
+            await localStorageService.SetItemAsync(KeyUser, userClaimStringId);
+     
         } 
        
         public async Task<string> GetUserClaimStringId()
         {
+
             return await localStorageService.GetItemAsync<string>(KeyUser, cancellationToken);
                   
         }
 
         public async Task RemoveUserClaimStringId()
         {
+
             await localStorageService.RemoveItemAsync(KeyUser);
+
         }
 
-        
+        # endregion
+
+        # region CartStringId
 
         public async Task SaveCartStringId(string cartStringId)
         {
-            await localStorageService.SetItemAsync(KeyCart, cartStringId);
 
+            await localStorageService.SetItemAsync(KeyCart, cartStringId);
 
         }
 
         public async Task RemoveCartStringId()
         {
             await localStorageService.RemoveItemAsync(KeyCart);
+
         }
 
         public async Task<string> GetCartStringId()
         {
+
             return await localStorageService.GetItemAsync<string>(KeyCart, cancellationToken);
 
         }
 
-
+        # endregion
 
         #region NotUsedAtTheMoment..
 

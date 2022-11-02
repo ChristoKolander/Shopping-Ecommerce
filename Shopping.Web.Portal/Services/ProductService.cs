@@ -61,7 +61,7 @@ namespace Shopping.Web.Portal.Services
 
             };
 
-            HttpResponseMessage response = await httpClient.GetAsync(QueryHelpers.AddQueryString("api/product", queryStringParam));
+            HttpResponseMessage response = await httpClient.GetAsync(QueryHelpers.AddQueryString("api/product/allProducts", queryStringParam));
             var content = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
@@ -79,8 +79,65 @@ namespace Shopping.Web.Portal.Services
             return pagingResponse;
 
         }
-         
-        
+
+        public async Task<ProductUpdateDto> UpdateProduct(ProductUpdateDto productUpdateDto)
+        {
+
+            var jsonRequest = JsonConvert.SerializeObject(productUpdateDto);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+            HttpResponseMessage response = await httpClient.PatchAsync($"api/product/{productUpdateDto.Id}", content);
+
+
+            var patchContent = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(patchContent);
+            }
+
+            return productUpdateDto;
+
+        }
+
+        public async Task<ProductCreateDto> CreateProduct(ProductCreateDto productCreateDto)
+        {
+
+
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/product", productCreateDto);
+
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    return default(ProductCreateDto);
+                }
+
+                return await response.Content.ReadFromJsonAsync<ProductCreateDto>();
+
+            }
+            else
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status:{response.StatusCode} Message -{message}");
+            }
+
+        }
+
+        public async Task<ProductUpdateDto> DeleteProduct(int id)
+        {
+
+            HttpResponseMessage response = await httpClient.DeleteAsync($"api/product/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<ProductUpdateDto>();
+
+            }
+
+            return default(ProductUpdateDto);
+        }
+
+
         public async Task<IEnumerable<ProductDto>> GetItemsByCategory(int categoryId)
         {
             
@@ -120,66 +177,7 @@ namespace Shopping.Web.Portal.Services
                 throw new Exception($"Http Status Code - {response.StatusCode} Message - {message}");
             }
         }
-                 
-        
-        public async Task<ProductUpdateDto> UpdateProduct(ProductUpdateDto productUpdateDto)
-        {
-
-            var jsonRequest = JsonConvert.SerializeObject(productUpdateDto);
-            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
-
-            HttpResponseMessage response = await httpClient.PatchAsync($"api/product/{productUpdateDto.Id}", content);
-
-                
-            var patchContent = await response.Content.ReadAsStringAsync();
-            if (!response.IsSuccessStatusCode)
-            {                   
-                throw new ApplicationException(patchContent);
-            }
-
-            return productUpdateDto;
-
-        }        
-       
-        public async Task<ProductCreateDto> CreateProduct(ProductCreateDto productCreateDto)
-        {
-
-            
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/product", productCreateDto);
-
-            if (response.IsSuccessStatusCode)
-            {
-                if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-                {
-                    return default(ProductCreateDto);
-                }
-
-                return await response.Content.ReadFromJsonAsync<ProductCreateDto>();
-
-            }
-            else
-            {
-                var message = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Http status:{response.StatusCode} Message -{message}");
-            }
-
-        }
-
-    
-        public async Task<ProductUpdateDto> DeleteProduct(int id)
-        {
-
-            HttpResponseMessage response = await httpClient.DeleteAsync($"api/product/{id}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<ProductUpdateDto>();
-               
-            }
-
-            return default(ProductUpdateDto);
-        }
-
+                  
 
         public async Task<string> UploadProductImage(MultipartFormDataContent content)
         {

@@ -75,6 +75,7 @@ namespace Shopping.Web.Portal.Pages
             cartItemToAddDto.UserClaimStringId = this.UserClaimStringId;
 
 
+
             // Returning null or default from Repo (suddenly) causes a null reference exception, that if
             // if item is already inside the basket. Instead of hitting DB and get that exception, 
             // and/or refactor chained code from basket to repo and back, intercept here. Avoiding hitting
@@ -119,7 +120,7 @@ namespace Shopping.Web.Portal.Pages
                     this.OldCollection = await ManageCartItemsLocalStorageService.GetCollection();
                     await ManageCartItemsLocalStorageService.RemoveCollection();
 
-                    this.OldList = await ShoppingCartService.GetItems2(UserClaimStringId);
+                    this.OldList = await ShoppingCartService.GetCartItems2(UserClaimStringId);
                     await ShoppingCartService.DeleteShoppingCart(UserClaimStringId);
                    
 
