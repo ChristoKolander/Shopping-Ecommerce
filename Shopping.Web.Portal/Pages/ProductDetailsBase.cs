@@ -89,6 +89,7 @@ namespace Shopping.Web.Portal.Pages
 
        
             var cartItemDto = await ShoppingCartService.AddItem(cartItemToAddDto);
+            
             cartItemDto.UserClaimStringId = this.UserClaimStringId;
 
             if (cartItemDto != null)
