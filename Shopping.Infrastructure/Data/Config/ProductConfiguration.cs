@@ -21,7 +21,7 @@ namespace Shopping.Infrastructure.Data.Config
             builder.Property(ci => ci.Price)
                 .IsRequired(true)
                 .HasColumnType("decimal(18,2)");
-
+        
 
             builder.Property(ci => ci.Description)
                 .IsRequired(true)
