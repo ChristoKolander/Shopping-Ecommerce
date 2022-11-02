@@ -15,7 +15,7 @@ Just lab.
 
 Recently upgraded from 3.1 to .Net 6.
 
-Order implementation the final piece, going to use CQRS pattern for that. Hence tha misleading folder name.Soon.
+Order implementation the final piece, going to use CQRS pattern for this.
 
 B)
 
