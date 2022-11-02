@@ -71,11 +71,26 @@ namespace Shopping.Web.Portal.Pages
                 
             await GetCart();
 
-            //For some reason, UserClaimStringId ran out of scope(?), so need to use it here.
+            //For some reason, UserClaimStringId kept running out of scope(?), so need to use/add it here.
             cartItemToAddDto.UserClaimStringId = this.UserClaimStringId;
-            var cartItemDto = await ShoppingCartService.AddItem(cartItemToAddDto);
 
+
+            // Returning null or default from Repo (suddenly) causes a null reference exception, that if
+            // if item is already inside the basket. Instead of hitting DB and get that exception, 
+            // and/or refactor chained code from basket to repo and back, intercept here. Avoiding hitting
+            // db also. A pop up informning "Item already in basket. Please, update qty in basket instead!" will be shown before
+            // redirecting to basket (eventually...), but this solves the problem for now.
+
+            if (ShoppingCartItems.Any(p=>p.ProductId == cartItemToAddDto.ProductId))
+            {
+                NavigationManager.NavigateTo("/ShoppingCart");
+                return;
+            }
+
+       
+            var cartItemDto = await ShoppingCartService.AddItem(cartItemToAddDto);
             cartItemDto.UserClaimStringId = this.UserClaimStringId;
+
             if (cartItemDto != null)
             {
 

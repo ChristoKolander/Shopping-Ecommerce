@@ -97,9 +97,17 @@ namespace Shopping.Infrastructure.Data.Repositories
                 }
             }
 
-            return null;
+            return default;
 
         }
+
+        private async Task<bool> CartItemExists(string cartStringId, int productId)
+        {
+            return await productContext.ShoppingCartItems.AnyAsync(c =>
+                        c.CartStringId == cartStringId &&
+                        c.ProductId == productId);
+        }
+
 
         public async Task<ShoppingCartItem> DeleteCartItem(int id)
         {
@@ -180,14 +188,7 @@ namespace Shopping.Infrastructure.Data.Repositories
             return null;
         }
 
-        private async Task<bool> CartItemExists(string cartStringId, int productId)
-        {
-            return await productContext.ShoppingCartItems.AnyAsync(c =>
-                        c.CartStringId == cartStringId &&
-                        c.ProductId == productId);
-        }
-
-
+      
 
         //Not used right now.
         public async Task<IEnumerable<ShoppingCartItem>> GetCartItems(string userStringId)
