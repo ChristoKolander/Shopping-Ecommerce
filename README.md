@@ -54,7 +54,7 @@ Finally: Hard to find material on how to implement a disconnected shopping cart 
   
   ps
   
-  Cred goes to these for providing the teaching on which this labApp(and some code) is based:
+  Code Learning and Inspiration from:
   
   Kudvenkat:  https://www.youtube.com/c/Csharp-video-tutorialsBlogspot
   
