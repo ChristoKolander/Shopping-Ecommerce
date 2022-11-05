@@ -1,0 +1,23 @@
+
+Some short notes:
+
+1. 
+Paypal coding is a mess, especially in combination with .NET. No uptodate information/examples anywhere. 
+And the solution/example provided by online course turned out not
+to be applicable at all. After some research found out the obvious; amount for purchased product(s) need to be 
+handled/verified by server. This is not just a donate situation where the user decides the amount.
+In other words: a lot of code needs to be written for this process.
+...But finally got the paypal script to open up the form. 
+
+However, yet to find away to populate amount.value dynamically.
+
+No experience in JavaScript...
+
+2.
+Up to the point of ordering, everything should work. Sometimes side navbar does not get loaded correctly, esp.
+during debugging. But fixed the issue of adding an item already in the basket. User only gets redirect to
+shoppingcart, no message provided. Overkill.
+
+3.
+Finally at the point starting to work with orders. 
+
