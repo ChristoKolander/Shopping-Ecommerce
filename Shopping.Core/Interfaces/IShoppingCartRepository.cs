@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 namespace Shopping.Core.Interfaces
 {
     public interface IShoppingCartRepository : IRepositoryBase<ShoppingCartItem>
-    {
-        
-    
+    {   
     
         Task<IEnumerable<ShoppingCartItem>> GetCartItems(string userStringId);
         Task<ShoppingCartItem> GetCartItem(int id);
@@ -19,7 +17,6 @@ namespace Shopping.Core.Interfaces
 
         Task<ShoppingCartItem> UpdateCartItem(int id, ShoppingCartItem shoppingCartItem);
         Task<ShoppingCartItem> GetCartItem2(int id);
-
 
 
         Task<IEnumerable<ShoppingCartItem>> GetCartItems2(string userStringId);

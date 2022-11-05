@@ -132,10 +132,7 @@ namespace Shopping.Infrastructure.Data.Repositories
 
             if (cartItem != null)
             {
-                //cartItem.Price = shoppingCartItem.Price;
-                //cartItem.ProductId = shoppingCartItem.ProductId;
-                //cartItem.Qty = shoppingCartItem.Qty;
-
+             
                 cartItem.CartStringId = shoppingCartItem.CartStringId;
                 await productContext.SaveChangesAsync();
 

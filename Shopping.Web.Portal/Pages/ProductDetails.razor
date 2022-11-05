@@ -1,6 +1,10 @@
 ﻿@page "/ProductDetails/{Id:int}"
-@using Shopping.Shared.Dtos.CRUDs
+
 @inherits ProductDetailsBase
+
+@using Shopping.Shared.Dtos.CRUDs
+@using Shopping.Web.Portal.Components
+
 
 @if (ProductUpdateDto == null)
 {

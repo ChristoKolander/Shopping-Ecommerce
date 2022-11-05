@@ -57,7 +57,6 @@ namespace Shopping.Web.Portal.Pages
                 TotalQty = ShoppingCartItems.Sum(p => p.Qty);
                 PaymentDescription = $"O_{userClaimStringId}_{orderGuid}";
 
-
             }
             else
             {

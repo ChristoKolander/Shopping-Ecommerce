@@ -107,7 +107,6 @@ namespace Shopping.Web.Portal.Pages
                     //Localstorage Items all set by this point...
 
 
-
                     // Unable to delete ShoppingCartItems, did not work(need the old generated id).
                     // So approach is to update existing ids with LoggedInValues into a new List.
 
@@ -142,8 +141,8 @@ namespace Shopping.Web.Portal.Pages
                     await ShoppingCartService.CreateShoppingCart(ShoppingCart);
 
                  
-                    // Setting a flag (new cart is Created here, having the new loggedIn values).
-                    // And adding the the new CartStringId now associated with UserId made by system during registration, to LocalStorage.
+                    // Setting a flag (new cart is Created here, having the new loggedIn values),
+                    // and adding the the new CartStringId associated with GUID-baed UserId made by system during registration, to LocalStorage.
 
                     CartCreatedValue = "true";
                     await ManageCartItemsLocalStorageService.AddCartCreatedValue(CartCreatedValue);
