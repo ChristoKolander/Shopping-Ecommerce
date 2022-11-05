@@ -28,7 +28,7 @@
 
         <script>
             function initPayPalButton() {
-             
+           
                 var purchase_units = [];
                 purchase_units[0] = {};
                 purchase_units[0].amount = {};
@@ -44,7 +44,8 @@
 
                     // Set up the transaction
                     createOrder: function (data, actions) {
- 
+               
+
                         return actions.order.create({
                             purchase_units: [{
                                 amount: {
