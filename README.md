@@ -7,7 +7,7 @@ This is a private Repo...
 
 Testsite - trying out different approaches and techniques!
 
-Blazor Web Assembly upfront.
+Blazor Web Assembly upfront - but you could easily add another front end solution, Angular for instance.
 
 Code is not for production. 
 
@@ -15,7 +15,7 @@ Just lab.
 
 Recently upgraded from 3.1 to .Net 6.
 
-Order implementation the final piece, going to use CQRS pattern for this.
+Order implementation done at API level, using CQRS pattern. GUI Order left to do!
 
 B)
 
@@ -45,16 +45,16 @@ Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
 3. Set as multiple start-up projects from solution explorer, API on top and Shopping.Web.Portal below.
 4. There are 2 initial Users seeded, but u can try registering one, TestUser@hotmail.com for instance.
 5. Ctrl F5.
-6. Note: if you register as a new user in Development, you will be given "Administrator" role by default. Change this to "standardUser" in AccountController/Registration,
-   or something else(see db for all roles seeded).
+6. Note: if you register as a new user in Development, you will be given "Administrator" role by default. Change this to "standardUser" in AccountController/Registration, or something else(see db for all roles seeded).
    
-Finally: Hard to find material on how to implement a disconnected shopping cart solution, which wasn't my original intention - I like back end a little bit more - but this is my initial approach. 
+Finally: Hard to find material on how to implement a disconnected shopping cart solution, which wasn't my original intention - I like back end a little bit more - but this is my initial approach. If you as an Employeer/Developer have some thoughts or alternative ways on how to keep a loosely front-end shoppingcart uptpdate,
+userfriendly, feel free to contact me. 
   
   /C.
   
   ps
   
-  Code Learning and Inspiration from:
+  Code Learning and Starting points frome here (lots of cred!):
   
   Kudvenkat:  https://www.youtube.com/c/Csharp-video-tutorialsBlogspot
   
