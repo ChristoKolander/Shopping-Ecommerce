@@ -109,7 +109,7 @@ namespace Shopping.Web.Portal.Services
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
-                    return default(ProductCreateDto);
+                    return default;
                 }
 
                 return await response.Content.ReadFromJsonAsync<ProductCreateDto>();

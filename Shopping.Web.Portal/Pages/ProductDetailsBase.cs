@@ -30,7 +30,7 @@ namespace Shopping.Web.Portal.Pages
         public List<CartItemDto> OldList { get; set; } = new List<CartItemDto>();
         public List<CartItemDto> OldCollection { get; set; } = new List<CartItemDto>();
 
-        public Shopping.Core.Entities.ShoppingCart ShoppingCart { get; set; } = new Core.Entities.ShoppingCart();
+        public Shopping.Core.Entities.Cart Cart { get; set; } = new Core.Entities.Cart();
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace Shopping.Web.Portal.Pages
         public NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        public IShoppingCartService ShoppingCartService { get; set; }
+        public ICartService ShoppingCartService { get; set; }
     
         [Inject]
         AuthStateProvider AuthStateProvider { get; set; }
@@ -56,7 +56,7 @@ namespace Shopping.Web.Portal.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            ShoppingCart = new Core.Entities.ShoppingCart();
+            Cart = new Core.Entities.Cart();
 
             this.CartStringId = await ManageCartItemsLocalStorageService.GetCartStringId();
             this.UserClaimStringId = await ManageCartItemsLocalStorageService.GetUserClaimStringId();   //??
@@ -115,8 +115,8 @@ namespace Shopping.Web.Portal.Pages
                     this.OldCollection = await ManageCartItemsLocalStorageService.GetCollection();
                     await ManageCartItemsLocalStorageService.RemoveCollection();
 
-                    this.OldList = await ShoppingCartService.GetCartItems2(UserClaimStringId);
-                    await ShoppingCartService.DeleteShoppingCart(UserClaimStringId);
+                    this.OldList = await ShoppingCartService.GetCartItems(UserClaimStringId);
+                    await ShoppingCartService.DeleteCart(UserClaimStringId);
                    
 
                     await ManageCartItemsLocalStorageService.RemoveUserClaimStringId();
@@ -166,13 +166,13 @@ namespace Shopping.Web.Portal.Pages
 
 
 
-                    this.ShoppingCart.CartStringId = UserClaimStringId;
-                    this.ShoppingCart.UserClaimStringId = UserClaimStringId;
+                    this.Cart.CartStringId = UserClaimStringId;
+                    this.Cart.UserClaimStringId = UserClaimStringId;
 
 
                     if (CartCreatedValue != "true")
                     {
-                        await ShoppingCartService.CreateShoppingCart(ShoppingCart);
+                        await ShoppingCartService.CreateCart(Cart);
                     }
 
                     // Setting a flag (new cart is Created here, having the new loggedIn values).
@@ -229,7 +229,7 @@ namespace Shopping.Web.Portal.Pages
 
             if (CartStringId.Length==0 && CartCreatedValue!="true")
             {
-                var newCart = await ShoppingCartService.CreateShoppingCart(ShoppingCart);
+                var newCart = await ShoppingCartService.CreateCart(Cart);
                 this.CartStringId = newCart.CartStringId;
                 CartCreatedValue = "true";
                 await ManageCartItemsLocalStorageService.AddCartCreatedValue(CartCreatedValue);
@@ -239,12 +239,12 @@ namespace Shopping.Web.Portal.Pages
             {
    
                 this.CartStringId = this.UserClaimStringId;
-                this.ShoppingCart.CartStringId = this.CartStringId;
-                this.ShoppingCart.UserClaimStringId = this.UserClaimStringId;           
+                this.Cart.CartStringId = this.CartStringId;
+                this.Cart.UserClaimStringId = this.UserClaimStringId;           
                 {
                     if (CartCreatedValue!="true")
                     {
-                        var newCart = await ShoppingCartService.CreateShoppingCart(ShoppingCart);
+                        var newCart = await ShoppingCartService.CreateCart(Cart);
                         CartCreatedValue = "true";
                         await ManageCartItemsLocalStorageService.AddCartCreatedValue(CartCreatedValue);
                     }

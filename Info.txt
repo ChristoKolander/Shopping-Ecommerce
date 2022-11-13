@@ -1,14 +1,13 @@
 
 Last Updated Info.txt at: 2022-11-05
+This Update Info.txt at: 2022-11-13
 
 Some short notes:
 
 1. 
 Paypal coding is a mess, especially in combination with .NET. No uptodate information/examples anywhere. 
-Amount for purchased product(s) need to be handled/verified by server. This is not just a donate situation 
-where the user decides the amount...But finally got the paypal script to open up the Check Out form. 
-
-However, yet to find away to populate amount.value dynamically.
+This is not just a donate situation where the user decides amount, so purchased product(s) need to be handled/controlled/verified by a server. 
+Finally got the paypal script to open up the Check Out form, however yet to find away to populate amount.value dynamically.
 
 
 2.
@@ -17,5 +16,7 @@ during debugging. But fixed the issue of adding an item already in the basket. U
 shoppingcart, no message provided. Overkill.
 
 3.
-Finally at the point starting to work with orders. 
+Orders: Should be working in terms of API-functionality. Haven't worked with CQRSpattern before, so leave it as is for now.
+Only GUI left to implement! 
+
 

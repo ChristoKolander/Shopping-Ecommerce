@@ -29,17 +29,7 @@ namespace Shopping.Infrastructure.Data.Repositories
                                     .SingleOrDefaultAsync(p => p.Id == id);
 
         }
-      
-        //public async Task<IEnumerable<Product>> GetProducts()
-        //{
-        //   return await FindAll()
-        //               .Include(p => p.ProductCategory)
-        //               .OrderBy(p => p.Id)
-        //               .ToListAsync();
-
-        //}
-
-
+        
         public async Task<IEnumerable<Product>> GetProducts()
         {
             return await productContext.Products
@@ -48,8 +38,6 @@ namespace Shopping.Infrastructure.Data.Repositories
                         .ToListAsync();
 
         }
-
-
 
 
         public async Task<IEnumerable<Product>> GetProductsByCategory(int id)
@@ -89,13 +77,6 @@ namespace Shopping.Infrastructure.Data.Repositories
                           productParameters.PageSize);
         }
 
-        
-        public async Task<Product> CreateProduct(Product product)
-        {
-            var result = await productContext.Products.AddAsync(product);
-            await productContext.SaveChangesAsync();
-            return result.Entity;
-        }
 
         public async Task<Product> UpdateProduct(Product product)
         {
@@ -108,6 +89,7 @@ namespace Shopping.Infrastructure.Data.Repositories
                 prod.Description = product.Description;
                 prod.ImageURL = product.ImageURL;
                 prod.Price = product.Price;
+                prod.Qty = product.Qty; 
                 prod.ProductCategoryId = product.ProductCategoryId;
                 prod.ProductCategory = product.ProductCategory;
                 //prod.Qty = product.Qty;
@@ -119,7 +101,14 @@ namespace Shopping.Infrastructure.Data.Repositories
 
             return null;
         }
-
+        
+        public async Task<Product> CreateProduct(Product product)
+        {
+            var result = await productContext.Products.AddAsync(product);
+            await productContext.SaveChangesAsync();
+            return result.Entity;
+        }
+ 
         public async Task<Product> DeleteProduct(int productId)
         {
             var product = await productContext.Products
@@ -180,6 +169,18 @@ namespace Shopping.Infrastructure.Data.Repositories
         }
 
 
+        #region NotUsedRightNow
+
+        //public async Task<IEnumerable<Product>> GetProducts()
+        //{
+        //   return await FindAll()
+        //               .Include(p => p.ProductCategory)
+        //               .OrderBy(p => p.Id)
+        //               .ToListAsync();
+
+        //}
+
+
         //public async Task<PagedList<Product>> Search(SearchParameters searchParameters)
         //{
         //    var products = await FindAll()
@@ -192,6 +193,7 @@ namespace Shopping.Infrastructure.Data.Repositories
         //}
 
 
+        # endregion
 
     }
 

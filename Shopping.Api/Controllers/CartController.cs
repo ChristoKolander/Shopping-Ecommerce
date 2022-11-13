@@ -10,22 +10,22 @@ namespace Shopping.Api.Controllers
     [ApiVersion("1.0")]
     [Route("api/[controller]")]
     [ApiController]
-    public class ShoppingCartController : ControllerBase
+    public class CartController : ControllerBase
     {
 
         #region Fields and CTOR
 
-        private readonly IShoppingCartRepository shoppingCartRepository;
+        private readonly ICartRepository cartRepository;
         private readonly IProductRepository productRepository;
         private readonly ILoggerManager logger;
         private readonly IMapper mapper;
 
-        public ShoppingCartController(IShoppingCartRepository shoppingCartRepository,
+        public CartController(ICartRepository cartRepository,
                                       IProductRepository productRepository,
                                       ILoggerManager logger,
                                       IMapper mapper)
         {
-            this.shoppingCartRepository = shoppingCartRepository;
+            this.cartRepository = cartRepository;
             this.productRepository = productRepository;
             this.logger = logger;
             this.mapper = mapper;
@@ -38,7 +38,7 @@ namespace Shopping.Api.Controllers
         public async Task<ActionResult<CartItemDto>> GetCartItem(int id)
         {
 
-            var cartItem = await shoppingCartRepository.GetCartItem(id);
+            var cartItem = await cartRepository.GetCartItem(id);
 
             if (cartItem == null)
             {
@@ -61,11 +61,11 @@ namespace Shopping.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{userStringId}/GetCartItems2")]
-        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems2(string userStringId)
+        [Route("{userStringId}/GetCartItems")]
+        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems(string userStringId) 
         {
 
-            var cartItems = await shoppingCartRepository.GetCartItems2(userStringId);
+            var cartItems = await cartRepository.GetCartItems(userStringId);
 
             if (cartItems == null)
             {
@@ -92,7 +92,7 @@ namespace Shopping.Api.Controllers
         public async Task<ActionResult<CartItemDto>> AddCartItem([FromBody] CartItemToAddDto cartItemToAddDto)
         {
 
-            var newCartItem = await shoppingCartRepository.AddCartItem(cartItemToAddDto);
+            var newCartItem = await cartRepository.AddCartItem(cartItemToAddDto);
 
             if (newCartItem == null)
             {
@@ -117,10 +117,10 @@ namespace Shopping.Api.Controllers
 
 
         [HttpPatch("UpdateCartItem/{id}")]
-        public async Task<ActionResult<CartItemDto>> UpdateCartItem(int id, ShoppingCartItem shoppingCartItem)
+        public async Task<ActionResult<CartItemDto>> UpdateCartItem(int id, CartItem CartItem)
         {
 
-            var cartItem = await shoppingCartRepository.UpdateCartItem(id, shoppingCartItem);
+            var cartItem = await cartRepository.UpdateCartItem(id, CartItem);
 
             if (cartItem == null)
             {
@@ -128,9 +128,9 @@ namespace Shopping.Api.Controllers
                 return NotFound();
             }
 
-            mapper.Map(shoppingCartItem, cartItem);
+            mapper.Map(CartItem, cartItem);
 
-            await shoppingCartRepository.UpdateCartItem(id, cartItem);
+            await cartRepository.UpdateCartItem(id, cartItem);
 
             return NoContent();
 
@@ -143,7 +143,7 @@ namespace Shopping.Api.Controllers
         public async Task<ActionResult<CartItemDto>> DeleteCartItem(int id)
         {
 
-            var cartItem = await shoppingCartRepository.DeleteCartItem(id);
+            var cartItem = await cartRepository.DeleteCartItem(id);
 
             if (cartItem == null)
             {
@@ -170,10 +170,10 @@ namespace Shopping.Api.Controllers
 
 
         [HttpPost("AddCart")]
-        public async Task<ActionResult<ShoppingCart>> AddCart([FromBody] ShoppingCart shoppingCart)
+        public async Task<ActionResult<Cart>> AddCart([FromBody] Cart Cart)
         {
 
-            var newCart = await shoppingCartRepository.AddCart(shoppingCart);
+            var newCart = await cartRepository.AddCart(Cart);
 
             if (newCart == null)
             {
@@ -181,12 +181,12 @@ namespace Shopping.Api.Controllers
                 return NoContent();
             }
 
-            var cart = await shoppingCartRepository.GetShoppingCart(newCart.CartStringId);
+            var cart = await cartRepository.GetCart(newCart.CartStringId);
 
             if (cart == null)
             {
                 logger.LogError("AddCart; could not get new cart from system");
-                throw new Exception($"Something went wrong when attempting to retrieve crt (cartId:({shoppingCart.CartStringId})");
+                throw new Exception($"Something went wrong when attempting to retrieve crt (cartId:({cart.CartStringId})");
             }
 
 
@@ -198,15 +198,15 @@ namespace Shopping.Api.Controllers
         }
 
 
-        [HttpGet("{cartStringId}/GetShoppingCart")]
-        public async Task<ActionResult<ShoppingCart>> GetShoppingCart(string cartStringId)
+        [HttpGet("{cartStringId}/GetCart")]
+        public async Task<ActionResult<Cart>> GetCart(string cartStringId)
         {
 
-            var cart = await shoppingCartRepository.GetShoppingCart(cartStringId);
+            var cart = await cartRepository.GetCart(cartStringId);
 
             if (cart == null)
             {
-                logger.LogError("GetShoppingCart; could not get cart");
+                logger.LogError("GetCart; could not get cart");
                 return NotFound();
             }
 
@@ -216,18 +216,18 @@ namespace Shopping.Api.Controllers
 
 
         [HttpDelete("{cartStringId}/deleteCart")]
-        public async Task<ActionResult<ShoppingCart>> DeleteShoppingCart(string cartStringId)
+        public async Task<ActionResult<Cart>> DeleteCart(string cartStringId)
         {
 
-            var cartToDelete = await shoppingCartRepository.GetShoppingCart(cartStringId);
+            var cartToDelete = await cartRepository.GetCart(cartStringId);
 
             if (cartToDelete == null)
             {
-                logger.LogError("Delete ShoppingCart; could not find cart to delete");
+                logger.LogError("Delete Cart; could not find cart to delete");
                 return NotFound($"Cart with Id = {cartStringId} not found");
             }
 
-            var deletedCart = await shoppingCartRepository.DeleteShoppingCart(cartStringId);
+            var deletedCart = await cartRepository.DeleteCart(cartStringId);
 
             return Ok(deletedCart);
 
@@ -239,7 +239,7 @@ namespace Shopping.Api.Controllers
         public async Task<ActionResult<CartItemDto>> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
         {
 
-            var cartItem = await shoppingCartRepository.UpdateQty(id, cartItemQtyUpdateDto);
+            var cartItem = await cartRepository.UpdateQty(id, cartItemQtyUpdateDto);
 
             if (cartItem == null)
             {
@@ -257,36 +257,38 @@ namespace Shopping.Api.Controllers
         }
 
 
-   
+
+        #region NotUsedRightNow
 
         //Not used right now
-        [HttpGet]
-        [Route("{userId}/GetCartItems")]
-        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems(string userId)
-        {
+        //[HttpGet]
+        //[Route("{userId}/GetCartItems")]
+        //public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems(string userId)
+        //{
 
-            var cartItems = await shoppingCartRepository.GetCartItems(userId);
+        //    var cartItems = await shoppingCartRepository.GetCartItems(userId);
 
-            if (cartItems == null)
-            {
-                logger.LogError("GetCartItems; could not get cartItems");
-                return NoContent();
-            }
+        //    if (cartItems == null)
+        //    {
+        //        logger.LogError("GetCartItems; could not get cartItems");
+        //        return NoContent();
+        //    }
 
-            var products = await productRepository.GetProducts();
+        //    var products = await productRepository.GetProducts();
 
-            if (products == null)
-            {
-                logger.LogError("GetCartItems; could not get products from system");
-                throw new Exception("No products exist in the system");
-            }
+        //    if (products == null)
+        //    {
+        //        logger.LogError("GetCartItems; could not get products from system");
+        //        throw new Exception("No products exist in the system");
+        //    }
 
-            var cartItemsDto = cartItems.ConvertToDto(products);
+        //    var cartItemsDto = cartItems.ConvertToDto(products);
 
-            return Ok(cartItemsDto);
+        //    return Ok(cartItemsDto);
 
-        }
+        //}
 
+        # endregion
 
     }
 }

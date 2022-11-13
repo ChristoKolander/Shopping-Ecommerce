@@ -369,40 +369,38 @@ namespace Shopping.Api.Controllers
 
         [HttpPost("EditUser")]
         public async Task<ActionResult<EditUserDto>> EditUser(EditUserDto editUserDto)
-            {
-                var user = await userManager.FindByIdAsync(editUserDto.Id);
-
-           
+        {
+            var user = await userManager.FindByIdAsync(editUserDto.Id);       
 
             if (user == null)
-                {
+            {
                 logger.LogError("EditUser; User could not be found in database");
                 return NotFound();
-                }
-                else
+            }
+            else
+            {
+                user.Email = editUserDto.Email;
+                user.UserName = editUserDto.UserName;
+                user.City = editUserDto.City;
+                user.FirstName = editUserDto.FirstName;
+                user.LastName = editUserDto.LastName;
+
+                var result = await userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
                 {
-                    user.Email = editUserDto.Email;
-                    user.UserName = editUserDto.UserName;
-                    user.City = editUserDto.City;
-                    user.FirstName = editUserDto.FirstName;
-                    user.LastName = editUserDto.LastName;
+                    return RedirectToAction("Users");
+                }
 
-                    var result = await userManager.UpdateAsync(user);
-
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Users");
-                    }
-
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                        logger.LogError("EditUser; User could NOT be updated");
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                    logger.LogError("EditUser; User could NOT be updated");
                 }
 
                     return editUserDto;
-                }
             }
+        }
 
 
         [HttpDelete("DeleteUser/{id}")]
@@ -440,7 +438,7 @@ namespace Shopping.Api.Controllers
 
 
         [HttpGet("ManageUserRoles/{id}")]
-        //[Authorize(Policy = "AdminRolePolicy")]
+        [Authorize(Policy = "AdminRolePolicy")]
         public async Task<ActionResult<IEnumerable<UserRolesDto>>> ManageUserRoles(string Id)
         {
 
@@ -487,12 +485,11 @@ namespace Shopping.Api.Controllers
 
 
         [HttpPatch("ManageUserRoles/{id}")]
-        //[Authorize(Policy = "AdminRolePolicy")]
+        [Authorize(Policy = "AdminRolePolicy")]
         public async Task<ActionResult<IEnumerable<UserRolesDto>>> ManageUserRoles(string id, List<UserRolesDto> userRolesDtos)
         {
 
             var user = await userManager.FindByIdAsync(id);
-
 
             if (user == null)
             {
@@ -540,7 +537,7 @@ namespace Shopping.Api.Controllers
 
 
         [HttpGet("ManageUserClaims/{id}")]
-        //[Authorize(Policy = "AdminRolePolicy")]
+        [Authorize(Policy = "AdminRolePolicy")]
         public async Task<ActionResult<UserClaimsDto>> ManageUserClaims(string id)
         {
 
@@ -551,9 +548,6 @@ namespace Shopping.Api.Controllers
                 logger.LogError("ManageUserClaims; User could not be found in database");
                 return NoContent();
             }
-
-            //List<Claim> ClaimsList = await tokenService.GetClaims(user);
-            //var existingUserClaims = await userManager.GetClaimsAsync(user);
 
             var existingUserClaims = await tokenService.GetClaims(user);
 
@@ -584,7 +578,7 @@ namespace Shopping.Api.Controllers
 
 
         [HttpPost("ManageUserClaims/{id}")]
-        //[Authorize(Policy = "AdminRolePolicy")]
+        [Authorize(Policy = "AdminRolePolicy")]
         public async Task<ActionResult<UserClaimsDto>> ManageUserClaims(string id, UserClaimsDto userClaimsDto)
         {
 

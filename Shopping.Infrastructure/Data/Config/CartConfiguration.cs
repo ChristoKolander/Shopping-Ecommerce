@@ -4,15 +4,15 @@ using Shopping.Core.Entities;
 
 namespace Shopping.Infrastructure.Data.Config
 {
-    //public class ShoppingCartConfiguration : IEntityTypeConfiguration<ShoppingCart>
+    //public class CartConfiguration : IEntityTypeConfiguration<Cart>
     //{
-        //public void Configure(EntityTypeBuilder<ShoppingCart> builder)
+        //public void Configure(EntityTypeBuilder<Cart> builder)
         //{
-        //    var navigation = builder.Metadata.FindNavigation(nameof(ShoppingCart.Items));
+        //    var navigation = builder.Metadata.FindNavigation(nameof(Cart.CartItems));
         //    navigation?.SetPropertyAccessMode(PropertyAccessMode.PreferProperty);
 
 
-        //    builder.Property(b => b.UserStringId)
+        //    builder.Property(b => b.UserClaimStringId)
         //        .IsRequired()
         //        .HasMaxLength(256);
         //}

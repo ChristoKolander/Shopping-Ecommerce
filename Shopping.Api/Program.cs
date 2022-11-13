@@ -79,7 +79,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 builder.Services.Configure<ProductSettings>(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));

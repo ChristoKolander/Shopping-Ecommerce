@@ -33,7 +33,7 @@ namespace Shopping.Web.Portal.Pages
         public IJSRuntime Js { get; set; }
 
         [Inject]
-        public IShoppingCartService ShoppingCartService { get; set; }
+        public ICartService ShoppingCartService { get; set; }
 
         [Inject]
         public IManageCartItemsLocalStorageService ManageCartItemsLocalStorageService { get; set; }

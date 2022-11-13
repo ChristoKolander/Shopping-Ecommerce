@@ -5,7 +5,7 @@ namespace Shopping.Core.Interfaces
     public interface IRepositoryWrapper
     {
         IProductRepository Product { get; }
-        IShoppingCartRepository CartItem { get; }
+        ICartRepository CartItem { get; }
         Task SaveAsync();
 
     }

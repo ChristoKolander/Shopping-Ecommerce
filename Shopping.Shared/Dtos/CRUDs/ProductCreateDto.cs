@@ -21,7 +21,7 @@ namespace Shopping.Shared.Dtos.CRUDs
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Price { get; set; }
        
-        public int? Qty { get; set; }
+        public int Qty { get; set; }
        
         public int ProductCategoryId { get; set; }
 

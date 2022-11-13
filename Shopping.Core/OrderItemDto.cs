@@ -1,7 +1,7 @@
 ﻿
-namespace Shopping.Api.CQRS
+namespace Shopping.Core 
 {
-    public class OrderProductDto
+    public class OrderItemDto
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }

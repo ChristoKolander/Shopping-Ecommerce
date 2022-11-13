@@ -4,9 +4,9 @@ using Shopping.Core.Entities;
 
 namespace Shopping.Infrastructure.Data.Config
 {
-    public class ShoppingCartItemConfiguration : IEntityTypeConfiguration<ShoppingCartItem>
+    public class CartItemConfiguration : IEntityTypeConfiguration<CartItem>
     {
-        public void Configure(EntityTypeBuilder<ShoppingCartItem> builder)
+        public void Configure(EntityTypeBuilder<CartItem> builder)
         {
             builder.ToTable("ShoppingCartItem");
 

@@ -9,6 +9,7 @@ namespace Shopping.Core.Entities
         public string ImageURL { get; set; }
         public decimal Price { get; set; }   
         public int ProductCategoryId { get; set; }
+        public int Qty { get; set; }
 
         [ForeignKey("ProductCategoryId")]
         public ProductCategory ProductCategory { get; set; }    

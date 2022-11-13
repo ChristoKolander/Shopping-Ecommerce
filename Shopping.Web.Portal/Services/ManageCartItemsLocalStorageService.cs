@@ -11,7 +11,7 @@ namespace Shopping.Web.Portal.Services
         #region Fields and CTOR
 
         private readonly ILocalStorageService localStorageService;
-        private readonly IShoppingCartService shoppingCartService;
+        private readonly ICartService shoppingCartService;
         private readonly CancellationToken cancellationToken = new CancellationToken();
 
         public string KeyCartCreated = "CartCreatedValue";
@@ -32,7 +32,7 @@ namespace Shopping.Web.Portal.Services
 
 
         public ManageCartItemsLocalStorageService(ILocalStorageService localStorageService,
-                                                  IShoppingCartService shoppingCartService)
+                                                  ICartService shoppingCartService)
         {
             this.localStorageService = localStorageService;
             this.shoppingCartService = shoppingCartService;

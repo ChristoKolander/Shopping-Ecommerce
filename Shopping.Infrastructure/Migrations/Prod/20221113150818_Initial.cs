@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Shopping.Infrastructure.Migrations.Prod
 {
-    public partial class InitialProd : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,6 +35,20 @@ namespace Shopping.Infrastructure.Migrations.Prod
                 });
 
             migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserClaimStringId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CartStringId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductCategory",
                 columns: table => new
                 {
@@ -51,15 +65,16 @@ namespace Shopping.Infrastructure.Migrations.Prod
                 name: "ProductOrdered",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductOrdered", x => x.ProductId);
+                    table.PrimaryKey("PK_ProductOrdered", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,45 +95,6 @@ namespace Shopping.Infrastructure.Migrations.Prod
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShoppingCarts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserClaimStringId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CartStringId = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OrderItems = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TotalCost = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShipToAddressId = table.Column<int>(type: "int", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Address_ShipToAddressId",
-                        column: x => x.ShipToAddressId,
-                        principalTable: "Address",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
@@ -127,7 +103,8 @@ namespace Shopping.Infrastructure.Migrations.Prod
                     Description = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ProductCategoryId = table.Column<int>(type: "int", nullable: false)
+                    ProductCategoryId = table.Column<int>(type: "int", nullable: false),
+                    Qty = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -141,40 +118,73 @@ namespace Shopping.Infrastructure.Migrations.Prod
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderProduct",
+                name: "OrderItem",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductOrderedProductId = table.Column<int>(type: "int", nullable: true),
+                    ProductOrderedId = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Units = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: true)
+                    OrderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderProduct", x => x.Id);
+                    table.PrimaryKey("PK_OrderItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderProduct_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
+                        name: "FK_OrderItem_ProductOrdered_ProductOrderedId",
+                        column: x => x.ProductOrderedId,
+                        principalTable: "ProductOrdered",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderNumber = table.Column<int>(type: "int", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalCost = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShipToAddressId = table.Column<int>(type: "int", nullable: true),
+                    OrderItemId1 = table.Column<int>(type: "int", nullable: true),
+                    OrderItemId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Address_ShipToAddressId",
+                        column: x => x.ShipToAddressId,
+                        principalTable: "Address",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_OrderProduct_ProductOrdered_ProductOrderedProductId",
-                        column: x => x.ProductOrderedProductId,
-                        principalTable: "ProductOrdered",
-                        principalColumn: "ProductId");
+                        name: "FK_Orders_OrderItem_OrderItemId1",
+                        column: x => x.OrderItemId1,
+                        principalTable: "OrderItem",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderProduct_OrderId",
-                table: "OrderProduct",
+                name: "IX_OrderItem_OrderId",
+                table: "OrderItem",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderProduct_ProductOrderedProductId",
-                table: "OrderProduct",
-                column: "ProductOrderedProductId");
+                name: "IX_OrderItem_ProductOrderedId",
+                table: "OrderItem",
+                column: "ProductOrderedId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_OrderItemId1",
+                table: "Orders",
+                column: "OrderItemId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ShipToAddressId",
@@ -185,12 +195,24 @@ namespace Shopping.Infrastructure.Migrations.Prod
                 name: "IX_Product_ProductCategoryId",
                 table: "Product",
                 column: "ProductCategoryId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_OrderItem_Orders_OrderId",
+                table: "OrderItem",
+                column: "OrderId",
+                principalTable: "Orders",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_OrderItem_Orders_OrderId",
+                table: "OrderItem");
+
             migrationBuilder.DropTable(
-                name: "OrderProduct");
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "Product");
@@ -199,19 +221,19 @@ namespace Shopping.Infrastructure.Migrations.Prod
                 name: "ShoppingCartItem");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCarts");
+                name: "ProductCategory");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "ProductOrdered");
-
-            migrationBuilder.DropTable(
-                name: "ProductCategory");
-
-            migrationBuilder.DropTable(
                 name: "Address");
+
+            migrationBuilder.DropTable(
+                name: "OrderItem");
+
+            migrationBuilder.DropTable(
+                name: "ProductOrdered");
 
             migrationBuilder.DropSequence(
                 name: "catalog_hilo");

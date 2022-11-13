@@ -43,9 +43,7 @@ namespace Shopping.Api.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDto userForRegistration)
         {
-            //if (userForRegistration == null || !ModelState.IsValid)
-            //    return BadRequest();
-
+           
             var newUser = new ApplicationUser { UserName = userForRegistration.Email, Email = userForRegistration.Email };
 
             // Maybe add encryption to password here? An extra layer of sec?

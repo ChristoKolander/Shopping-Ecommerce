@@ -8,7 +8,7 @@ namespace Shopping.Infrastructure.Data.Repositories
     {
         private ProductContext productContext;
         private IProductRepository product;
-        private IShoppingCartRepository shoppingCart;
+        private ICartRepository cart; 
         
         public IProductRepository Product
         {
@@ -21,15 +21,15 @@ namespace Shopping.Infrastructure.Data.Repositories
                 return product;
             }
         }
-        public IShoppingCartRepository CartItem
+        public ICartRepository CartItem
         {
             get
             {
-                if (shoppingCart == null)
+                if (cart == null)
                 {
-                    shoppingCart = new ShoppingCartRepository(productContext);
+                    cart = new CartRepository(productContext);
                 }
-                return shoppingCart;
+                return cart;
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace Shopping.Core.Entities
 {
-    public class ShoppingCartItem : BaseEntity<int>
+    public class CartItem : BaseEntity<int> 
     {
      
         public int ProductId { get; set; }

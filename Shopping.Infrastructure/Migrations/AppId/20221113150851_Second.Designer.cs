@@ -12,8 +12,8 @@ using Shopping.Infrastructure.Identity;
 namespace Shopping.Infrastructure.Migrations.AppId
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20221027090924_InitialAppId")]
-    partial class InitialAppId
+    [Migration("20221113150851_Second")]
+    partial class Second
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

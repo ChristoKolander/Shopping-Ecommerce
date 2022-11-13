@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace Shopping.Web.Portal.Services
 {
-    public class ShoppingCartService : IShoppingCartService
+    public class ShoppingCartService : ICartService
     {
 
         # region Fields and CTOR
@@ -43,7 +43,7 @@ namespace Shopping.Web.Portal.Services
         public async Task<CartItemDto> AddCartItem(CartItemToAddDto cartItemToAddDto)
         {
 
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync<CartItemToAddDto>("api/ShoppingCart", cartItemToAddDto);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync<CartItemToAddDto>("api/Cart", cartItemToAddDto);
 
             if (response.IsSuccessStatusCode)
             {
@@ -69,7 +69,7 @@ namespace Shopping.Web.Portal.Services
             var jsonRequest = JsonConvert.SerializeObject(cartItemDto);
             var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
 
-            HttpResponseMessage response = await httpClient.PatchAsync($"api/shoppingcart/updateCartItem/{cartItemDto.Id}", content);
+            HttpResponseMessage response = await httpClient.PatchAsync($"api/cart/updateCartItem/{cartItemDto.Id}", content);
 
             var patchContent = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
@@ -85,7 +85,7 @@ namespace Shopping.Web.Portal.Services
 
         public async Task<CartItemDto> DeleteCartItem(int Id)
         {
-            HttpResponseMessage response = await httpClient.DeleteAsync($"api/ShoppingCart/{Id}");
+            HttpResponseMessage response = await httpClient.DeleteAsync($"api/Cart/{Id}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -94,10 +94,10 @@ namespace Shopping.Web.Portal.Services
             return default(CartItemDto);
         }
 
-        public async Task<List<CartItemDto>> GetCartItems2(string userClaimId)
+        public async Task<List<CartItemDto>> GetCartItems(string userClaimId)
         {
 
-            HttpResponseMessage response = await httpClient.GetAsync($"api/ShoppingCart/{userClaimId}/GetCartItems2");
+            HttpResponseMessage response = await httpClient.GetAsync($"api/Cart/{userClaimId}/GetCartItems");
 
             if (response.IsSuccessStatusCode)
             {
@@ -119,7 +119,7 @@ namespace Shopping.Web.Portal.Services
             var jsonRequest = JsonConvert.SerializeObject(cartItemQtyUpdateDto);
             var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
 
-            HttpResponseMessage response = await httpClient.PatchAsync($"api/ShoppingCart/{cartItemQtyUpdateDto.CartItemId}", content);
+            HttpResponseMessage response = await httpClient.PatchAsync($"api/Cart/{cartItemQtyUpdateDto.CartItemId}", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -131,19 +131,19 @@ namespace Shopping.Web.Portal.Services
 
       
 
-        public async Task<ShoppingCart> GetShoppingCart(string cartStringId)
+        public async Task<Cart> GetCart(string cartStringId)
         {
 
-            HttpResponseMessage response = await httpClient.GetAsync($"api/ShoppingCart/{cartStringId}/GetShoppingCart");
+            HttpResponseMessage response = await httpClient.GetAsync($"api/Cart/{cartStringId}/GetCart");
 
             if (response.IsSuccessStatusCode)
             {
                 if (response.StatusCode == HttpStatusCode.NoContent)
                 {
-                    return default(ShoppingCart);
+                    return default(Cart);
                 }
 
-                return await response.Content.ReadFromJsonAsync<ShoppingCart>();
+                return await response.Content.ReadFromJsonAsync<Cart>();
             }
             else
             {
@@ -153,10 +153,10 @@ namespace Shopping.Web.Portal.Services
 
         }
       
-        public async Task<ShoppingCart> CreateShoppingCart(ShoppingCart shoppingCart)
+        public async Task<Cart> CreateCart(Cart cart)
         {
       
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/ShoppingCart/AddCart", shoppingCart);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Cart/AddCart", cart);
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -164,15 +164,11 @@ namespace Shopping.Web.Portal.Services
             {
                 if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
-                    return default(ShoppingCart);
+                    return default(Cart);
                 }
 
                
-
-          //var result= response.Content.ReadFromJsonAsync<ShoppingCart>(options);
-
-
-                var result = Newtonsoft.Json.JsonConvert.DeserializeObject<ShoppingCart>(content);
+                var result = Newtonsoft.Json.JsonConvert.DeserializeObject<Cart>(content);
 
                 return result;
             }
@@ -183,15 +179,15 @@ namespace Shopping.Web.Portal.Services
             }
         }
         
-        public async Task<ShoppingCart> DeleteShoppingCart(string cartStringId)
+        public async Task<Cart> DeleteCart(string cartStringId)
         {
-            HttpResponseMessage response = await httpClient.DeleteAsync($"api/ShoppingCart/{cartStringId}/deleteCart");
+            HttpResponseMessage response = await httpClient.DeleteAsync($"api/Cart/{cartStringId}/deleteCart");
 
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<ShoppingCart>();
+                return await response.Content.ReadFromJsonAsync<Cart>();
             }
-            return default(ShoppingCart);
+            return default(Cart);
         }
     
        
@@ -199,11 +195,11 @@ namespace Shopping.Web.Portal.Services
         # region NotUsedAtTheMoment Stuff...
 
         //Not used at the moment, predesessor...keeping in case need something similar..
-        public async Task<List<CartItemDto>> GetCartItems(string userStringId)
+        public async Task<List<CartItemDto>> GetCartItems2(string userStringId)
         {
 
 
-            HttpResponseMessage response = await httpClient.GetAsync($"api/ShoppingCart/{userStringId}/GetCartItems");
+            HttpResponseMessage response = await httpClient.GetAsync($"api/Cart/{userStringId}/GetCartItems");
 
             if (response.IsSuccessStatusCode)
             {
@@ -220,20 +216,20 @@ namespace Shopping.Web.Portal.Services
             }
 
         }
-        public async Task<List<ShoppingCartItem>> DeleteCartItems(string cartStringId)
+        public async Task<List<CartItem>> DeleteCartItems(string cartStringId)
         {
-            HttpResponseMessage response = await httpClient.DeleteAsync($"api/ShoppingCart/{cartStringId}/deleteCartItems");
+            HttpResponseMessage response = await httpClient.DeleteAsync($"api/Cart/{cartStringId}/deleteCartItems");
 
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<List<ShoppingCartItem>>();
+                return await response.Content.ReadFromJsonAsync<List<CartItem>>();
             }
 
-            return default(List<ShoppingCartItem>);
+            return default(List<CartItem>);
         }
         public async Task<CartItemDto> ReplaceCartItems(CartItemDto cartItemDto)
         {
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync<CartItemDto>("api/ShoppingCart/ReplaceItems", cartItemDto);
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync<CartItemDto>("api/Cart/ReplaceItems", cartItemDto);
 
             if (response.IsSuccessStatusCode)
             {

@@ -27,11 +27,12 @@ namespace Shopping.Api.CQRS.Handlers.OrderHandler
             {
                 CustomerId = request.UserId,
                 UserEmail = request.UserEmail,
+                UserName = request.UserName,
+                OrderNumber = request.OrderNumber,
                 OrderName = "Order Name Something? " + Guid.NewGuid(),
                 OrderDate = request.OrderDate,
                 OrderItems = request.OrderItems,
                 TotalCost = request.TotalCost,
-                OrderProducts = request.OrderProducts,
                 ShipToAddress = request.ShippingAddress
 
                             

@@ -17,6 +17,7 @@ namespace Shopping.Api
                         Description = product.Description,
                         ImageUrl = product.ImageURL,
                         Price = product.Price,
+                        Qty= product.Qty,   
                         ProductCategoryId = product.ProductCategory.Id,
                         ProductCategoryName = product.ProductCategory.Name,
                     }).ToList();
@@ -33,13 +34,14 @@ namespace Shopping.Api
                 Description = product.Description,
                 ImageUrl = product.ImageURL,
                 Price = product.Price,
+                Qty = product.Qty,  
                 ProductCategoryId = product.ProductCategory.Id,
                 ProductCategoryName = product.ProductCategory.Name
             };
         }
 
 
-        public static IEnumerable<CartItemDto> ConvertToDto(this IEnumerable<ShoppingCartItem> cartItems,
+        public static IEnumerable<CartItemDto> ConvertToDto(this IEnumerable<CartItem> cartItems,
                                                            IEnumerable<Product> products)
         {
             return (from cartItem in cartItems
@@ -61,7 +63,7 @@ namespace Shopping.Api
 
         
 
-        public static CartItemDto ConvertToDto(this ShoppingCartItem cartItem, Product product)
+        public static CartItemDto ConvertToDto(this CartItem cartItem, Product product)
         {
             return new CartItemDto
             {

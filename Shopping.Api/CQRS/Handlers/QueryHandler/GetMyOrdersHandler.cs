@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Api.CQRS.Queries.OrderQuery;
+using Shopping.Core;
 using Shopping.Infrastructure.Data;
 
 namespace Shopping.Api.CQRS.Handlers.QueryHandler
@@ -24,7 +25,7 @@ namespace Shopping.Api.CQRS.Handlers.QueryHandler
             return orders.Select(o => new OrderDto
             {
                 OrderDate = o.OrderDate,
-                OrderProducts = o.OrderProducts.Select(op => new OrderProductDto()
+                OrderProducts = o.OrderItems.Select(op => new OrderItemDto()
                 {
                     ImageUrl = op.ProductOrdered.ImageUrl,
                     ProductId = op.ProductOrdered.ProductId,

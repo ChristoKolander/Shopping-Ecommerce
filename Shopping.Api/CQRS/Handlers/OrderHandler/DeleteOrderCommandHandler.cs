@@ -22,19 +22,22 @@ namespace Shopping.Api.CQRS.Handlers.OrderHandler
    
         public async Task<RequestResponse> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
         {
+
             RequestResponse response;
 
-                var entity = dbContext.Orders
-                    .TagWith(nameof(DeleteOrderCommandHandler))
-                    .SingleOrDefault(d => d.Id == request.Id);
-                if (entity == null) throw new Exception("The order does not exists");
+            var entity = dbContext.Orders
+                .Include(o => o.OrderItems)
+                .TagWith(nameof(DeleteOrderCommandHandler))
+                .SingleOrDefault(d => d.Id == request.Id);
+            if (entity == null) throw new Exception("The order does not exists");
 
-                dbContext.Orders.Remove(entity);
-                await dbContext.SaveChangesAsync(cancellationToken);
+            dbContext.Orders.Remove(entity);
+            await dbContext.SaveChangesAsync(cancellationToken);
 
-                response = RequestResponse.Success(entity.Id);
-         
+            response = RequestResponse.Success(entity.Id);
+
             return response;
+     
         }
     }
 }

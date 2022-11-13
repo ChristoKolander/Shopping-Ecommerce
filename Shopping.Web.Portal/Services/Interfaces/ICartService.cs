@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shopping.Web.Portal.Services.Interfaces
 {
-    public interface IShoppingCartService
+    public interface ICartService
     {
 
         event Action<int> OnShoppingCartChanged;
@@ -14,20 +14,23 @@ namespace Shopping.Web.Portal.Services.Interfaces
 
         
         Task<CartItemDto> UpdateCartItem(CartItemDto cartItemDto);
-        Task<List<CartItemDto>> GetCartItems2(string userClaimId);
+        Task<List<CartItemDto>> GetCartItems(string userClaimStringId);
         Task<CartItemDto> AddCartItem(CartItemToAddDto cartItemToAddDto);
         Task<CartItemDto> DeleteCartItem(int Id);
     
         Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto);
 
-        Task<List<CartItemDto>> GetCartItems(string userStringId);
+       
         Task<CartItemDto> ReplaceCartItems(CartItemDto cartItemDto);
-        Task<List<ShoppingCartItem>> DeleteCartItems(string cartStringId);
+        Task<List<CartItem>> DeleteCartItems(string cartStringId);
 
 
-        Task<ShoppingCart> GetShoppingCart (string cartStringId);
-        Task<ShoppingCart> CreateShoppingCart(ShoppingCart shoppingCart);    
-        Task<ShoppingCart> DeleteShoppingCart(string cartStringId);
+        Task<Cart> GetCart (string cartStringId);
+        Task<Cart> CreateCart(Cart cart);    
+        Task<Cart> DeleteCart(string cartStringId);
 
+
+        //Task<List<CartItemDto>> GetCartItems2(string userClaimId);
+         //Task<List<CartItemDto>> GetCartItems(string userStringId);
     }
 }

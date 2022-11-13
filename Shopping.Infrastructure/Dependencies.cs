@@ -28,11 +28,11 @@ namespace Shopping.Infrastructure
             {
                 // use real database
                 services.AddDbContext<ProductContext>(c =>
-                    c.UseSqlServer(configuration.GetConnectionString("ProductConnectionCQRSGitHubbed")));
+                    c.UseSqlServer(configuration.GetConnectionString("ProductConnectionShoppingGit")));
 
                 // Add Identity DbContext
                 services.AddDbContext<AppIdentityDbContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("IdentityConnectionCQRSGitHubbed")));
+                    options.UseSqlServer(configuration.GetConnectionString("IdentityConnectionShoppingGit")));
             }
 
         }

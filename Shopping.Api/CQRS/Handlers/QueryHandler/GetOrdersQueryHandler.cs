@@ -3,14 +3,13 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Api.CQRS.Queries.OrderQuery;
-using Shopping.Api.Queries.OrderQuery;
 using Shopping.Core.Entities.CQRSresponses;
 using Shopping.Infrastructure.Data;
 
 namespace Shopping.Api.CQRS.Handlers.QueryHandler.OrderHandler
 {
 
-    public class GetOrdersQueryHandler : IRequestHandler<GetOrders, QueryResult<QueryResponse>>
+    public class GetOrdersQueryHandler : IRequestHandler<GetOrders, QueryResult<OrderResponse>>
     {
         private readonly ProductContext dbContext;
         private readonly IMapper mapper;
@@ -21,21 +20,23 @@ namespace Shopping.Api.CQRS.Handlers.QueryHandler.OrderHandler
             this.mapper = mapper;
         }
 
-        public async Task<QueryResult<QueryResponse>> Handle(GetOrders request, CancellationToken cancellationToken)
+        public async Task<QueryResult<OrderResponse>> Handle(GetOrders request, CancellationToken cancellationToken)
         {
-            QueryResult<QueryResponse> response;
+            QueryResult<OrderResponse> response;
 
      
             var result = dbContext.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(i => i.ProductOrdered)
                 .TagWith(nameof(GetOrdersQueryHandler))
                 .Where(x => x.UserEmail == request.UserEmail)
-                .ProjectTo<QueryResponse>(mapper.ConfigurationProvider)
+                .ProjectTo<OrderResponse>(mapper.ConfigurationProvider)
                 .ToList();
 
-                response = new QueryResult<QueryResponse>
+                response = new QueryResult<OrderResponse>
                 {
                     Successful = true,
-                    Items = result ?? new List<QueryResponse>()
+                    Items = result ?? new List<OrderResponse>()
                 };
                 
                 return await Task.FromResult(response);

@@ -6,7 +6,7 @@ namespace Shopping.Infrastructure.Data.Repositories
     public static class ProductRepositoryExtensions
     {
 
-        //Not used. Did not get it to work in client!
+        //Not used on the Client, only in API. Did not get it to work in client!
 
         public static IQueryable<Product> Search(this IQueryable<Product> products, string searchTerm=null)
         {

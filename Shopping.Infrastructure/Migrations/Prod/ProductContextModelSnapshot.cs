@@ -56,6 +56,54 @@ namespace Shopping.Infrastructure.Migrations.Prod
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("Shopping.Core.Entities.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CartStringId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserClaimStringId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("Shopping.Core.Entities.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CartStringId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserClaimStringId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCartItem", (string)null);
+                });
+
             modelBuilder.Entity("Shopping.Core.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -70,11 +118,17 @@ namespace Shopping.Infrastructure.Migrations.Prod
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OrderItems")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("OrderItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderItemId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("OrderName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderNumber")
+                        .HasColumnType("int");
 
                     b.Property<int?>("ShipToAddressId")
                         .HasColumnType("int");
@@ -90,12 +144,14 @@ namespace Shopping.Infrastructure.Migrations.Prod
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OrderItemId1");
+
                     b.HasIndex("ShipToAddressId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Shopping.Core.Entities.OrderProduct", b =>
+            modelBuilder.Entity("Shopping.Core.Entities.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,10 +159,10 @@ namespace Shopping.Infrastructure.Migrations.Prod
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductOrderedProductId")
+                    b.Property<int>("ProductOrderedId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("UnitPrice")
@@ -119,9 +175,9 @@ namespace Shopping.Infrastructure.Migrations.Prod
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductOrderedProductId");
+                    b.HasIndex("ProductOrderedId");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("Shopping.Core.Entities.Product", b =>
@@ -149,6 +205,9 @@ namespace Shopping.Infrastructure.Migrations.Prod
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Qty")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -181,92 +240,57 @@ namespace Shopping.Infrastructure.Migrations.Prod
 
             modelBuilder.Entity("Shopping.Core.Entities.ProductOrdered", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProductId");
+                    b.Property<decimal>("ProductPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("ProductOrdered");
                 });
 
-            modelBuilder.Entity("Shopping.Core.Entities.ShoppingCart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CartStringId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserClaimStringId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ShoppingCarts");
-                });
-
-            modelBuilder.Entity("Shopping.Core.Entities.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CartStringId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Qty")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserClaimStringId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ShoppingCartItem", (string)null);
-                });
-
             modelBuilder.Entity("Shopping.Core.Entities.Order", b =>
                 {
+                    b.HasOne("Shopping.Core.Entities.OrderItem", "OrderItem")
+                        .WithMany()
+                        .HasForeignKey("OrderItemId1");
+
                     b.HasOne("Shopping.Core.Entities.Address", "ShipToAddress")
                         .WithMany()
                         .HasForeignKey("ShipToAddressId");
 
+                    b.Navigation("OrderItem");
+
                     b.Navigation("ShipToAddress");
                 });
 
-            modelBuilder.Entity("Shopping.Core.Entities.OrderProduct", b =>
+            modelBuilder.Entity("Shopping.Core.Entities.OrderItem", b =>
                 {
                     b.HasOne("Shopping.Core.Entities.Order", null)
-                        .WithMany("OrderProducts")
-                        .HasForeignKey("OrderId");
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Shopping.Core.Entities.ProductOrdered", "ProductOrdered")
                         .WithMany()
-                        .HasForeignKey("ProductOrderedProductId");
+                        .HasForeignKey("ProductOrderedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ProductOrdered");
                 });
@@ -284,7 +308,7 @@ namespace Shopping.Infrastructure.Migrations.Prod
 
             modelBuilder.Entity("Shopping.Core.Entities.Order", b =>
                 {
-                    b.Navigation("OrderProducts");
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

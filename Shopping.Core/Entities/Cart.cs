@@ -4,13 +4,13 @@
 namespace Shopping.Core.Entities
 {
 
-    public class ShoppingCart : BaseEntity<int>
+    public class Cart : BaseEntity<int>
     {
 
             public string UserClaimStringId { get; set; } 
             public string CartStringId { get; set; }
 
-            public List<ShoppingCartItem> Items = new List<ShoppingCartItem>();
+            public List<CartItem> CartItems = new List<CartItem>(); 
         }
 
 
