@@ -15,7 +15,7 @@ Just lab.
 
 Recently upgraded from 3.1 to .Net 6.
 
-Order implementation done at API level, using CQRS pattern. GUI Order left to do!
+Order implementation done at API level, using CQRS pattern. GUI Order left to do.
 
 B)
 
@@ -23,34 +23,14 @@ If you want to try out this code live - instead of downloading - go to: NotImple
 
 C)
 
-If you want to download and test the code you will have to use Visual Studio 2022:
+If you want to download and test the code you will have to use Visual Studio 2022.
 
-1. Download, extract, rebuild to check everything is downloaded.
-
-2. You might have to run these commands - and dont forget to adjust SqlServer Connection settings if so (and to remove old migrations folder first!).
-
-Adjusting settings done via file Dependencies inside Project Shopping.Infrastructure and AppSettings inside Project Shopping.Api
-
-Commands if needed: 
-
-Add-Migration InitialProd -Context ProductContext -StartupProject Shopping.Api -OutputDir Migrations/Prod
-
-Update-Database -Context ProductContext -StartupProject Shopping.Api
-
-Add-Migration InitialAppId -Context AppIdentityDbContext -StartupProject Shopping.Api -OutputDir Migrations/AppId
-
-Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
-
-
-3. Set as multiple start-up projects from solution explorer, API on top and Shopping.Web.Portal below.
-4. There are 2 initial Users seeded, but u can try registering one, TestUser@hotmail.com for instance.
-5. Ctrl F5.
-6. Note: if you register as a new user in Development, you will be given "Administrator" role by default. Change this to "standardUser" in AccountController/Registration, or something else(see db for all roles seeded).
-   
-Finally: Hard to find material on how to implement a disconnected shopping cart solution, which wasn't my original intention - I like back end a little bit more - but this is my initial approach. If you as an Employeer/Developer have some thoughts or alternative ways on how to keep a loosely front-end shoppingcart uptpdate,
+Download Instructions: info.txt at Solution root level folder Solution Items.
+  
+Note: Hard to find material on how to implement a disconnected shopping cart solution, which wasn't my original intention - I like back end a little bit more - but this is my initial approach. If you as an Employeer/Developer have some thoughts or alternative ways on how to keep a loosely front-end shoppingcart uptodate,
 userfriendly, feel free to contact me. 
   
-  /C.
+ /C.
   
   ps
   
