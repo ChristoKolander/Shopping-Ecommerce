@@ -1,22 +1,48 @@
+This Update Info.txt at: 2022-11-13
 
 Last Updated Info.txt at: 2022-11-05
-This Update Info.txt at: 2022-11-13
 
 Some short notes:
 
 1. 
 Paypal coding is a mess, especially in combination with .NET. No uptodate information/examples anywhere. 
-This is not just a donate situation where the user decides amount, so purchased product(s) need to be handled/controlled/verified by a server. 
-Finally got the paypal script to open up the Check Out form, however yet to find away to populate amount.value dynamically.
+This is not a donate situation where the user decides amount, so purchased product(s) need to be handled/controlled/verified by a server. 
+Finally got the paypal script to open up the Check Out form, however yet to find a way to populate amount.value dynamically.
 
 
 2.
 Up to the point of ordering, everything should work. Sometimes side navbar does not get loaded correctly, esp.
-during debugging. But fixed the issue of adding an item already in the basket. User only gets redirect to
+during debugging, but fixed the issue of adding an item already in the basket. User only gets redirect to
 shoppingcart, no message provided. Overkill.
 
 3.
-Orders: Should be working in terms of API-functionality. Haven't worked with CQRSpattern before, so leave it as is for now.
+Orders: Should be working in terms of API-functionality and CQRS. Haven't worked with CQRSpattern before, so leave it as is for now.
 Only GUI left to implement! 
+
+
+Download and Run Instructions:
+
+1. Download, extract, rebuild to check everything is working.
+
+2. You might have to run these commands - and dont forget to adjust SqlServer Connection settings if so (and to remove old migrations folder first!).
+
+Adjusting settings done via Dependencies inside Project Shopping.Infrastructure and AppSettings inside Project Shopping.Api
+
+Commands - Package Manager Console - if needed: 
+
+Add-Migration InitialProd -Context ProductContext -StartupProject Shopping.Api -OutputDir Migrations/Prod
+
+Update-Database -Context ProductContext -StartupProject Shopping.Api
+
+Add-Migration InitialAppId -Context AppIdentityDbContext -StartupProject Shopping.Api -OutputDir Migrations/AppId
+
+Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
+
+
+3. Set as multiple start-up projects from solution explorer, API on top and Shopping.Web.Portal below.
+4. There are 2 initial Users seeded, but u can try registering one, TestUser@hotmail.com for instance.
+5. Ctrl F5.
+6. Note: if you register as a new user in Development, you will be given "Administrator" role by default. 
+Change this to "StandardUser" in AccountController/Registration, or something else(see db for all roles seeded).
 
 
