@@ -1,4 +1,4 @@
-# Shopping Demo Lab
+# Shopping Ecommerce
 
 A)
 
