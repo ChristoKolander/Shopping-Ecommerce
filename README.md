@@ -15,7 +15,9 @@ Just lab.
 
 Recently upgraded from 3.1 to .Net 6.
 
-Order implementation done at API level, using CQRS pattern. GUI Order left to do.
+Order implementation done at API level, using CQRS pattern - which I just found out I like. 
+
+GUI for Order left to do.
 
 B)
 
