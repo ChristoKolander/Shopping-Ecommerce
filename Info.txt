@@ -1,30 +1,35 @@
-This Update Info.txt at: 2022-11-13
+This Update Info.txt at: 2022-11-30
 
-Last Updated Info.txt at: 2022-11-05
+Last Updated Info.txt at: 2022-11-13
 
 Some short notes:
 
-1. 
+1.
+When it comes to authentication checks, in order to keep the shopping cart balanced, there is some DRY in this lab. Not yet been  able to extract this check to a seperate service, and/or blazor component. I got the feeling this is not achievable (unless you create your own IsAuthenticated - method, maybe setting a boolean SQL-flag when logging in, which seems odd). At this point I haven't googled around, but if this should the case, I would hesitate to use Blazor Web Assembly in production, opt for Server App instead. And my conlusion, somewhat on the fly, is that the Blazor Server App gives better control when it comes to logging and errohandling, and protection of intellectual property should that be needed. 
+
+
+
+2. 
 Paypal coding is a mess, especially in combination with .NET. No uptodate information/examples anywhere. 
 This is not a donate situation where the user decides amount, so purchased product(s) need to be handled/controlled/verified by a server. 
 Finally got the paypal script to open up the Check Out form, however yet to find a way to populate amount.value dynamically.
 
 
-2.
+3.
 Up to the point of ordering, everything should work. Sometimes side navbar does not get loaded correctly, esp.
 during debugging, but fixed the issue of adding an item already in the basket. User only gets redirect to
 shoppingcart, no message provided. Overkill.
 
-3.
+4.
 Orders: Should be working in terms of API-functionality and CQRS. Haven't worked with CQRSpattern before, so leave it as is for now.
-Only GUI left to implement! 
+GUI left to implement. 
 
 
 Download and Run Instructions:
 
-1. Download, extract, rebuild to check everything is working.
+A) Download, extract, rebuild to check everything is working.
 
-2. You might have to run these commands - and dont forget to adjust SqlServer Connection settings if so (and to remove old migrations folder first!).
+B) You might have to run these commands - and dont forget to adjust SqlServer Connection settings if so (and to remove old migrations folder first!).
 
 Adjusting settings done via Dependencies inside Project Shopping.Infrastructure and AppSettings inside Project Shopping.Api
 
