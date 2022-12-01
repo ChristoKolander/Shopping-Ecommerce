@@ -8,8 +8,8 @@ Some short notes:
 When it comes to authentication checks, in order to keep the shopping cart balanced, there is some DRY in this lab. 
 Not yet been  able to extract this check to a seperate service, and/or blazor component. 
 I got the feeling this is not achievable (unless you create your own IsAuthenticated - method, maybe setting a boolean SQL-flag when logging in, which seems odd). 
-At this point I haven't googled around, but if this should the case, I would hesitate to use Blazor Web Assembly in production, opt for Server App instead. 
-My conlusion, somewhat on the fly, is that the Blazor Server App gives better control when it comes to logging and errohandling, and protection of intellectual property should that be needed. 
+At this point I haven't googled around, but if this should be the case, I would hesitate to use Blazor Web Assembly in production, opt for Server App instead. 
+My conlusion, somewhat on the fly, is that the Blazor Server App also gives better control when it comes to logging and errohandling, and protection of intellectual property should that be needed.  
 
 
 
