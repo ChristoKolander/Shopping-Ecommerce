@@ -1,5 +1,4 @@
-﻿
-namespace Shopping.Core 
+﻿namespace Shopping.Core 
 {
     public class OrderItemDto
     {

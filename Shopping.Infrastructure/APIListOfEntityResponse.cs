@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake
+
+namespace Shopping.Infrastructure
 {
     public class APIListOfEntityResponse<TEntity> where TEntity : class
     {

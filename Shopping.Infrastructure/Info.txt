@@ -1,0 +1,30 @@
+﻿Info
+
+Dependencies - Only one, dependent on Core, but indirectly then also use the Shared Project for CartItemToAddDto.
+			   Interfaces inside Core are being implemented here.
+
+
+Data/Repositories: 
+Not happy about the inconsistency 1. Sometimes using entities, sometimes using Dtos. I need to search for recommendations and best practices. 
+Too much in a hurry trying to get things to work in the beginning and did not pay attention to this. Solve it later.
+
+Not happy about the inconsistency2. Cart-repo and Product-repo both have their own implemented interfaces, but theres also the
+possibility to use the Generic Repo and these impemented interfaces. Even if its easy to read out, it also feels inconsictent.
+Need to address this moving on.
+
+
+NotUsedRightNow/GenericRepositorRemake: 
+Late in development I found a nice example of Generic Repo on Carl Franklins Blazor Train site, 
+but could not use it, or did not understand how to. 
+
+NotUsedRightNow:
+Could not get EF to work unless Removing the configuration for Cart.
+Don't remember why at the moment.Keeping the file in case I use it later on. In order to test seeding of Roles, and another approach,
+I uncommented RoleConfiguration. These are seeded and configured elsewhere. Keeping the file for later use.
+
+Identity:
+In order to avoid adding Entity Framework Core to Core Project, I added the entity ApplicationUser to this project. It inherits
+from IdentityUser so it feels logical to do so.
+
+
+
