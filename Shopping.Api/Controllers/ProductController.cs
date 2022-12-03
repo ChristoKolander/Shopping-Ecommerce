@@ -6,7 +6,7 @@ using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Core.Entities;
 using Shopping.Shared.Entities.RequestFeatures;
 using Shopping.Core.Interfaces;
-using Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake;
+using Shopping.Infrastructure;
 
 namespace Shopping.Api.Controllers
 {

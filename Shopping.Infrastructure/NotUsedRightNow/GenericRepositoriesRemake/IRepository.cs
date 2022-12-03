@@ -1,11 +1,6 @@
-﻿using Shopping.Shared.Entities.RequestFeatures;
-using Shopping.Core.Entities;
-using Shopping.Core.Paging;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
+
 
 namespace Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake
 {
