@@ -25,13 +25,13 @@ namespace Shopping.Api.CQRS.Handlers.QueryHandler.OrderHandler
             QueryResult<OrderResponse> response;
 
      
-            var result = dbContext.Orders
+            var result = await dbContext.Orders
                 .Include(o => o.OrderItems)
                 .ThenInclude(i => i.ProductOrdered)
                 .TagWith(nameof(GetOrdersQueryHandler))
                 .Where(x => x.UserEmail == request.UserEmail)
                 .ProjectTo<OrderResponse>(mapper.ConfigurationProvider)
-                .ToList();
+                .ToListAsync();
 
                 response = new QueryResult<OrderResponse>
                 {

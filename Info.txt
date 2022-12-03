@@ -24,16 +24,18 @@ Up to the point of ordering, everything should work. Sometimes side navbar does 
 during debugging, but fixed the issue of adding an item already in the basket. User only gets redirect to
 shoppingcart, no message provided. Overkill.
 
+
 4.
 Orders: Should be working in terms of API-functionality and CQRS. Haven't worked with CQRSpattern before, so leave it as is for now.
 GUI left to implement. 
 
 
+
 Download and Run Instructions:
 
-A) Download, extract, rebuild to check everything is working.
+1. Download, extract, rebuild to check everything is working.
 
-B) You might have to run these commands - and dont forget to adjust SqlServer Connection settings if so (and to remove old migrations folder first!).
+2. You might have to run these commands - and dont forget to adjust SqlServer Connection settings if so (and to remove old migrations folder first!).
 
 Adjusting settings done via Dependencies inside Project Shopping.Infrastructure and AppSettings inside Project Shopping.Api
 
@@ -53,5 +55,3 @@ Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
 5. Ctrl F5.
 6. Note: if you register as a new user in Development, you will be given "Administrator" role by default. 
 Change this to "StandardUser" in AccountController/Registration, or something else(see db for all roles seeded).
-
-

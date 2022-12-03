@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection.Metadata;
-
-namespace Shopping.Core.Constants
+﻿namespace Shopping.Core.Constants
 {
     public class AuthorizationSettings
     {

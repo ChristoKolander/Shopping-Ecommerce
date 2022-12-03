@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-
-namespace Shopping.Core.Entities
+﻿namespace Shopping.Core.Entities
 {
   
     //Using this to store values made when order was placed. Price might change, but not here!

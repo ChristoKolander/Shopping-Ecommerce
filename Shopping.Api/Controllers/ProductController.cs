@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Shopping.Shared.Dtos;
 using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Core.Entities;
-using Shopping.Core.Entities.RequestFeatures;
+using Shopping.Shared.Entities.RequestFeatures;
 using Shopping.Core.Interfaces;
-using Shopping.Infrastructure.Data.GenericRepositoriesRemake;
+using Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake;
 
 namespace Shopping.Api.Controllers
 {
@@ -136,7 +135,7 @@ namespace Shopping.Api.Controllers
 
             var productEntity = mapper.Map<Product>(productCreateDto);
 
-            var createdProduct = await productRepository.CreateProduct(productEntity);
+            var createdProduct =  await productRepository.CreateProduct(productEntity);
 
             return CreatedAtAction(nameof(GetProduct), new { id = createdProduct.Id }, createdProduct);
 

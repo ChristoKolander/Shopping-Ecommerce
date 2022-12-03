@@ -36,7 +36,7 @@ namespace Shopping.Infrastructure.Data.Repositories
                               CartStringId = cartItem.CartStringId,
                               UserClaimStringId = cart.UserClaimStringId
 
-                          }).SingleOrDefaultAsync();
+                          }).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<CartItem>> GetCartItems(string userStringId)
@@ -88,7 +88,7 @@ namespace Shopping.Infrastructure.Data.Repositories
                                       ProductId = product.Id,
                                       Qty = cartItemToAddDto.Qty
 
-                                  }).SingleOrDefaultAsync();
+                                  }).FirstOrDefaultAsync();
 
                 if (item != null)
                 {

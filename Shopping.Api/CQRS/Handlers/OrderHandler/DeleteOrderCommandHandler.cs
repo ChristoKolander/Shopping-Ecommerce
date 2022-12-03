@@ -25,10 +25,10 @@ namespace Shopping.Api.CQRS.Handlers.OrderHandler
 
             RequestResponse response;
 
-            var entity = dbContext.Orders
+            var entity = await dbContext.Orders
                 .Include(o => o.OrderItems)
                 .TagWith(nameof(DeleteOrderCommandHandler))
-                .SingleOrDefault(d => d.Id == request.Id);
+                .FirstOrDefaultAsync(d => d.Id == request.Id);
             if (entity == null) throw new Exception("The order does not exists");
 
             dbContext.Orders.Remove(entity);

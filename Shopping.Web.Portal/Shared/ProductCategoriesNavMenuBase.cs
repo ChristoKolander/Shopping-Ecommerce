@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Web.Portal.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Shopping.Web.Portal.Shared
 {

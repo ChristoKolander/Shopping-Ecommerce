@@ -1,5 +1,5 @@
 ﻿using Shopping.Core.Entities;
-using Shopping.Core.Entities.RequestFeatures;
+using Shopping.Shared.Entities.RequestFeatures;
 using Shopping.Core.Paging;
 using System;
 using System.Collections.Generic;

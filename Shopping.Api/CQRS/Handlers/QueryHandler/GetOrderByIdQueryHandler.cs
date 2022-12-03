@@ -25,7 +25,7 @@ namespace Shopping.Api.CQRS.Handlers.QueryHandler.OrderHandler
         {
             QueryResult<OrderResponse> response;
 
-            var result = dbContext.Orders
+            var result = await dbContext.Orders
                 .Include(o => o.OrderItems)
                 .ThenInclude(i => i.ProductOrdered)
                 .TagWith(nameof(GetOrderByIdQueryHandler))
@@ -34,7 +34,7 @@ namespace Shopping.Api.CQRS.Handlers.QueryHandler.OrderHandler
        
                 .ProjectTo<OrderResponse>(mapper.ConfigurationProvider)
              
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
   
             response = new QueryResult<OrderResponse>
             {

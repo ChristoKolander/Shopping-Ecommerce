@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shopping.Core.Entities;
-using Shopping.Core.Entities.RequestFeatures;
+using Shopping.Shared.Entities.RequestFeatures;
 using Shopping.Core.Interfaces;
 using Shopping.Core.Paging;
 using System;
@@ -26,7 +26,7 @@ namespace Shopping.Infrastructure.Data.Repositories
         {
             return await FindByCondition(p => p.Id == id)
                                     .Include(p => p.ProductCategory)
-                                    .SingleOrDefaultAsync(p => p.Id == id);
+                                    .FirstOrDefaultAsync(p => p.Id == id);
 
         }
         
@@ -132,7 +132,7 @@ namespace Shopping.Infrastructure.Data.Repositories
 
         public async Task<ProductCategory> GetCategory(int id)
         {
-            var category = await productContext.ProductCategories.SingleOrDefaultAsync(c => c.Id == id);
+            var category = await productContext.ProductCategories.FirstOrDefaultAsync(c => c.Id == id);
             return category;
         }
 

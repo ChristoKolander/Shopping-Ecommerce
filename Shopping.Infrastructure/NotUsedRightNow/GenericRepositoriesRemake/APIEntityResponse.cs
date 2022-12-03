@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Shopping.Infrastructure.Data.GenericRepositoriesRemake
+namespace Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake
 {
     public class APIEntityResponse<TEntity> where TEntity : class
     {

@@ -20,7 +20,7 @@ using Shopping.Api;
 using MediatR;
 
 // Note 1: extracting too many services outside this container, using extensionmethods did not work out as expected.
-// Note 2: in some cases, order in here did matter.
+// Note 2: in some cases, order in here did matter!
 
 # region Builder and NLog
 

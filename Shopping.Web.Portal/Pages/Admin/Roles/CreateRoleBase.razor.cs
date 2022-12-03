@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Shopping.Shared.Dtos.RolesAndUsers;
 using Shopping.Web.Portal.Services.Interfaces;
-using System.Threading.Tasks;
 
 namespace Shopping.Web.Portal.Pages.Admin.Roles
 {
