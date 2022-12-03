@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Shopping.Shared.Dtos.RolesAndUsers;
 using Shopping.Web.Portal.Services.Interfaces;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Shopping.Web.Portal.Pages.Admin.Roles
 {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shopping.Shared.Dtos;
 using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Web.Portal.Features.RequestFeatures;
 using Shopping.Web.Portal.Pages.Auth;

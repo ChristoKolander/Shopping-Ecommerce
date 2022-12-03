@@ -1,4 +1,4 @@
-﻿using Shopping.Core.Entities.RequestFeatures;
+﻿using Shopping.Shared.Entities.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace Shopping.Core.Paging
 
         public static async Task<PagedList<T>> ToPagedList(IEnumerable<T> source, int pageNumber, int pageSize)
         {
-            
+
             var count = source.Count();
             var items = source
               .Skip((pageNumber - 1) * pageSize)

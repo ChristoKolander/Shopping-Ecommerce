@@ -1,5 +1,4 @@
-﻿using Shopping.Shared.Dtos;
-using Shopping.Shared.Dtos.CRUDs;
+﻿using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Core.Entities;
 
 namespace Shopping.Api

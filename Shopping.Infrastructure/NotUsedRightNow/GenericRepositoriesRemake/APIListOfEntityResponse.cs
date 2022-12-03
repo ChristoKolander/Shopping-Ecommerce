@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Shopping.Infrastructure.Data.GenericRepositoriesRemake
-{ 
+namespace Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake
+{
     public class APIListOfEntityResponse<TEntity> where TEntity : class
     {
         public bool Success { get; set; }

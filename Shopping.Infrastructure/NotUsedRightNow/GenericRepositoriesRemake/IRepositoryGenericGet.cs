@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shopping.Infrastructure.Data.GenericRepositoriesRemake
+namespace Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake
 {
-    public interface IRepositoryGenericGet<TEntity> :IRepository<TEntity> where TEntity : class
+    public interface IRepositoryGenericGet<TEntity> : IRepository<TEntity> where TEntity : class
     {
         Task<IEnumerable<TEntity>> Get(
             Expression<Func<TEntity, bool>> filter = null,

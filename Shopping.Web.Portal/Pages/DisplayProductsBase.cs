@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Shopping.Shared.Dtos;
+using Shopping.Shared.Dtos.CRUDs;
 using System.Collections.Generic;
 
 namespace Shopping.Web.Portal.Pages

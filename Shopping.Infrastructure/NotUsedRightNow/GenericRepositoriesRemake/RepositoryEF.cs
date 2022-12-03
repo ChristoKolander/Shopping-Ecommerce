@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Shopping.Infrastructure.Data.GenericRepositoriesRemake
+namespace Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake
 {
     public class RepositoryEF<TEntity, TDataContext> : IRepositoryGenericGet<TEntity>
         where TEntity : class
@@ -101,7 +101,7 @@ namespace Shopping.Infrastructure.Data.GenericRepositoriesRemake
             return entityToUpdate;
         }
 
-          
+
 
     }
 }

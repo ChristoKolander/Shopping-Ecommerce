@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Web.Portal.Services.Interfaces;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 
 namespace Shopping.Web.Portal.Pages

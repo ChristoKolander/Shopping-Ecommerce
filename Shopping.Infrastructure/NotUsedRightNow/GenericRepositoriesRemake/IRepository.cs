@@ -1,4 +1,4 @@
-﻿using Shopping.Core.Entities.RequestFeatures;
+﻿using Shopping.Shared.Entities.RequestFeatures;
 using Shopping.Core.Entities;
 using Shopping.Core.Paging;
 using System;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace Shopping.Infrastructure.Data.GenericRepositoriesRemake
+namespace Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake
 {
     public interface IRepository<TEntity> where TEntity : class
     {
@@ -20,4 +20,4 @@ namespace Shopping.Infrastructure.Data.GenericRepositoriesRemake
 
     }
 
- }
+}

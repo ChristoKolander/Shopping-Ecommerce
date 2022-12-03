@@ -1,4 +1,4 @@
-﻿namespace Shopping.Core.Entities.RequestFeatures
+﻿namespace Shopping.Shared.Entities.RequestFeatures
 {
     public class MetaData
     {

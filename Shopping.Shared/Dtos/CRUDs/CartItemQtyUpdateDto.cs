@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shopping.Shared.Dtos.CRUDs
+﻿namespace Shopping.Shared.Dtos.CRUDs
 {
    public class CartItemQtyUpdateDto
     {

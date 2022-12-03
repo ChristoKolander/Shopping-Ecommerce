@@ -1,6 +1,5 @@
 ﻿namespace Shopping.Shared.Dtos.CRUDs
 {
- 
        public class CartItemDto
         {
             public int Id { get; set; }

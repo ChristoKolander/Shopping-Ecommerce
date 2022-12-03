@@ -25,9 +25,9 @@ namespace Shopping.Api.CQRS.Handlers.OrderHandler
             RequestResponse response;
 
         
-                var entity = dbContext.Orders
+                var entity = await dbContext.Orders
                     .TagWith(nameof(UpdateOrderCommandHandler))
-                    .SingleOrDefault(d => d.Id == request.Id);
+                    .FirstOrDefaultAsync(d => d.Id == request.Id);
                 if (entity == null) throw new Exception("The order does NOT exists");
 
                 entity.UserEmail = request.UserEmail;

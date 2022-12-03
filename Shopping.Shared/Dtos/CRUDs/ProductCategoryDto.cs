@@ -1,5 +1,4 @@
-﻿
-namespace Shopping.Shared.Dtos.CRUDs
+﻿namespace Shopping.Shared.Dtos.CRUDs
 {
     public class ProductCategoryDto
     {

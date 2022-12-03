@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Shopping.Core.Entities;
+﻿namespace Shopping.Core.Entities;
 
 public class Address 
 {
