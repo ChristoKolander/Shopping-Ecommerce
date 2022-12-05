@@ -1,14 +1,19 @@
-﻿Info: 
+﻿Info Core Project 
 
-Dependencies - as you can see there's a dependency on the Shared Project because 2 DTOs are needed for
-interface construction: CartItemToAddDto and CartItemQtyUpdateDto. Since these also are needed at the GUI
-level I felt keeping them inside Shared Project made sense. 
+1. Dependencies - 
 
-On those lines I also added OrderDto and OderItemDto to this Core Project - needed for the Address Class inside
-this Core Project. This keeps the Shared Project totally independent. 
+   As you can see there's a dependency on the Shared Project because 2 DTOs are needed for
+   interface construction: CartItemToAddDto and CartItemQtyUpdateDto. Since these also are needed at the GUI
+   level I felt keeping them inside Shared Project made sense. 
 
-Design - at the moment, Core basically is a flat storage for domain entities and needed stuff, not a lot of
-domain logic - if any. So you can't really say it's a DDD pattern. But maybe I'll get there moving on. 
+   On those lines I also added OrderDto and OderItemDto to this Core Project - needed for the Address Class inside
+   this Core Project. This keeps the Shared Project totally independent. 
 
-NotUsedRightNow - QueryResponse.cs ... but keeping this file in case I want to redo it, make it an abstract
-base class used for additional CQRS-classes.
+2. Design - 
+
+   At the moment, Core basically is a flat storage for domain entities and needed stuff, not a lot of
+   domain logic - if any. So you can't really say it's a DDD pattern. But maybe I'll get there moving on... 
+
+3. Entities - 
+
+   No validation added! This is done via DTOs stored inside Shared Project.

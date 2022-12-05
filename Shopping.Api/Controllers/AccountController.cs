@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Shopping.Shared.Dtos.Auths;
 using Shopping.Api.Attributes;
 using Shopping.Core.Interfaces;
-using Shopping.Shared.Dtos;
+using Shopping.Shared;
 
 namespace Shopping.Api.Controllers
 {

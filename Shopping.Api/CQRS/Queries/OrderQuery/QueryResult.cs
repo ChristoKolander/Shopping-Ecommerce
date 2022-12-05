@@ -1,5 +1,4 @@
-﻿
-namespace Shopping.Api.CQRS.Queries.OrderQuery
+﻿namespace Shopping.Api.CQRS.Queries.OrderQuery
 {
  
     public class QueryResult<T> where T : class

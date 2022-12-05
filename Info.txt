@@ -1,57 +1,48 @@
-This Update Info.txt at: 2022-11-30
+This Update Info.txt at: 2022-12-04
 
-Last Updated Info.txt at: 2022-11-13
+Last Updated Info.txt at: 2022-11-30
 
 Some short notes:
 
-1.
-When it comes to authentication checks, in order to keep the shopping cart balanced, there is some DRY in this lab. 
-Not yet been  able to extract this check to a seperate service, and/or blazor component. 
-I got the feeling this is not achievable (unless you create your own IsAuthenticated - method, maybe setting a boolean SQL-flag when logging in, which seems odd). 
-At this point I haven't googled around, but if this should be the case, I would hesitate to use Blazor Web Assembly in production, opt for Server App instead. 
-My conlusion, somewhat on the fly, is that the Blazor Server App also gives better control when it comes to logging and errohandling, and protection of intellectual property should that be needed.  
+1. In order to keep the shopping cart "balanced", there is some/too much DRY in this lab. 
+   Not yet been  able to extract Authentication check to a seperate service, and/or blazor component.
+   Maybe not doable in a Blazor Web Assembly app?! 
+
+2. Paypal coding is a mess, especially in combination with .NET. No uptodate information/examples anywhere. 
+   No donation, purchased product(s) need to be handled/controlled/verified by a server. 
+   Finally got the paypal script to open up the Check Out form, however yet to find a way to populate amount.value dynamically.
 
 
-
-2. 
-Paypal coding is a mess, especially in combination with .NET. No uptodate information/examples anywhere. 
-This is not a donate situation where the user decides amount, so purchased product(s) need to be handled/controlled/verified by a server. 
-Finally got the paypal script to open up the Check Out form, however yet to find a way to populate amount.value dynamically.
+3. Up to the point of ordering, everything should work. Sometimes side navbar does not get loaded correctly, esp. during development.
 
 
-3.
-Up to the point of ordering, everything should work. Sometimes side navbar does not get loaded correctly, esp.
-during debugging, but fixed the issue of adding an item already in the basket. User only gets redirect to
-shoppingcart, no message provided. Overkill.
+4. Orders - Haven't worked with CQRSpattern before, pretty nice structure. API works, GUI Orders left to implement. 
 
 
-4.
-Orders: Should be working in terms of API-functionality and CQRS. Haven't worked with CQRSpattern before, so leave it as is for now.
-GUI left to implement. 
+5. Download and Run Instructions -
+
+A) Download, extract, rebuild to check everything is working.
+
+B) You might have to run these commands - and dont forget to adjust SqlServer Connection settings if so (and to remove old migrations folder first!).
+
+   Adjusting settings done via Dependencies inside Project Shopping.Infrastructure and AppSettings inside Project Shopping.Api
+
+   Commands - Package Manager Console - if needed: 
+
+   Add-Migration InitialProd -Context ProductContext -StartupProject Shopping.Api -OutputDir Migrations/Prod
+
+   Update-Database -Context ProductContext -StartupProject Shopping.Api
+
+   Add-Migration InitialAppId -Context AppIdentityDbContext -StartupProject Shopping.Api -OutputDir Migrations/AppId
+
+   Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
 
 
+C) Set as multiple start-up projects from solution explorer, API on top and Shopping.Web.Portal below.
 
-Download and Run Instructions:
+D) There are 2 initial Users seeded, but u can try registering one, TestUser@hotmail.com for instance.
 
-1. Download, extract, rebuild to check everything is working.
+E) Ctrl F5.
 
-2. You might have to run these commands - and dont forget to adjust SqlServer Connection settings if so (and to remove old migrations folder first!).
-
-Adjusting settings done via Dependencies inside Project Shopping.Infrastructure and AppSettings inside Project Shopping.Api
-
-Commands - Package Manager Console - if needed: 
-
-Add-Migration InitialProd -Context ProductContext -StartupProject Shopping.Api -OutputDir Migrations/Prod
-
-Update-Database -Context ProductContext -StartupProject Shopping.Api
-
-Add-Migration InitialAppId -Context AppIdentityDbContext -StartupProject Shopping.Api -OutputDir Migrations/AppId
-
-Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
-
-
-3. Set as multiple start-up projects from solution explorer, API on top and Shopping.Web.Portal below.
-4. There are 2 initial Users seeded, but u can try registering one, TestUser@hotmail.com for instance.
-5. Ctrl F5.
-6. Note: if you register as a new user in Development, you will be given "Administrator" role by default. 
-Change this to "StandardUser" in AccountController/Registration, or something else(see db for all roles seeded).
+F) Note: if you register as a new user in Development, you will be given "Administrator" role by default. 
+   Change this to "StandardUser" in AccountController/Registration, or something else(see db for all roles seeded).

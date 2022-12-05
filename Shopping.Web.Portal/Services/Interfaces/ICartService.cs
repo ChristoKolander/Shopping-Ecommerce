@@ -1,8 +1,5 @@
 ﻿using Shopping.Core.Entities;
 using Shopping.Shared.Dtos.CRUDs;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Shopping.Web.Portal.Services.Interfaces
 {

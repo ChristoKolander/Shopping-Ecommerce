@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Shopping.Shared.Claims;
 
 namespace Shopping.Shared.Dtos
 {

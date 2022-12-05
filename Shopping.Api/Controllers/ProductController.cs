@@ -6,7 +6,7 @@ using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Core.Entities;
 using Shopping.Shared.Entities.RequestFeatures;
 using Shopping.Core.Interfaces;
-using Shopping.Infrastructure;
+using Shopping.Infrastructure.GenericRepositoriesRemake;
 
 namespace Shopping.Api.Controllers
 {
@@ -43,7 +43,7 @@ namespace Shopping.Api.Controllers
             if (product == null)
             {
                 logger.LogError("GetProduct; could not get product");
-                return BadRequest();
+                return NotFound($"Product with Id = {id} not found");
             }
 
 
@@ -60,7 +60,8 @@ namespace Shopping.Api.Controllers
 
             if (products == null)
             {
-                return NotFound();
+                logger.LogError("GetProducts; could not get products");
+                return NotFound("Products could not be found");
             }
 
             var productDtos = products.ConvertToDto();
@@ -81,7 +82,7 @@ namespace Shopping.Api.Controllers
             if (products == null)
             {
                 logger.LogError("GetProductsWithParams; could not get products");
-                return NotFound();
+                return NotFound("Products could not be found");
             }
 
             var productDtos = products.ConvertToDto();
@@ -105,7 +106,7 @@ namespace Shopping.Api.Controllers
             if (products == null)
             {
                 logger.LogError("GetProductsFiltered; could not get products");
-                return NotFound();
+                return NotFound("Products filtered by Price could not be found");
             }
 
             var productDtos = products.ConvertToDto();
@@ -149,7 +150,7 @@ namespace Shopping.Api.Controllers
 
             if (productUpdateDto is null)
             {
-                logger.LogError("UpdateProduct; could not create product because it is null");
+                logger.LogError("UpdateProduct; could not update product because it is null");
                 return BadRequest("Product object is null");
             }
 
@@ -185,7 +186,7 @@ namespace Shopping.Api.Controllers
 
             if (productToDelete == null)
             {
-                logger.LogError("Delete Product; could not find product");
+                logger.LogError("Delete Product; could not find product to delete");
                 return NotFound($"Product with Id = {id} not found");
             }
 
@@ -205,8 +206,8 @@ namespace Shopping.Api.Controllers
 
             if (products == null)
             {
-                logger.LogError("GetItemsByCategory; could not find products");
-                return NotFound();
+                logger.LogError("GetItemsByCategory; could not find products for this Category");
+                return NotFound("Products in this Category could not be found");
             }
 
             var productDtos = products.ConvertToDto();
@@ -224,8 +225,8 @@ namespace Shopping.Api.Controllers
 
             if (productCategories == null)
             {
-                logger.LogError("GetProductCategories; could not find productCategories");
-                return NotFound();
+                logger.LogError("GetProductCategories; could not find product categories");
+                return NotFound("Product Category could not be found, or does not exist");
             }
 
             var productCategoryDtos = productCategories.ConvertToDto();

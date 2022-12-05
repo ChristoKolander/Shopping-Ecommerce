@@ -1,7 +1,5 @@
 ﻿using Shopping.Shared.Dtos;
 using Shopping.Shared.Dtos.RolesAndUsers;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Shopping.Web.Portal.Services.Interfaces
 {

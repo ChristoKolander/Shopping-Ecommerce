@@ -1,5 +1,4 @@
-﻿
-using MediatR;
+﻿using MediatR;
 using Shopping.Core;
 
 namespace Shopping.Api.CQRS.Queries.OrderQuery

@@ -3,7 +3,6 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Api.CQRS.Queries.OrderQuery;
-using Shopping.Core.Entities;
 using Shopping.Core.Entities.CQRSresponses;
 using Shopping.Infrastructure.Data;
 

@@ -1,0 +1,11 @@
+﻿Info Shared Project
+
+1. Dependencies - 
+
+   No Project, some Libraries though.
+
+
+2. Dtos - 
+
+   Validation added and used on these, for SQL server storage settings.
+

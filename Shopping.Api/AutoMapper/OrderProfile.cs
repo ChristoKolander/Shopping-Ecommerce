@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using Shopping.Core.Entities;
-using Shopping.Shared.Dtos.CRUDs;
-using Shopping.Shared.Dtos;
-using Shopping.Api.CQRS.Queries.OrderQuery;
 using Shopping.Core.Entities.CQRSresponses;
 namespace Shopping.Api.AutoMapper
 {

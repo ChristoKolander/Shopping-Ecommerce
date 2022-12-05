@@ -33,17 +33,17 @@ namespace Shopping.Api.SwaggerOptions
                 Version = description.ApiVersion.ToString(),
                 Title = "Shopping API Test Site",
                 Description = "An ASP.NET Core Web API for Testing/LAB purposes",
-                TermsOfService = new Uri("https://localhost:"),
+                TermsOfService = new Uri("https://cnn.com"),
                 Contact = new OpenApiContact
                 {
                     Name = "CK",
                     Email = string.Empty,
-                    Url = new Uri("https://twitter.com/CodeSweder1"),
+                    Url = new Uri("https://microsoft.com"),
                 },
                 License = new OpenApiLicense
                 {
                     Name = "Use under LICX",
-                    Url = new Uri("https://localhost:"),
+                    Url = new Uri("https://swagger.com"),
                 }
             };
 

@@ -33,7 +33,9 @@ namespace Shopping.Api.Controllers
 
         #endregion
 
+        # region CartItems
 
+        // Used for the Add CartItem Action only.
         [HttpGet("{id:int}")]
         public async Task<ActionResult<CartItemDto>> GetCartItem(int id)
         {
@@ -60,6 +62,7 @@ namespace Shopping.Api.Controllers
 
         }
 
+        
         [HttpGet]
         [Route("{userStringId}/GetCartItems")]
         public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems(string userStringId) 
@@ -87,7 +90,7 @@ namespace Shopping.Api.Controllers
 
         }
 
-
+        
         [HttpPost]
         public async Task<ActionResult<CartItemDto>> AddCartItem([FromBody] CartItemToAddDto cartItemToAddDto)
         {
@@ -114,8 +117,7 @@ namespace Shopping.Api.Controllers
 
         }
 
-
-
+       
         [HttpPatch("UpdateCartItem/{id}")]
         public async Task<ActionResult<CartItemDto>> UpdateCartItem(int id, CartItem CartItem)
         {
@@ -138,7 +140,7 @@ namespace Shopping.Api.Controllers
 
         }
 
-
+      
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<CartItemDto>> DeleteCartItem(int id)
         {
@@ -166,8 +168,30 @@ namespace Shopping.Api.Controllers
 
         }
 
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<CartItemDto>> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
+        {
+
+            var cartItem = await cartRepository.UpdateQty(id, cartItemQtyUpdateDto);
+
+            if (cartItem == null)
+            {
+                logger.LogError("UpdateQty; could not get cartItem");
+                return NotFound();
+            }
 
 
+            var product = await productRepository.GetProduct(cartItem.ProductId);
+
+            var cartItemDto = cartItem.ConvertToDto(product);
+
+            return Ok(cartItemDto);
+
+        }
+
+        #endregion
+
+        #region Carts
 
         [HttpPost("AddCart")]
         public async Task<ActionResult<Cart>> AddCart([FromBody] Cart Cart)
@@ -196,25 +220,8 @@ namespace Shopping.Api.Controllers
             return Ok(cart);
 
         }
-
-
-        [HttpGet("{cartStringId}/GetCart")]
-        public async Task<ActionResult<Cart>> GetCart(string cartStringId)
-        {
-
-            var cart = await cartRepository.GetCart(cartStringId);
-
-            if (cart == null)
-            {
-                logger.LogError("GetCart; could not get cart");
-                return NotFound();
-            }
-
-            return Ok(cart);
-
-        }
-
-
+      
+        
         [HttpDelete("{cartStringId}/deleteCart")]
         public async Task<ActionResult<Cart>> DeleteCart(string cartStringId)
         {
@@ -232,61 +239,6 @@ namespace Shopping.Api.Controllers
             return Ok(deletedCart);
 
         }
-
-
-
-        [HttpPatch("{id:int}")]
-        public async Task<ActionResult<CartItemDto>> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
-        {
-
-            var cartItem = await cartRepository.UpdateQty(id, cartItemQtyUpdateDto);
-
-            if (cartItem == null)
-            {
-                logger.LogError("UpdateQty; could not get cartItem");
-                return NotFound();
-            }
-
-
-            var product = await productRepository.GetProduct(cartItem.ProductId);
-
-            var cartItemDto = cartItem.ConvertToDto(product);
-
-            return Ok(cartItemDto);
-
-        }
-
-
-
-        #region NotUsedRightNow
-
-        //Not used right now
-        //[HttpGet]
-        //[Route("{userId}/GetCartItems")]
-        //public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems(string userId)
-        //{
-
-        //    var cartItems = await shoppingCartRepository.GetCartItems(userId);
-
-        //    if (cartItems == null)
-        //    {
-        //        logger.LogError("GetCartItems; could not get cartItems");
-        //        return NoContent();
-        //    }
-
-        //    var products = await productRepository.GetProducts();
-
-        //    if (products == null)
-        //    {
-        //        logger.LogError("GetCartItems; could not get products from system");
-        //        throw new Exception("No products exist in the system");
-        //    }
-
-        //    var cartItemsDto = cartItems.ConvertToDto(products);
-
-        //    return Ok(cartItemsDto);
-
-        //}
 
         # endregion
 

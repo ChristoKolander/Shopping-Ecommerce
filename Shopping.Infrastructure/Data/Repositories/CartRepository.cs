@@ -145,7 +145,7 @@ namespace Shopping.Infrastructure.Data.Repositories
         public async Task<Cart> DeleteCart(string cartStringId)
         {
             var cart = await productContext.Carts
-                         .FirstOrDefaultAsync(sc => sc.CartStringId == cartStringId);
+                         .FirstOrDefaultAsync(c => c.CartStringId == cartStringId);
             if (cart != null)
             {
                 productContext.Carts.Remove(cart);
@@ -170,43 +170,7 @@ namespace Shopping.Infrastructure.Data.Repositories
             return null;
         }
 
-
-        # region NotUsedRightNow
-        //Not used right now.
-        public async Task<IEnumerable<CartItem>> GetCartItems2(string userStringId)
-        {
-            return await (from cart in productContext.Carts
-                          join cartItem in productContext.CartItems
-                          on cart.CartStringId equals cartItem.CartStringId
-                          where cart.UserClaimStringId == userStringId
-                          select new CartItem
-                          {
-                              Id = cartItem.Id,
-                              ProductId = cartItem.ProductId,
-                              Qty = cartItem.Qty
-
-                          }).ToListAsync();
-        }
-
-        public async Task<CartItem> GetCartItem2(int id)
-        {
-
-            return await (from cart in productContext.Carts
-                          join cartItem in productContext.CartItems
-                          on cart.CartStringId equals cartItem.CartStringId
-                          where cartItem.Id == id
-                          select new CartItem
-                          {
-                              Id = cartItem.Id,
-                              ProductId = cartItem.ProductId,
-                              Qty = cartItem.Qty,
-                              CartStringId = cartItem.CartStringId,
-                              UserClaimStringId = cartItem.UserClaimStringId
-
-                          }).SingleOrDefaultAsync();
-        }
-
-        # endregion
+  
 
     }
 }

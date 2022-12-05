@@ -1,9 +1,6 @@
-﻿using FluentValidation;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Shopping.Core.Entities.CQRSresponses;
-using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Web.Portal.Services.Interfaces;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;

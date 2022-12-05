@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Core.Interfaces;
 using Shopping.Infrastructure.Identity;
+using Shopping.Shared.Claims;
 using Shopping.Shared.Dtos;
 using Shopping.Shared.Dtos.RolesAndUsers;
 using System.Security.Claims;
@@ -436,9 +437,7 @@ namespace Shopping.Api.Controllers
         #endregion
 
 
-
         [HttpGet("ManageUserRoles/{id}")]
-        [Authorize(Policy = "AdminRolePolicy")]
         public async Task<ActionResult<IEnumerable<UserRolesDto>>> ManageUserRoles(string Id)
         {
 
@@ -485,7 +484,6 @@ namespace Shopping.Api.Controllers
 
 
         [HttpPatch("ManageUserRoles/{id}")]
-        [Authorize(Policy = "AdminRolePolicy")]
         public async Task<ActionResult<IEnumerable<UserRolesDto>>> ManageUserRoles(string id, List<UserRolesDto> userRolesDtos)
         {
 
@@ -537,7 +535,6 @@ namespace Shopping.Api.Controllers
 
 
         [HttpGet("ManageUserClaims/{id}")]
-        [Authorize(Policy = "AdminRolePolicy")]
         public async Task<ActionResult<UserClaimsDto>> ManageUserClaims(string id)
         {
 
@@ -578,7 +575,6 @@ namespace Shopping.Api.Controllers
 
 
         [HttpPost("ManageUserClaims/{id}")]
-        [Authorize(Policy = "AdminRolePolicy")]
         public async Task<ActionResult<UserClaimsDto>> ManageUserClaims(string id, UserClaimsDto userClaimsDto)
         {
 

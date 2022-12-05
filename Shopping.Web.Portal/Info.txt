@@ -1,0 +1,87 @@
+﻿Info Web.Portal Project
+
+1. Dependencies  - 
+
+   Core, Infrastructe and Shared Project
+
+
+2. <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly"> - 
+
+   Did not enable checks for null.
+
+3. Naming - 
+
+   Early on naming mistake. Not been able to change it...However, think my initial intention was to create
+   another project, separate UI for Admininstration. Web.Admin - using Angular?
+
+4. Logging - 
+
+   No. Loosely coupled frontend running code on client, should you use logging? 
+   I don't know. Maybe some security issues popping up later on?
+
+5. wwwroot -
+
+   Using .NET 6 and razor you could and maybe should use css tightly coupled to the .razor page - but since I started with 3.1
+   I kept some settings here. I prefer a centralized storage pattern for css, but using/testing a decentralized file connected 
+   to file DisplayProduct.razor.
+
+   Index.html - note that the javascript for paypal used on Checkout is stored here. Initial script did not work, so had to make
+   some adjustments. No training in Javascript. Still...does not work as intended, unable to populate variables. 
+
+
+6. Components -
+
+   Unroutable and reusable Blazor Components are stored here. 
+
+
+7. Features -
+
+   Files/Classes for Paging and JWT extraction stored here.
+
+
+
+8. Pages -
+
+   Routable razor pages. 
+
+   Separation into some different folders made sense. Implementation/structure could be discussed. 
+
+   DRY - authentication check needs to be made on a lot of different pages. Not been able to extract this to a once off
+   service (not yet!). That's why I keep the class CurrentUser inside Shared Project; maybe can use this as a proxy?
+
+
+
+9. Services -
+
+   Namings and Number of Services could be discussed.
+
+
+
+10.Shared
+
+   Unroutable and globally used Razor pages for Navigation are stored here.
+
+
+
+11.Program.cs -
+
+   Some policies for displaying different pages and links are used. Counterpart on API.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

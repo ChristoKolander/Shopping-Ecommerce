@@ -3,9 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Shopping.Api.CQRS.Commands.OrderCommand;
 using Shopping.Core.Entities.CQRSresponses;
 using Shopping.Infrastructure.Data;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Shopping.Api.CQRS.Handlers.OrderHandler
 {

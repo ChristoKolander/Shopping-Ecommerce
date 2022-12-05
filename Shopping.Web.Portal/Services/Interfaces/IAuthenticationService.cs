@@ -1,4 +1,4 @@
-﻿using Shopping.Shared.Dtos;
+﻿using Shopping.Shared;
 using Shopping.Shared.Dtos.Auths;
 
 namespace Shopping.Web.Portal.Services.Interfaces

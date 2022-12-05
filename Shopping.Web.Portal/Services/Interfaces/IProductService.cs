@@ -1,9 +1,6 @@
 ﻿using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Web.Portal.Features.PagingFeatures;
 using Shopping.Web.Portal.Features.RequestFeatures;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Shopping.Web.Portal.Services.Interfaces
 {

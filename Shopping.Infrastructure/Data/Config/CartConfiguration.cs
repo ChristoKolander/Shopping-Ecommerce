@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shopping.Core.Entities;
 
-namespace Shopping.Infrastructure.NotUsedRightNow
+namespace Shopping.Infrastructure.Data.Config
 {
     //public class CartConfiguration : IEntityTypeConfiguration<Cart>
     //{

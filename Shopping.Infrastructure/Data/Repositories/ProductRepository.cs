@@ -32,11 +32,7 @@ namespace Shopping.Infrastructure.Data.Repositories
         
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            //return await productContext.Products
-            //            .Include(p => p.ProductCategory)
-            //            .OrderBy(p => p.Id)
-            //            .ToListAsync();
-
+            
             return await FindAllAsync()
                        .Include(p => p.ProductCategory)
                        .OrderBy(p => p.Id)

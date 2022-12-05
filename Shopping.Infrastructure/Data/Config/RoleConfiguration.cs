@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 
-namespace Shopping.Infrastructure.NotUsedRightNow
+namespace Shopping.Infrastructure.Data.Config
 {
     //public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
     //{

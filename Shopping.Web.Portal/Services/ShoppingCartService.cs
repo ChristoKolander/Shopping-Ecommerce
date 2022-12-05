@@ -38,7 +38,9 @@ namespace Shopping.Web.Portal.Services
             };            
         }
 
-        # endregion   
+        #endregion
+
+        # region CartItems
 
         public async Task<CartItemDto> AddCartItem(CartItemToAddDto cartItemToAddDto)
         {
@@ -129,30 +131,11 @@ namespace Shopping.Web.Portal.Services
 
         }
 
-      
+        #endregion
 
-        public async Task<Cart> GetCart(string cartStringId)
-        {
+        # region Cart
 
-            HttpResponseMessage response = await httpClient.GetAsync($"api/Cart/{cartStringId}/GetCart");
 
-            if (response.IsSuccessStatusCode)
-            {
-                if (response.StatusCode == HttpStatusCode.NoContent)
-                {
-                    return default(Cart);
-                }
-
-                return await response.Content.ReadFromJsonAsync<Cart>();
-            }
-            else
-            {
-                var message = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
-            }
-
-        }
-      
         public async Task<Cart> CreateCart(Cart cart)
         {
       
@@ -189,10 +172,11 @@ namespace Shopping.Web.Portal.Services
             }
             return default(Cart);
         }
-    
-       
 
-        # region NotUsedAtTheMoment Stuff...
+
+        # endregion
+
+        #region NotUsedRightNow
 
         //Not used at the moment, predesessor...keeping in case need something similar..
         public async Task<List<CartItemDto>> GetCartItems2(string userStringId)
@@ -247,6 +231,32 @@ namespace Shopping.Web.Portal.Services
                 throw new Exception($"Http status:{response.StatusCode} Message -{message}");
             }
         }
+
+        public async Task<Cart> GetCart(string cartStringId)
+        {
+
+            HttpResponseMessage response = await httpClient.GetAsync($"api/Cart/{cartStringId}/GetCart");
+
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == HttpStatusCode.NoContent)
+                {
+                    return default(Cart);
+                }
+
+                return await response.Content.ReadFromJsonAsync<Cart>();
+            }
+            else
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
+            }
+
+        }
+
+
+
+
 
         # endregion
     }

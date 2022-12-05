@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Shopping.Shared.Claims;
 using Shopping.Shared.Dtos;
 using Shopping.Shared.Dtos.RolesAndUsers;
 using Shopping.Web.Portal.Services.Interfaces;

@@ -21,9 +21,5 @@ namespace Shopping.Core.Interfaces
         Task<Cart> GetCart(string cartStringId);
         Task<Cart> DeleteCart(string cartStringId);
 
-
-        //Task<ShoppingCartItem> GetCartItem2(int id);
-        //Task<IEnumerable<ShoppingCartItem>> GetCartItems2(string userStringId);
-
     }
 }

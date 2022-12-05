@@ -1,7 +1,8 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 
 
-namespace Shopping.Api
+namespace Shopping.Shared.Claims
 {
     public class CustomClaims
     {

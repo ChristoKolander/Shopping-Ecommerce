@@ -54,7 +54,7 @@ Shopping.Infrastructure.Dependencies.ConfigureDBServices(builder.Configuration, 
 //See folder Extensions!
 builder.Services.AddServiceRegistration(builder.Configuration);
 
-#region Cors
+# region Cors
 
 //Configure CORS in Production...
 const string CORS_POLICY = "CorsPolicy";
@@ -69,10 +69,10 @@ builder.Services.AddCors(options =>
                   .WithExposedHeaders("X-Pagination");
        });
 });
-#endregion
+# endregion
 
 
-#region Injected Services
+# region Injected Services
 
 builder.Services.AddScoped<ValidationFilterAttribute>();
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -93,10 +93,10 @@ builder.Services.AddResponseCompression(options =>
     options.Providers.Add<GzipCompressionProvider>();
 });
 
-#endregion
+# endregion
 
 
-#region SwaggerStuff...
+# region SwaggerStuff...
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -105,9 +105,9 @@ builder.Services.AddSwaggerGen(c =>
     c.SchemaFilter<CustomSchemaFilters>();
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+        Description = @"JWT Authorization header using the Bearer scheme. 
                           Enter 'Bearer' [space] and then your token in the text input below.
-                          \r\n\r\nExample: 'Bearer 12345abcdef'",
+                          Example: 'Bearer 12345abcdef'",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
@@ -152,10 +152,10 @@ builder.Services.AddVersionedApiExplorer(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
-#endregion
+# endregion
 
 
-#region Request PipeLine
+# region Request PipeLine
 
 
 var app = builder.Build();
@@ -233,7 +233,7 @@ app.Run();
 
 public partial class Program { }
 
-#endregion
+# endregion
 
 
 

@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Shopping.Core.Entities;
 using Shopping.Core.Entities.CQRSresponses;
-using System;
 
 namespace Shopping.Api.CQRS.Commands.OrderCommand
 {

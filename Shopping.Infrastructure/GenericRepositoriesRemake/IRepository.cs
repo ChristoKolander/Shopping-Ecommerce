@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 
-namespace Shopping.Infrastructure.NotUsedRightNow.GenericRepositoriesRemake
+namespace Shopping.Infrastructure.GenericRepositoriesRemake
 {
     public interface IRepository<TEntity> where TEntity : class
     {

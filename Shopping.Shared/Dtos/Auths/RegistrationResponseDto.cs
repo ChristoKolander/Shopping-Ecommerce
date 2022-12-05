@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-
-
 namespace Shopping.Shared.Dtos.Auths
 {
     public class RegistrationResponseDto

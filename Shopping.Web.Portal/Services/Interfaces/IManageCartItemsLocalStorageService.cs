@@ -1,7 +1,4 @@
-﻿using Blazored.LocalStorage;
-using Shopping.Core.Entities;
-using Shopping.Shared.Dtos;
-using Shopping.Shared.Dtos.CRUDs;
+﻿using Shopping.Shared.Dtos.CRUDs;
 
 namespace Shopping.Web.Portal.Services.Interfaces
 {

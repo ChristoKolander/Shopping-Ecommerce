@@ -1,0 +1,77 @@
+﻿Info Api Project
+
+1. Dependencies  - 
+
+   Core, Infrastructure, Shared
+
+2. Attributes - 
+ 
+   Don't think ValidationFilterAttribute adds enough value to this project.
+
+2. Automapper - 
+
+   Not a big fan right now. Does not save much writing.
+
+2. Controllers - 
+
+   Using Dtos for most - not for Cart YET. Need to address this.
+
+2. CQRS - 
+
+   Pattern used for just Orders. Not all files are used.
+
+2. Extensions - 
+
+   Global errorhandling, a search extension on products, and testing to make Program.cs
+   a little cleaner by adding some service registrations here. Too much added, and it would not
+   run properly though.
+
+2. Logging - 
+
+   Implementing logging using NLog.
+
+2. Security - 
+
+   Complex authorization policy.
+
+2. StaticFiles- 
+
+   Files uploaded stored here for the moment.
+
+2. SwaggerOptions - 
+
+   Some Swagger Settings extracted to here, keeping Program.cs a little bit smaller.
+
+3. Program.cs - 
+
+   .NET 6 version - no startup class. 
+
+4. Region Builder and NLog - 
+
+   Need to configure logging even before configuring the host? Could not get it to work otherwise.
+   Using NLog as provider, no writing to file using just built in Microsoft logging providers.
+   I usually add logging early in dev. process since it adds more details when writing to file, debugging.
+
+
+
+4. Region Cors - 
+
+   Not really configured for production. Just adding it getting things to work.
+
+
+4. Region SwaggerStuff - 
+
+   A lot of settings getting it to work. 
+
+
+4. Region Request PipeLine - 
+
+   Order matters. Got this to work, so not changeing it !
+
+
+
+5. <Project Sdk="Microsoft.NET.Sdk.Web"> - 
+
+   did not enable checks for null. 
+
+

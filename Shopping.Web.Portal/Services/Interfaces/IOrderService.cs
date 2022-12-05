@@ -1,5 +1,4 @@
 ﻿using Shopping.Core.Entities.CQRSresponses;
-using Shopping.Shared;
 
 namespace Shopping.Web.Portal.Services.Interfaces
 {

@@ -20,15 +20,6 @@ namespace Shopping.Api.Controllers
         }
 
 
-        [HttpGet("orders/{userEmail}")]
-        public async Task<IActionResult> GetOrders(string userEmail)
-        {
-            var result = await mediator.Send(new GetOrders { UserEmail = userEmail });
-            return result.Successful == true
-                ? Ok(result)
-                : BadRequest(result);
-        }
-
 
         [HttpGet("order/{id}/{userEmail}")]
         public async Task<IActionResult> GetOrder(int id, string userEmail)
@@ -38,6 +29,16 @@ namespace Shopping.Api.Controllers
                 ? Ok(result)
                 : BadRequest(result);
         }
+
+        [HttpGet("orders/{userEmail}")]
+        public async Task<IActionResult> GetOrders(string userEmail)
+        {
+            var result = await mediator.Send(new GetOrders { UserEmail = userEmail });
+            return result.Successful == true
+                ? Ok(result)
+                : BadRequest(result);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommand command)

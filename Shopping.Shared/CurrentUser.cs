@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 
-namespace Shopping.Shared.Dtos
+namespace Shopping.Shared
 {
     public class CurrentUser
     {
