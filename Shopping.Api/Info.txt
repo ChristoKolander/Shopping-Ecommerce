@@ -49,7 +49,7 @@
 4. Region Builder and NLog - 
 
    Need to configure logging even before configuring the host? Could not get it to work otherwise.
-   Using NLog as provider, no writing to file using just built in Microsoft logging providers.
+   Using NLog as provider, no writing to file just using built in Microsoft logging providers.
    I usually add logging early in dev. process since it adds more details when writing to file, debugging.
 
 
