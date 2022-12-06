@@ -1,6 +1,9 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Shopping.Shared;
 using Shopping.Web.Portal.Features.RequestFeatures;
+using Shopping.Web.Portal.Services.Interfaces;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 
@@ -9,6 +12,7 @@ namespace Shopping.Web.Portal.Pages.Auth
 {
     public class AuthStateProvider : AuthenticationStateProvider
     {
+     
 
         private readonly HttpClient httpClient;
         private readonly ILocalStorageService localStorage;
@@ -23,6 +27,7 @@ namespace Shopping.Web.Portal.Pages.Auth
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
+           
             var token = await localStorage.GetItemAsync<string>("authToken");
 
             if (string.IsNullOrWhiteSpace(token))
@@ -50,8 +55,8 @@ namespace Shopping.Web.Portal.Pages.Auth
             var authState = Task.FromResult(anonymous);
             NotifyAuthenticationStateChanged(authState);
         }
-  
-     
+
+      
 
     }
 }
