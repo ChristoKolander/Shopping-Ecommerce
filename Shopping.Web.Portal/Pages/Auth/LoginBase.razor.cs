@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Shopping.Shared.Dtos.Auths;
 using Shopping.Web.Portal.Services.Interfaces;
+using Shopping.Web.Portal.Shared;
 
 namespace Shopping.Web.Portal.Pages.Auth
 {
@@ -19,7 +20,7 @@ namespace Shopping.Web.Portal.Pages.Auth
         [Inject]
         public IAuthenticationService AuthenticationService { get; set; }
         
-       
+        public AuthSolution authSolution { get; set; } = new AuthSolution();
 
 
         public async Task ExecuteLogin()
@@ -36,7 +37,8 @@ namespace Shopping.Web.Portal.Pages.Auth
             else
             {
                
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/", forceLoad: true);
+
             }
 
         }

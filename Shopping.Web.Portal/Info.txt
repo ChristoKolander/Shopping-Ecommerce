@@ -46,21 +46,15 @@
 
    Separation into some different folders made sense. Implementation/structure could be discussed. 
 
-   DRY - authentication check needs to be made on a lot of different pages. Not been able to extract this to a once off
-   service (not yet!). That's why I keep the class CurrentUser inside Shared Project; maybe can use this as a proxy?
-
-
 
 9. Services -
 
    Namings and Number of Services could be discussed.
 
 
-
 10.Shared
 
    Unroutable and globally used Razor pages for Navigation are stored here.
-
 
 
 11.Program.cs -

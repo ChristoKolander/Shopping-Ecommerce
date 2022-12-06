@@ -1,6 +1,11 @@
 ﻿@implements IDisposable
 @inject ICartService shoppingCartService
 @using System.Security.Claims;
+@using Shopping.Web.Portal.Pages.Auth
+@using Shopping.Shared.Dtos.CRUDs;
+
+
+
 
 <a href="ShoppingCart" class="btn btn-info">
     <i class="oi oi-cart"></i>&nbsp;Cart
@@ -10,13 +15,17 @@
 
 @code {
 
-   
+
     private int shoppingCartItemCount = 0;
 
-      protected override void OnInitialized()
+    protected override void OnInitialized()
+
     {
+
         shoppingCartService.OnShoppingCartChanged += ShoppingCartChanged;
     }
+
+
 
     protected void ShoppingCartChanged(int totalQty)
     {
@@ -29,15 +38,21 @@
         shoppingCartService.OnShoppingCartChanged -= ShoppingCartChanged;
     }
 
-    //protected async Task GetUserClaimId()
+    [Inject]
+    public ICartService ShoppingCartService { get; set; }
+
+
+    //protected async Task<string> GetAuth()
     //{
-    //    var authState = await AuthenticationStateTask;
+    //    var authState = await AuthStateProvider.GetAuthenticationStateAsync(); 
     //    var user = authState.User;
     //    if (user.Identity.IsAuthenticated)
     //    {
     //        var userId = authState.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
-    //        userClaimId = userId;
+    //        UserClaimStringId = userId;
     //    }
-       
+    //    return UserClaimStringId;
     //}
+
+   
 }

@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Shopping.Shared;
 using Shopping.Shared.Dtos.Auths;
+using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Web.Portal.Pages.Auth;
 using Shopping.Web.Portal.Services.Interfaces;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
@@ -120,14 +122,44 @@ namespace Shopping.Web.Portal.Services
         //Not Used at the moment.
         public async Task<CurrentUser> CurrentUserInfo()
         {
-            var result = await httpClient.GetFromJsonAsync<CurrentUser>("api/account/currentuserinfo");
-            return result;
+            //var result = await httpClient.GetFromJsonAsync<CurrentUser>("api/account/currentuserinfo");
+            //return result;
 
-        }
 
-        # endregion
+            HttpResponseMessage response = await httpClient.GetAsync("api/account/currentuserinfo");
+
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == HttpStatusCode.NoContent)
+                {
+                    return default(CurrentUser);
+                }
+
+                return await response.Content.ReadFromJsonAsync<CurrentUser>();
+            }
+            else
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http Status Code - {response.StatusCode} Message - {message}");
+            }
+        
+
+
+
+
+
+
 
     }
+
+
+
+
+
+
+    #endregion
+
+}
 }
 
             

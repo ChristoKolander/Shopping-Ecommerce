@@ -1,12 +1,19 @@
-This Update Info.txt at: 2022-12-04
+This Update Info.txt at: 2022-12-06
 
-Last Updated Info.txt at: 2022-11-30
+Last Updated Info.txt at: 2022-12-04
 
-Some short notes:
 
-1. In order to keep the shopping cart "balanced", there is some/too much DRY in this lab. 
-   Not yet been  able to extract Authentication check to a seperate service, and/or blazor component.
-   Maybe not doable in a Blazor Web Assembly app?! 
+Some short notes: 
+
+
+1. In order to stimulate sales, a user returning to the site might be more tempted to buy if items still are in his/her
+   shoppingcart. A cart is then needed for 2 different scenarios: for a user NOT logged in and for a user logged in.
+   In order to avoid a lot of duplicated code checking authenticationstate for the user when landing on a page, I finally
+   managed to extract this process to a Blazor component which then gets injected into the shared MainLayout.razor file - used on 
+   every page. However, at this stage of dev., when logging in, a refresh is needed (see Web.Portal)
+
+   Pictures could be hashed in order to mimimize reloading? Next step!
+
 
 2. Paypal coding is a mess, especially in combination with .NET. No uptodate information/examples anywhere. 
    No donation, purchased product(s) need to be handled/controlled/verified by a server. 
