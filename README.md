@@ -2,7 +2,7 @@
 
 A)
 
-This is a private Repo...
+This project is not maintained. 
 
 Testsite - trying out different approaches and techniques!
 
