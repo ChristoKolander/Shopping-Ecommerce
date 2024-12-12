@@ -18,9 +18,8 @@ Last updated: 2024-12-12
 
    Using Dtos for most data transfers - not for Cart though. 
 
-2. CQRS - NOTE THAT ORDERS AND CONNECTED ORDERCONTROLLER IS NOT ASSOCIATED TO THE VISUAL BLAZOR 
-   IMPLEMENTATION AND THE SHOPPINGCART ETC - just testing out CQRS db access technique by using
-   SWAGGER. Not all files are used.
+2. CQRS - Note that this part is not connected to the UI. You have to use Swagger in order
+   to create, get Products etc.
 
 2. Extensions - 
 

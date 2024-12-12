@@ -9,9 +9,6 @@ Last updated: 2024-12-12
 
 2. Data/Config - 
    
-   RoleConfiguration not used right now. Seeded instead, see AppIdentityDbContextSeed.cs
-   CartConfiguration - could not get EF to work without removing. Don't remember why.
-
 
 3. Data/Repositories -
 
