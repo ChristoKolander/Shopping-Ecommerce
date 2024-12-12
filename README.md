@@ -2,7 +2,7 @@
 
 A)
 
-This is a private Repo...
+This project is no longer maintained. Just an old lab/demo (maybe someone find it helpful?!).
 
 Testsite - trying out different approaches and techniques!
 

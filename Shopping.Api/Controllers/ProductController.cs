@@ -72,7 +72,7 @@ namespace Shopping.Api.Controllers
 
 
         [HttpGet("AllProducts")]
-        public async Task<ActionResult<ProductDto>> GetProductsWithParams([FromQuery] QueryStringParameters queryStringParameters)
+        public async Task<ActionResult<List<ProductDto>>> GetProductsWithParams([FromQuery] QueryStringParameters queryStringParameters)
         {
 
             var products = await productRepository.GetProductsWithParams(queryStringParameters);
@@ -138,6 +138,8 @@ namespace Shopping.Api.Controllers
 
             var createdProduct =  await productRepository.CreateProduct(productEntity);
 
+            var CreatedProductDto = mapper.Map<ProductCreateDto>(createdProduct);
+
             return CreatedAtAction(nameof(GetProduct), new { id = createdProduct.Id }, createdProduct);
 
         }
@@ -160,26 +162,35 @@ namespace Shopping.Api.Controllers
                 return BadRequest("Invalid model object");
             }
 
+            var productEntity = mapper.Map<Product>(productUpdateDto);
 
-            var productEntity = await productRepository.GetProduct(productUpdateDto.Id);
+            var updatedProduct = await productRepository.UpdateProduct(productEntity);
 
-            if (productEntity == null)
-            {
-                logger.LogError("UpdateProduct; could not update product because it was not found");
-                return NotFound($"Product with Id = {productEntity.Id} NOT found.");
-            }
+            var updatedProductDto = mapper.Map<ProductUpdateDto>(updatedProduct);
 
-            mapper.Map(productUpdateDto, productEntity);
+            return Ok(updatedProductDto);
 
-            await productRepository.UpdateProduct(productEntity);
 
-            return NoContent();
+
+            //var productEntity = await productRepository.GetProduct(productUpdateDto.Id);
+
+            //if (productEntity == null)
+            //{
+            //    logger.LogError("UpdateProduct; could not update product because it was not found");
+            //    return NotFound($"Product with Id = {productEntity.Id} NOT found.");
+            //}
+
+            //mapper.Map(productUpdateDto, productEntity);
+
+            //await productRepository.UpdateProduct(productEntity);
+
+            //return NoContent();
 
         }
 
         [HttpDelete("{id:int}")]
         [Authorize(Policy = "AdminRolePolicy")]
-        public async Task<ActionResult<ProductUpdateDto>> DeleteProduct(int id)
+        public async Task<ActionResult<Product>> DeleteProduct(int id)
         {
 
             var productToDelete = await productRepository.GetProduct(id);

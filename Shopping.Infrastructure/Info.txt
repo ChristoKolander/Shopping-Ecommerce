@@ -29,7 +29,7 @@
 5. Identity -
    
    In order to avoid adding Entity Framework Core to Core Project, I added the entity ApplicationUser to this project. It inherits
-   from IdentityUser so it felt logical to do so. Hence, the ITokeService which uses ApplicationUser ended up here too.
+   from IdentityUser so it felt logical to do so. Hence, the ITokenService which uses ApplicationUser ended up here too.
 
 
 
