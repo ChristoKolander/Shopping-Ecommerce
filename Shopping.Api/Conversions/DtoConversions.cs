@@ -1,7 +1,7 @@
 ﻿using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Core.Entities;
 
-namespace Shopping.Api
+namespace Shopping.Api.Conversions
 {
     public static class DtoConversions
     {
@@ -16,7 +16,7 @@ namespace Shopping.Api
                         Description = product.Description,
                         ImageUrl = product.ImageURL,
                         Price = product.Price,
-                        Qty= product.Qty,   
+                        Qty = product.Qty,
                         ProductCategoryId = product.ProductCategory.Id,
                         ProductCategoryName = product.ProductCategory.Name,
                     }).ToList();
@@ -33,7 +33,7 @@ namespace Shopping.Api
                 Description = product.Description,
                 ImageUrl = product.ImageURL,
                 Price = product.Price,
-                Qty = product.Qty,  
+                Qty = product.Qty,
                 ProductCategoryId = product.ProductCategory.Id,
                 ProductCategoryName = product.ProductCategory.Name
             };
@@ -60,7 +60,7 @@ namespace Shopping.Api
                     }).ToList();
         }
 
-        
+
 
         public static CartItemDto ConvertToDto(this CartItem cartItem, Product product)
         {

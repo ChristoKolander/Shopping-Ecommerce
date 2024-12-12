@@ -1,10 +1,11 @@
-﻿Info Infrastructure Project
+﻿
+Info Infrastructure Project
+
+Last updated: 2024-12-12
 
 1. Dependencies - 
    
    Only one, dependent on Core, but indirectly then also use the Shared Project for CartItemToAddDto.
-
-
 
 2. Data/Config - 
    
@@ -14,17 +15,23 @@
 
 3. Data/Repositories -
 
-   CartRepository - using the context directly. Not using the Generic Repository, but only ICartRepository interface implementation.
-   ProductRepository - using the context directly to some extent, and the Generic Repository Interfaces implementation also.
+   Trying out a Generic Interface(IRepositoryBase) in Core which then gets passed down to other Interfaces in a chain,
+   IProductRepository for instance, also inheriting from RepositoryBase Abstract Class. This "chain" is
+   implemented here.
 
+   The Class RepositoryWrapper and its Interface IRepositoryWrapper is not being used right now.
 
+   Some methods inside the repositories still use the productContext directly. 
 
+   My preferred way is using the productContext directly...but I will keep this mixed approach for now.
+ 
+   
 4. GenericRepositoryRemake - 
    
    Late in development I found a nice example of an async Generic Repo on Carl Franklins Blazor Train site, 
-   but could not use it, or did not understand how to - but using the APIresponses though.
+   but did/do not use it - but using the APIresponses through a search.
 
-
+  
 
 5. Identity -
    

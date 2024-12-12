@@ -18,8 +18,8 @@ namespace Shopping.Infrastructure
 
             if (useOnlyInMemoryDatabase)
             {
-                services.AddDbContext<ProductContext>(c =>
-                   c.UseInMemoryDatabase("Product"));
+                services.AddDbContext<ProductContext>(options =>
+                   options.UseInMemoryDatabase("Product"));
 
                 services.AddDbContext<AppIdentityDbContext>(options =>
                     options.UseInMemoryDatabase("Identity"));
@@ -27,8 +27,8 @@ namespace Shopping.Infrastructure
             else
             {
                 // use real database
-                services.AddDbContext<ProductContext>(c =>
-                    c.UseSqlServer(configuration.GetConnectionString("ProductConnectionShoppingGit")));
+                services.AddDbContext<ProductContext>(options =>
+                    options.UseSqlServer(configuration.GetConnectionString("ProductConnectionShoppingGit")));
 
                 // Add Identity DbContext
                 services.AddDbContext<AppIdentityDbContext>(options =>

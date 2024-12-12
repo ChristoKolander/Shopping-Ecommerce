@@ -1,11 +1,30 @@
-﻿Info Shared Project
+﻿
+Info Shared Project
+
+Last Updated 2024-12-12
 
 1. Dependencies - 
 
    No Project, some Libraries though.
 
+2. Authorization -
 
-2. Dtos - 
+   Some Constants used when seeding DB.
+
+3. Claims -
+
+   Used both on the front end AND Api
+
+4. Dtos - 
 
    Validation added and used on these, for SQL server storage settings.
+
+5. RequestFeatures -
+
+	Classes used for Pagination 
+
+6. CurrentUser class not used at the moment.
+   
+
+
 

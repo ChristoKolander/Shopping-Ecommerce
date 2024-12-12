@@ -1,6 +1,5 @@
-This Update Info.txt at: 2022-12-04
+This Update Info.txt at: 2022-12-12
 
-Last Updated Info.txt at: 2022-11-30
 
 Some short notes:
 
@@ -13,10 +12,12 @@ Some short notes:
    Finally got the paypal script to open up the Check Out form, however yet to find a way to populate amount.value dynamically.
 
 
-3. Up to the point of ordering, everything should work. Sometimes side navbar does not get loaded correctly, esp. during development.
+3. Up to the point of putting stuff in the shoppingcart, everything should work.
 
 
-4. Orders - Haven't worked with CQRSpattern before, pretty nice structure. API works, GUI Orders left to implement. 
+4. CQRS - NO GUI for this one. Just testing the access pattern. 
+   Note: You don't have to be a admin to reach the CQRSController, used
+   for Products.
 
 
 5. Download and Run Instructions -
@@ -40,9 +41,13 @@ B) You might have to run these commands - and dont forget to adjust SqlServer Co
 
 C) Set as multiple start-up projects from solution explorer, API on top and Shopping.Web.Portal below.
 
-D) There are 2 initial Users seeded, but u can try registering one, TestUser@hotmail.com for instance.
+D) There are 2 initial Users seeded, but you can try registering one, TestUser@hotmail.com for instance.
 
 E) Ctrl F5.
 
 F) Note: if you register as a new user in Development, you will be given "Administrator" role by default. 
    Change this to "StandardUser" in AccountController/Registration, or something else(see db for all roles seeded).
+
+
+6. PS - Unless you remove attribute authorization on the controllers, you need to extract the JWT from Local Storage to be
+   used in Swagger API tests for some of the admin access. - DS

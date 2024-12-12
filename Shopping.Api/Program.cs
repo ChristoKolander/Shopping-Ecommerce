@@ -16,16 +16,16 @@ using NLog;
 using NLog.Web;
 using Shopping.Api.Extensions;
 using Shopping.Api.SwaggerOptions;
-using Shopping.Api;
 using MediatR;
 
-// Note 1: extracting too many services outside this container, using extensionmethods did not work out as expected.
-// Note 2: in some cases, order in here did matter!
+
+// Note 1: Extracting too many services outside this container, using extensionmethods did not work out as expected.
+// Note 2: In some cases, order in here DID matter!
 
 # region Builder and NLog
 
-
-LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+logger.Debug("init main");
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +33,7 @@ builder.Logging.ClearProviders();
 builder.Host.UseNLog();
 
 # endregion
+
 
 # region EF, Identity and BaseUrl
 
@@ -51,8 +52,14 @@ Shopping.Infrastructure.Dependencies.ConfigureDBServices(builder.Configuration, 
 
 # endregion
 
-//See folder Extensions!
+
+#region Adding ServiceRegistrations from an extracted method
+
+//See folder Extensions for additional injected stuff!
 builder.Services.AddServiceRegistration(builder.Configuration);
+
+#endregion
+
 
 # region Cors
 
@@ -77,7 +84,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<ValidationFilterAttribute>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();  // Not used at the moment
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 

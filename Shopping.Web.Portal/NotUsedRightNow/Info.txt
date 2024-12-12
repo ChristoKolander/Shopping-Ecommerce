@@ -1,0 +1,8 @@
+﻿In order to avoid code duplication when it comes to authentication,
+the login method has to force a reload of the MainLayout.razor component;
+
+The AuthSolution Component is - like the CartMenu Component - injected into
+the shared MainLayout.razor file. This prevents ProductsBase.cs and ProductDetails.cs
+from having to run the exact same code.
+
+Old Examples of code are stored as txt.files in this folder...

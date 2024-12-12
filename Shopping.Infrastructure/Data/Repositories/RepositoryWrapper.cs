@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 
 namespace Shopping.Infrastructure.Data.Repositories
 {
+
+    // This Class is not used at the moment. 
+
+
     public class RepositoryWrapper : IRepositoryWrapper
 
     {

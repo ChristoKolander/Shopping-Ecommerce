@@ -6,7 +6,8 @@ namespace Shopping.Infrastructure.Data.Repositories
     public static class ProductRepositoryExtensions
     {
 
-        //Not used on the Client, only in API. Did not get it to work in client!
+        // This Search Extension Method is used when landing on the "home page" AND in conjuction with
+        // Pagination -> QueryParameter -> MetaData. As for now, don't remember how it works. Checking it out later.
 
         public static IQueryable<Product> Search(this IQueryable<Product> products, string searchTerm=null)
         {

@@ -8,6 +8,9 @@ namespace Shopping.Api.Automapper
     {
         public ProductProfile()
         {
+            //CreateMap for both directions OR use ReverseMap() method
+            //CreateMap<Product, ProductDto>().ReverseMap(); 
+
             CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
 

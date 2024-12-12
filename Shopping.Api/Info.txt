@@ -1,42 +1,45 @@
 ﻿Info Api Project
 
+Last updated: 2024-12-12
+
 1. Dependencies  - 
 
    Core, Infrastructure, Shared
 
 2. Attributes - 
  
-   Don't think ValidationFilterAttribute adds enough value to this project.
+   Using a ValidationFilterAttribute for model validation inside the Account Controller. 
 
 2. Automapper - 
 
-   Not a big fan right now. Does not save much writing.
+   Not a big fan from the start, but later on got lazy and used to it.
 
 2. Controllers - 
 
-   Using Dtos for most - not for Cart YET. Need to address this.
+   Using Dtos for most data transfers - not for Cart though. 
 
-2. CQRS - 
-
-   Pattern used for just Orders. Not all files are used.
+2. CQRS - NOTE THAT ORDERS AND CONNECTED ORDERCONTROLLER IS NOT ASSOCIATED TO THE VISUAL BLAZOR 
+   IMPLEMENTATION AND THE SHOPPINGCART ETC - just testing out CQRS db access technique by using
+   SWAGGER. Not all files are used.
 
 2. Extensions - 
 
-   Global errorhandling, a search extension on products, and testing to make Program.cs
-   a little cleaner by adding some service registrations here. Too much added, and it would not
-   run properly though.
+   a) Global errorhandling configured
+   b) Search extension on products
+   c) Testing to make Program.cs a little cleaner by extracting/adding some service registrations here. 
+      Too much added, and it would not run properly though.
 
 2. Logging - 
 
-   Implementing logging using NLog.
+   Implementing logging using NLog. 
 
 2. Security - 
 
-   Complex authorization policy.
+   Rolebase authorization model PLUS policy too in order to get some granularity for special cases.
 
 2. StaticFiles- 
 
-   Files uploaded stored here for the moment.
+   Files/Pictures uploaded for new Products created are stored here for the moment. 
 
 2. SwaggerOptions - 
 
@@ -44,27 +47,25 @@
 
 3. Program.cs - 
 
-   .NET 6 version - no startup class. 
+   a) .NET 9 version - no startup class. Upgraded from .NET 6 just recently (2024-12-10), and it seems to work. 
 
-4. Region Builder and NLog - 
+   b) Region Builder and NLog - 
 
-   Need to configure logging even before configuring the host? Could not get it to work otherwise.
-   Using NLog as provider, no writing to file just using built in Microsoft logging providers.
-   I usually add logging early in dev. process since it adds more details when writing to file, debugging.
+   Needed to configure logging even before configuring the host. Could not get it to work otherwise.
+   Using NLog as provider, writing to file.
+   ClearProviders() removes the built in logging provided by Microsoft.
 
+  c) Region Cors - 
 
-
-4. Region Cors - 
-
-   Not really configured for production. Just adding it getting things to work.
+   Not configured for production, way too forgiving. Just adding it getting things to work!
 
 
-4. Region SwaggerStuff - 
+  d) Region SwaggerStuff - 
 
    A lot of settings getting it to work. 
 
 
-4. Region Request PipeLine - 
+  e) Region Request PipeLine - 
 
    Order matters. Got this to work, so not changeing it !
 
@@ -72,6 +73,6 @@
 
 5. <Project Sdk="Microsoft.NET.Sdk.Web"> - 
 
-   did not enable checks for null. 
+   Did NOT enable checks for nulls.
 
 

@@ -3,6 +3,7 @@ using Shopping.Shared.Dtos.CRUDs;
 using Shopping.Core.Interfaces;
 using Shopping.Core.Entities;
 using AutoMapper;
+using Shopping.Api.Conversions;
 
 
 namespace Shopping.Api.Controllers

@@ -39,6 +39,7 @@ namespace Shopping.Infrastructure.Data.Repositories
                           }).FirstOrDefaultAsync();
         }
 
+     
         public async Task<IEnumerable<CartItem>> GetCartItems(string userStringId)
         {
             return await (from cart in productContext.Carts

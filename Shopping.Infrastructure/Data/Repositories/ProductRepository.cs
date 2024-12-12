@@ -8,11 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Shopping.Infrastructure.GenericRepositoriesRemake;
+using System.Reflection.Metadata.Ecma335;
 
 
 namespace Shopping.Infrastructure.Data.Repositories
 {
-    public class ProductRepository : RepositoryBase<Product>, IProductRepository
+    public class ProductRepository: RepositoryBase<Product>, IProductRepository
     {   
         private readonly ProductContext productContext;
 
@@ -21,7 +23,8 @@ namespace Shopping.Infrastructure.Data.Repositories
         {
             productContext = ProductContext;
         }
-    
+
+       
         public async Task<Product> GetProduct(int id)
         {
             return await FindByCondition(p => p.Id == id)
@@ -29,15 +32,15 @@ namespace Shopping.Infrastructure.Data.Repositories
                                     .FirstOrDefaultAsync(p => p.Id == id);
 
         }
-        
+
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            
-            return await FindAllAsync()
-                       .Include(p => p.ProductCategory)
-                       .OrderBy(p => p.Id)
-                       .ToListAsync();
 
+            // 1. Using method provided by RepositoryBase Class.
+            return await FindAll()
+                        .Include(p => p.ProductCategory)
+                        .OrderBy(p => p.Id)
+                        .ToListAsync();             
         }
 
 
@@ -79,57 +82,13 @@ namespace Shopping.Infrastructure.Data.Repositories
         }
 
 
-        public async Task<Product> UpdateProduct(Product product)
-        {
-            var prod = await productContext.Products
-                                .FirstOrDefaultAsync(p => p.Id == product.Id);
-
-            if (prod != null)
-            {
-                prod.Name = product.Name;
-                prod.Description = product.Description;
-                prod.ImageURL = product.ImageURL;
-                prod.Price = product.Price;
-                prod.Qty = product.Qty; 
-                prod.ProductCategoryId = product.ProductCategoryId;
-                prod.ProductCategory = product.ProductCategory;
-                //prod.Qty = product.Qty;
-
-                await productContext.SaveChangesAsync();
-
-                return prod;
-            }
-
-            return null;
-        }
-        
-        public async Task<Product> CreateProduct(Product product)
-        {
-            var result = await productContext.Products.AddAsync(product);
-            await productContext.SaveChangesAsync();
-            return result.Entity;
-        }
- 
-        public async Task<Product> DeleteProduct(int productId)
-        {
-            var product = await productContext.Products
-                         .FirstOrDefaultAsync(p => p.Id == productId);
-            if (product != null)
-            {
-                productContext.Products.Remove(product);
-                await productContext.SaveChangesAsync();
-                return product;
-            }
-            return null;
-        }
-
-       
         public async Task<IEnumerable<ProductCategory>> GetCategories()
         {
             var categories = await productContext.ProductCategories.ToListAsync();
 
             return categories;
         }
+
 
         public async Task<ProductCategory> GetCategory(int id)
         {
@@ -168,33 +127,7 @@ namespace Shopping.Infrastructure.Data.Repositories
             
           
         }
-
-
-        #region NotUsedRightNow
-
-        //public async Task<IEnumerable<Product>> GetProducts()
-        //{
-        //   return await FindAll()
-        //               .Include(p => p.ProductCategory)
-        //               .OrderBy(p => p.Id)
-        //               .ToListAsync();
-
-        //}
-
-
-        //public async Task<PagedList<Product>> Search(SearchParameters searchParameters)
-        //{
-        //    var products = await FindAll()
-        //        .Search(searchParameters.SearchTerm)
-        //        .Include(p => p.ProductCategory)
-        //        .ToListAsync();
-
-        //    return await PagedList<Product>
-        //        .ToPagedList(products, searchParameters.PageNumber, searchParameters.PageSize);
-        //}
-
-
-        # endregion
+ 
 
     }
 

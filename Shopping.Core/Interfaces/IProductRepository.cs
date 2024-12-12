@@ -16,10 +16,6 @@ namespace Shopping.Core.Interfaces
         Task<Product> GetProduct(int id);
         Task<IEnumerable<Product>> GetProducts();
 
-        Task<Product> CreateProduct(Product product);
-        Task<Product> UpdateProduct(Product product);
-        Task<Product> DeleteProduct(int productId);
-
         Task<ProductCategory> GetCategory(int id);
         Task<IEnumerable<ProductCategory>> GetCategories();
         Task<IEnumerable<Product>> GetProductsByCategory(int id);
@@ -32,9 +28,6 @@ namespace Shopping.Core.Interfaces
             Expression<Func<Product, bool>> filter = null,
             Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null,
             string includeProperties = "");
-
-
-        //Task<PagedList<Product>> Search(SearchParameters searchParameters);
 
 
     }

@@ -7,6 +7,7 @@ using Shopping.Core.Entities;
 using Shopping.Shared.Entities.RequestFeatures;
 using Shopping.Core.Interfaces;
 using Shopping.Infrastructure.GenericRepositoriesRemake;
+using Shopping.Api.Conversions;
 
 namespace Shopping.Api.Controllers
 {
@@ -21,6 +22,7 @@ namespace Shopping.Api.Controllers
         private readonly IProductRepository productRepository;
         private readonly IMapper mapper;
         private readonly ILoggerManager logger;
+
 
         public ProductController(IProductRepository productRepository, IMapper mapper, ILoggerManager logger)
         {
@@ -64,9 +66,13 @@ namespace Shopping.Api.Controllers
                 return NotFound("Products could not be found");
             }
 
-            var productDtos = products.ConvertToDto();
+            else 
+            {
+             var productDtos = products.ConvertToDto();
 
             return Ok(productDtos);
+            }
+           
 
         }
 
@@ -77,7 +83,7 @@ namespace Shopping.Api.Controllers
 
             var products = await productRepository.GetProductsWithParams(queryStringParameters);
 
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
+            Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
 
             if (products == null)
             {
@@ -101,7 +107,7 @@ namespace Shopping.Api.Controllers
 
             var products = await productRepository.GetProductsFilteredByPrice(productParameters);
 
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
+            Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
 
             if (products == null)
             {
@@ -136,15 +142,17 @@ namespace Shopping.Api.Controllers
 
             var productEntity = mapper.Map<Product>(productCreateDto);
 
-            var createdProduct =  await productRepository.CreateProduct(productEntity);
+            //var createdProduct =  await productRepository.CreateProduct(productEntity);
 
-            return CreatedAtAction(nameof(GetProduct), new { id = createdProduct.Id }, createdProduct);
+            Product createdProduct2 = await productRepository.AddAsync(productEntity);
+
+            return CreatedAtAction(nameof(GetProduct), new { id = createdProduct2.Id }, createdProduct2);
 
         }
 
 
         [HttpPatch("{id:int}")]
-        [Authorize(Roles = "Administrators, Managers")]
+        [Authorize(Roles = "Administrators")]
         public async Task<ActionResult<ProductUpdateDto>> UpdateProduct(ProductUpdateDto productUpdateDto)
         {
 
@@ -171,7 +179,7 @@ namespace Shopping.Api.Controllers
 
             mapper.Map(productUpdateDto, productEntity);
 
-            await productRepository.UpdateProduct(productEntity);
+            await productRepository.UpdateAsync(productEntity, productEntity.Id);
 
             return NoContent();
 
@@ -190,7 +198,9 @@ namespace Shopping.Api.Controllers
                 return NotFound($"Product with Id = {id} not found");
             }
 
-            await productRepository.DeleteProduct(id);
+            await productRepository.DeleteAsync(id);
+
+            //await productRepository.DeleteProduct(id);
 
             return Ok(productToDelete);
 

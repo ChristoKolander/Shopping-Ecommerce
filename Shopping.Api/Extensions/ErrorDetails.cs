@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Shopping.Api
+namespace Shopping.Api.Extensions
 {
     public class ErrorDetails
     {

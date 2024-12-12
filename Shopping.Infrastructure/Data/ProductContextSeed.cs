@@ -50,6 +50,9 @@ namespace Shopping.Infrastructure.Data
             }
         }
 
+
+		#region Seeding Categories and Products
+
         static IEnumerable<ProductCategory> GetPreconfiguredProductCategories()
         {
             return new List<ProductCategory>()
@@ -262,5 +265,6 @@ namespace Shopping.Infrastructure.Data
 
         }
 
+        #endregion
     }
 }

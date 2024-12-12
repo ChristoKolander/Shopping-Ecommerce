@@ -81,23 +81,13 @@ namespace Shopping.Api.Controllers
 
             await userManager.UpdateAsync(user);
 
+            
+
             return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = token, RefreshToken = user.RefreshToken });
 
+          
         }
-
-        
-        // Not used right now.
-        [HttpGet]
-        public CurrentUser CurrentUserInfo()
-        {
-            return new CurrentUser
-            {
-                IsAuthenticated = User.Identity.IsAuthenticated,
-                UserName = User.Identity.Name,
-                Claims = User.Claims
-                .ToDictionary(c => c.Type, c => c.Value)
-            };
-        }
-
+   
+       
     }  
 }

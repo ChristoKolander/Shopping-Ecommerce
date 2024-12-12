@@ -1,47 +1,45 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shopping.Api.CQRS.Commands.OrderCommand;
-using Shopping.Api.CQRS.Queries.OrderQuery;
-
+using Shopping.Api.CQRS.Queries.ProductQuery;
+using Shopping.Api.CQRS.Commands.ProductCommand;
 
 namespace Shopping.Api.Controllers
 {
+
     [ApiVersion("1.0")]
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class CQRSController : ControllerBase
     {
 
         private IMediator mediator;
 
-        public OrderController(IMediator mediator)
+        public CQRSController(IMediator mediator)
         {
             this.mediator = mediator;
         }
 
-
-
-        [HttpGet("order/{id}/{userEmail}")]
-        public async Task<IActionResult> GetOrder(int id, string userEmail)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOneProductUsingCQRS(int id)
         {
-            var result = await mediator.Send(new GetOrderById { Id = id, UserEmail = userEmail });
+            var result = await mediator.Send(new GetProductById { Id = id });
             return result.Successful == true
                 ? Ok(result)
                 : BadRequest(result);
         }
 
-        [HttpGet("orders/{userEmail}")]
-        public async Task<IActionResult> GetOrders(string userEmail)
+        [HttpGet()]
+        public async Task<IActionResult> GetProductsUsingCQRS()
         {
-            var result = await mediator.Send(new GetOrders { UserEmail = userEmail });
+            var result = await mediator.Send(new GetProducts{});
             return result.Successful == true
                 ? Ok(result)
                 : BadRequest(result);
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommand command)
+        [HttpPatch]
+        public async Task<IActionResult> UpdateProductUsingCQRS([FromBody] UpdateProductCommand command)
         {
             var result = await mediator.Send(command);
             return result.Successful == true
@@ -49,9 +47,9 @@ namespace Shopping.Api.Controllers
                 : BadRequest(result);
         }
 
-       
-        [HttpPatch]
-        public async Task<IActionResult> UpdateOrder([FromBody] UpdateOrderCommand command)
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProductUsingCQRS([FromBody] CreateProductCommand command)
         {
             var result = await mediator.Send(command);
             return result.Successful == true
@@ -61,7 +59,7 @@ namespace Shopping.Api.Controllers
 
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteOrder(DeleteOrderCommand command)
+        public async Task<IActionResult> DeleteProductUsingCQRS(DeleteProductCommand command)
         {
             var result = await mediator.Send(command);
             return result.Successful == true
@@ -69,8 +67,7 @@ namespace Shopping.Api.Controllers
                 : BadRequest(result);
         }
 
-
-
-
     }
 }
+
+      

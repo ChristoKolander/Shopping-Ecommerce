@@ -43,7 +43,7 @@ namespace Shopping.Api.SwaggerOptions
                 License = new OpenApiLicense
                 {
                     Name = "Use under LICX",
-                    Url = new Uri("https://swagger.com"),
+                    Url = new Uri("https://swagger.io"),
                 }
             };
 
