@@ -8,10 +8,7 @@ Last updated: 2024-12-12
    As you can see there's a dependency on the Shared Project because 2 DTOs are needed for
    interface construction: CartItemToAddDto and CartItemQtyUpdateDto. Since these also are needed at the GUI
    level I felt keeping them inside Shared Project made sense.  
-
-   On those lines I also added OrderDto and OderItemDto to this Core Project - needed for the Address Class inside
-   this Core Project. This keeps the Shared Project totally independent.
-   
+  
    ( Maybe change around later, getting a better seperation between dif. projects.)
 
 2. Design - 
