@@ -1,10 +1,6 @@
 # Shopping Ecommerce
 
-A)
-
-This is a private Repo...
-
-Testsite - trying out different approaches and techniques!
+A) Testsite - trying out different approaches and techniques!
 
 Blazor Web Assembly upfront - but you could easily add another frontend solution, Angular for instance.
 
@@ -12,7 +8,7 @@ Code is not for production.
 
 Just lab.
 
-Upgradepath: from 3.1 to .Net 6.
+Upgradepath: from 3.1 to .Net 6 -> .NET9
 
 Read Info.txt inside each project for more details.
 
