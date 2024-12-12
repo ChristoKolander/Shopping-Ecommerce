@@ -27,19 +27,7 @@ Note: Hard to find material on how to implement a disconnected shopping cart sol
 
 /C.
 
-ps
 
-Code Learning and Starting points frome here (lots of cred!):
-
-Kudvenkat: https://www.youtube.com/c/Csharp-video-tutorialsBlogspot
-
-Gavin Lon: https://www.youtube.com/channel/UCa-Qgwt5VxN0iP3q6reHN6g
-
-Vladimir Pecanac and Marinko Spasojevic : https://code-maze.com
-
-"Ardalis": https://github.com/dotnet-architecture/eShopOnWeb
-
-ds
 
   
   
