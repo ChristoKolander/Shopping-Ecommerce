@@ -148,6 +148,7 @@ namespace Shopping.Api.Controllers
 
             return CreatedAtAction(nameof(GetProduct), new { id = createdProduct2.Id }, createdProduct2);
 
+            // Too much notes.
         }
 
 
