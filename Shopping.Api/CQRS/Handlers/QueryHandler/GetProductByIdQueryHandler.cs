@@ -4,8 +4,7 @@ using Shopping.Api.CQRS.Queries.ProductQuery;
 using Shopping.Core.Entities;
 using Shopping.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Shopping.Api.CQRS.Queries.OrderQuery;
-using Shopping.Core.Entities.CQRSresponses;
+using Shopping.Api.CQRS.Queries.Query;
 
 
 namespace Shopping.Api.CQRS.Handlers.QueryHandler

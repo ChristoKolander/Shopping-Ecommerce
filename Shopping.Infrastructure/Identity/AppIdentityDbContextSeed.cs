@@ -18,6 +18,8 @@ namespace Shopping.Infrastructure.Identity
             await roleManager.CreateAsync(new IdentityRole(Shopping.Shared.Authorization.Constants.Roles.ADMINISTRATORS));
             await roleManager.CreateAsync(new IdentityRole(Shopping.Shared.Authorization.Constants.Roles.STANDARDUSERS));
             await roleManager.CreateAsync(new IdentityRole(Shopping.Shared.Authorization.Constants.Roles.MANAGERS));
+          //await roleManager.CreateAsync(new IdentityRole(Shopping.Shared.Authorization.Constants.Roles.SUPERADMINS));
+
 
             string defaultUserName = "demouser@microsoft.com";
             var defaultUser = new ApplicationUser { UserName = defaultUserName, Email = defaultUserName };
@@ -31,6 +33,12 @@ namespace Shopping.Infrastructure.Identity
             await userManager.CreateAsync(adminUser, AuthorizationSettings.DEFAULT_PASSWORD);
             adminUser = await userManager.FindByNameAsync(adminUserName);
             await userManager.AddToRoleAsync(adminUser, Shopping.Shared.Authorization.Constants.Roles.ADMINISTRATORS);
+
+            //string superAdminUserName = "superadmin@microsoft.com";
+            //var superadminUser = new ApplicationUser { UserName = superAdminUserName, Email = superAdminUserName };
+            //await userManager.CreateAsync(superadminUser, AuthorizationSettings.DEFAULT_PASSWORD);
+            //superadminUser = await userManager.FindByNameAsync(superAdminUserName);
+            //await userManager.AddToRoleAsync(superadminUser, Shopping.Shared.Authorization.Constants.Roles.SUPERADMINS);
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Shopping.Api.CQRS.Queries.OrderQuery;
+using Shopping.Api.CQRS.Queries.Query;
 using Shopping.Api.CQRS.Queries.ProductQuery;
 using Shopping.Core.Entities;
 using Shopping.Core.Entities.CQRSresponses;

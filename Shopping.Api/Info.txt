@@ -16,29 +16,33 @@ Last updated: 2024-12-12
 
 2. Controllers - 
 
-   Using Dtos for most data transfers - not for Cart though. 
+   Using Dtos for most data transfers - not for Cart though. We could scale these down to a mininmum, but leave as is for now.
 
-2. CQRS - Note that this part is not connected to the UI. You have to use Swagger in order
+2. CQRS - Note again that this part is not connected to the UI. You have to use Swagger in order
    to create, get Products etc.
 
 2. Extensions - 
 
    a) Global errorhandling configured
    b) Search extension on products
-   c) Testing to make Program.cs a little cleaner by extracting/adding some service registrations here. 
+   c) Extracting/adding some service registrations here. 
       Too much added, and it would not run properly though.
 
 2. Logging - 
 
-   Implementing logging using NLog. 
+   Implementing logging using NLog. Not yet fully compatitble 2024-12-12 to .NET version 9 - but seems to work.
 
 2. Security - 
 
-   Rolebase authorization model PLUS policy too in order to get some granularity for special cases.
+   3 levels: claims, roles, special requirement. 
+
+     Saving the SuperAdmins requirement code for future use, commented.
+ 
 
 2. StaticFiles- 
 
-   Files/Pictures uploaded for new Products created are stored here for the moment. 
+   Files/Pictures uploaded for new Products created are stored here for the moment. Initial seed stored inside wwwroot 
+   Web.Portal.
 
 2. SwaggerOptions - 
 
@@ -61,7 +65,7 @@ Last updated: 2024-12-12
 
   d) Region SwaggerStuff - 
 
-   A lot of settings getting it to work. 
+   A lot of settings - cumbersome. 
 
 
   e) Region Request PipeLine - 
@@ -72,6 +76,6 @@ Last updated: 2024-12-12
 
 5. <Project Sdk="Microsoft.NET.Sdk.Web"> - 
 
-   Did NOT enable checks for nulls.
+   Did NOT enable checks for nulls on a global level.
 
 

@@ -52,7 +52,7 @@ namespace Shopping.Api.Extensions
                 //    context.User.IsInRole("Administrator") &&
                 //    context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true")
                 //    ||
-                //    context.User.IsInRole("Super Admin")
+                //    context.User.IsInRole("SuperAdmins")
                 //    ));
 
             });

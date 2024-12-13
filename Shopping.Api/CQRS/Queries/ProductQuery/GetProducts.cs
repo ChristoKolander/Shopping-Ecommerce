@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Shopping.Api.CQRS.Queries.OrderQuery;
+using Shopping.Api.CQRS.Queries.Query;
 using Shopping.Core.Entities;
 using Shopping.Core.Entities.CQRSresponses;
 

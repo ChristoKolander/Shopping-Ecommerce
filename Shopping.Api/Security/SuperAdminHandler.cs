@@ -8,7 +8,7 @@ namespace Shopping.Api.Security
             AuthorizationHandlerContext context,
             AdminRequirement requirement)
         {
-            if (context.User.IsInRole("Super Admin"))
+            if (context.User.IsInRole("SuperAdmins"))
             {
                 context.Succeed(requirement);
             }

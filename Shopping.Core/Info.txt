@@ -17,7 +17,8 @@ Last updated: 2024-12-12
 
 3. Entities - 
 
-   No validation added! This is done via DTOs stored inside Shared Project. 
+   No validation added! This is done via DTOs stored inside Shared Project. But I suppose these should
+   be at the Class level itself for better control.
 
 4. Interfaces - 
 

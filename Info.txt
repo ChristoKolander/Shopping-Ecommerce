@@ -3,21 +3,26 @@ This Update Info.txt at: 2022-12-12
 
 Some short notes:
 
-1. In order to keep the shopping cart "balanced", there is some/too much DRY in this lab. 
+   Solution is diveded into 5 diff. projects. For easy of access to some classes, Shared is used by both Core
+   and Web.Portal. 
+
+   NOTE: Each project has an info.txt file.
+
+
+1. In order to keep the shopping cart "balanced", there is some/too much DRY in this lab demo. 
    Not yet been  able to extract Authentication check to a seperate service, and/or blazor component.
    Maybe not doable in a Blazor Web Assembly app?! 
 
 2. Paypal coding is a mess, especially in combination with .NET. No uptodate information/examples anywhere. 
-   No donation, purchased product(s) need to be handled/controlled/verified by a server. 
-   Finally got the paypal script to open up the Check Out form, however yet to find a way to populate amount.value dynamically.
+   Donation is NOT used in this scenario, purchased product(s) need to be handled/controlled/verified by a server. 
+   ...Finally got the paypal script to open up the Check Out form, however yet to find a way to populate amount.value dynamically.
+   
+
+3. Up to the point of putting stuff in the shoppingcart, then routing to CheckOut, everything should work.
 
 
-3. Up to the point of putting stuff in the shoppingcart, everything should work.
-
-
-4. CQRS - NO GUI for this one. Just testing the access pattern. 
-   Note: You don't have to be a admin to reach the CQRSController, used
-   for Products.
+4. CQRS - NO GUI for this one. Just testing the access pattern to administer Products. 
+   Note: You don't have to be a admin to reach the CQRSController, but authorization could be added.
 
 
 5. Download and Run Instructions -
@@ -30,13 +35,13 @@ B) You might have to run these commands - and dont forget to adjust SqlServer Co
 
    Commands - Package Manager Console - if needed: 
 
-   Add-Migration InitialProd -Context ProductContext -StartupProject Shopping.Api -OutputDir Migrations/Prod
+   1. Add-Migration InitialProd -Context ProductContext -StartupProject Shopping.Api -OutputDir Migrations/Prod
 
-   Update-Database -Context ProductContext -StartupProject Shopping.Api
+   2. Update-Database -Context ProductContext -StartupProject Shopping.Api
 
-   Add-Migration InitialAppId -Context AppIdentityDbContext -StartupProject Shopping.Api -OutputDir Migrations/AppId
+   3. Add-Migration InitialAppId -Context AppIdentityDbContext -StartupProject Shopping.Api -OutputDir Migrations/AppId
 
-   Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
+   4. Update-Database -Context AppIdentityDbContext -StartupProject Shopping.Api
 
 
 C) Set as multiple start-up projects from solution explorer, API on top and Shopping.Web.Portal below.
@@ -46,8 +51,8 @@ D) There are 2 initial Users seeded, but you can try registering one, TestUser@h
 E) Ctrl F5.
 
 F) Note: if you register as a new user in Development, you will be given "Administrator" role by default. 
-   Change this to "StandardUser" in AccountController/Registration, or something else(see db for all roles seeded).
+   Change this to "StandardUser" in AccountController/Registration, or to something else(see db for all roles seeded).
 
 
 6. PS - Unless you remove attribute authorization on the controllers, you need to extract the JWT from Local Storage to be
-   used in Swagger API tests for some of the admin access. - DS
+   used in Swagger API tests for some/most of the admin access. - DS
