@@ -1,5 +1,7 @@
 ﻿Info Web.Portal Project
 
+2024-12-12
+
 1. Dependencies  - 
 
    Core, Infrastructe and Shared Project
