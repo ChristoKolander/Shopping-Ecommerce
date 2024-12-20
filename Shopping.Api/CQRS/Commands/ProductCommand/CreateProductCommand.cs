@@ -21,9 +21,5 @@ namespace Shopping.Api.CQRS.Commands.ProductCommand
         [ForeignKey("ProductCategoryId")]
         public ProductCategory ProductCategory { get; set; }
 
-
-        //public CreateProductCommand(Product product)
-        //{
-        //}
     }
 }

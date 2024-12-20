@@ -35,6 +35,7 @@ namespace Shopping.Api.Controllers
 
         #endregion
 
+     
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ProductDto>> GetProduct(int id)
@@ -271,24 +272,6 @@ namespace Shopping.Api.Controllers
 
         }
 
-
-        # region NotUsedRightNow
-  
-        //[HttpGet]
-        //[Route(nameof(Search))]
-        //public async Task<IActionResult> Search([FromQuery] SearchParameters searchParameters)
-        //{
-        //    var products = await productRepository.Search(searchParameters);
-
-        //    Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(products.MetaData));
-
-        //    var productDtos = products.ConvertToDto();
-
-        //    return Ok(productDtos);
-
-        //}
-
-        # endregion
     }
 
 

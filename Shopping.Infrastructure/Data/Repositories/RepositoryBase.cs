@@ -15,6 +15,7 @@ namespace Shopping.Infrastructure.Data.Repositories
 
         public ProductContext productcontext { get; }
 
+
         public RepositoryBase(ProductContext Productcontext)
         {
 

@@ -1,30 +1,20 @@
 ﻿
 Info Core Project 
 
-Last updated: 2024-12-12
+Last updated: 2024-12-20
 
 1. Dependencies - 
-
-   As you can see there's a dependency on the Shared Project because 2 DTOs are needed for
-   interface construction: CartItemToAddDto and CartItemQtyUpdateDto. Since these also are needed at the GUI
-   level I felt keeping them inside Shared Project made sense.  
+   On the Shared Project because 2 DTOs are needed for interface construction: CartItemToAddDto and CartItemQtyUpdateDto. 
+   Also needed at the GUI level, kept them here for ease of use.  
   
-   ( Maybe change around later, getting a better seperation between dif. projects.)
-
-2. Design - 
-
-   At the moment, Core basically is a flat storage for domain entities and needed stuff.
-
-3. Entities - 
-
+2. Entities - 
    No validation added! This is done via DTOs stored inside Shared Project. But I suppose these should
    be at the Class level itself for better control.
 
 4. Interfaces - 
-
    IRepositoryBase contains a generic approach to declare interfaces for both synchronous 
-   and asynchronous implementation. Its value can be discussed, but should the Solution
-   grow in size, some declarations might come in handy. So I am keeping them for further use/
-   refactoring.
+   and asynchronous implementation. Personally, I don't think this generic approach around EF Core
+   adds any specific value... but should the Solution grow in size, maybe some declarations might come in handy. 
+   So, I am keeping them for now.
    
-   The IRepositoryWrapper Interface is NOT used at the moment. 
+   The IRepositoryWrapper Interface is NOT used either at the moment. 

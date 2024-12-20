@@ -1,81 +1,69 @@
 ﻿Info Api Project
 
-Last updated: 2024-12-12
+Updated: 2024-12-20
+Updated: 2024-12-12
 
 1. Dependencies  - 
-
    Core, Infrastructure, Shared
 
 2. Attributes - 
- 
    Using a ValidationFilterAttribute for model validation inside the Account Controller. 
 
-2. Automapper - 
-
+3. Automapper - 
    Not a big fan from the start, but later on got lazy and used to it.
 
-2. Controllers - 
+4. Controllers - 
+   Using Dtos for most data transfers - not for Cart though. Too many, could be scaled down, but leave as is for now.
 
-   Using Dtos for most data transfers - not for Cart though. We could scale these down to a mininmum, but leave as is for now.
+5. CQRS - 
+   Note: NOT connected to the UI. You have to use Swagger in order to create, get Products using CQRS.
 
-2. CQRS - Note again that this part is not connected to the UI. You have to use Swagger in order
-   to create, get Products etc.
-
-2. Extensions - 
-
+6. Extensions - 
    a) Global errorhandling configured
    b) Search extension on products
    c) Extracting/adding some service registrations here. 
-      Too much added, and it would not run properly though.
+     
 
-2. Logging - 
+7. Logging - 
+   Implementing logging using NLog. 
+   Not yet fully compatitble 2024-12-12 to .NET version 9 - but seems to work.
 
-   Implementing logging using NLog. Not yet fully compatitble 2024-12-12 to .NET version 9 - but seems to work.
-
-2. Security - 
-
-   3 levels: claims, roles, special requirement. 
-
-     Saving the SuperAdmins requirement code for future use, commented.
+8. Security - 
+   Saving the SuperAdmins requirement code for future use, commented.
  
 
-2. StaticFiles- 
+9. StaticFiles- 
+   Files/Pictures uploaded for new Products created are stored here for the moment. 
+   Initial seed stored inside wwwroot Web.Portal.
 
-   Files/Pictures uploaded for new Products created are stored here for the moment. Initial seed stored inside wwwroot 
-   Web.Portal.
-
-2. SwaggerOptions - 
-
+10. SwaggerOptions - 
    Some Swagger Settings extracted to here, keeping Program.cs a little bit smaller.
 
-3. Program.cs - 
+11. Program.cs - 
 
    a) .NET 9 version - no startup class. Upgraded from .NET 6 just recently (2024-12-10), and it seems to work. 
 
    b) Region Builder and NLog - 
-
-   Needed to configure logging even before configuring the host. Could not get it to work otherwise.
-   Using NLog as provider, writing to file.
-   ClearProviders() removes the built in logging provided by Microsoft.
+      Needed to configure logging even before configuring the host. 
+      Could not get it to work otherwise.
+      Using NLog as provider, writing to file.
+      ClearProviders() removes the built in logging provided by Microsoft.
 
   c) Region Cors - 
-
-   Not configured for production, way too forgiving. Just adding it getting things to work!
+     Not configured for production, way too forgiving. 
+     Just adding it getting things to work!
 
 
   d) Region SwaggerStuff - 
-
-   A lot of settings - cumbersome. 
+     A lot of settings - cumbersome. 
 
 
   e) Region Request PipeLine - 
-
-   Order matters. Got this to work, so not changeing it !
-
+     Order matters. Got this to work, so not changeing it !
 
 
-5. <Project Sdk="Microsoft.NET.Sdk.Web"> - 
 
-   Did NOT enable checks for nulls on a global level.
+12. <Project Sdk="Microsoft.NET.Sdk.Web"> - 
+     Did NOT enable checks for nulls on a global level.
 
 

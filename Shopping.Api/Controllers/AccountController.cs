@@ -39,14 +39,13 @@ namespace Shopping.Api.Controllers
         #endregion
 
 
-        [HttpPost("Registration")]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [HttpPost("Registration")]   
+        [ServiceFilter(typeof(ValidationFilterAttribute))]   
         public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDto userForRegistration)
         {
            
             var newUser = new ApplicationUser { UserName = userForRegistration.Email, Email = userForRegistration.Email };
 
-            // Maybe add encryption to password here? An extra layer of sec?
             var result = await userManager.CreateAsync(newUser, userForRegistration.Password);
 
             if (!result.Succeeded)

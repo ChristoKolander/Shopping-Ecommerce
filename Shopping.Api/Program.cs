@@ -17,6 +17,7 @@ using NLog.Web;
 using Shopping.Api.Extensions;
 using Shopping.Api.SwaggerOptions;
 using MediatR;
+using Shopping.Core.Entities.People;
 
 
 // Note 1: Extracting too many services outside this container, using extensionmethods did not work out as expected.
@@ -53,7 +54,7 @@ Shopping.Infrastructure.Dependencies.ConfigureDBServices(builder.Configuration, 
 # endregion
 
 
-#region Adding ServiceRegistrations from an extracted method
+#region Adding ServiceRegistrations
 
 //See folder Extensions for additional injected stuff!
 builder.Services.AddServiceRegistration(builder.Configuration);
@@ -82,11 +83,14 @@ builder.Services.AddCors(options =>
 # region Injected Services
 
 builder.Services.AddScoped<ValidationFilterAttribute>();
+
+// Could be or should be Transient?
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();  // Not used at the moment
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 builder.Services.Configure<ProductSettings>(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
@@ -164,7 +168,6 @@ builder.Services.AddVersionedApiExplorer(options =>
 
 # region Request PipeLine
 
-
 var app = builder.Build();
 
 app.Logger.LogInformation("Shopping.Api App created...");
@@ -182,6 +185,8 @@ using (var scope = app.Services.CreateScope())
         var userManager = scopedProvider.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = scopedProvider.GetRequiredService<RoleManager<IdentityRole>>();
         var identityContext = scopedProvider.GetRequiredService<AppIdentityDbContext>();
+        
+        // Seed Users
         await AppIdentityDbContextSeed.SeedAsync(identityContext, userManager, roleManager);
     }
     catch (Exception ex)
@@ -200,7 +205,6 @@ app.UseConfigureExceptionHandler();
 app.UseHttpsRedirection();
 
 app.UseRouting();
-
 
 app.UseResponseCompression();
 
@@ -238,7 +242,7 @@ app.UseEndpoints(endpoints =>
 app.Logger.LogInformation("LAUNCHING Shopping.Api");
 app.Run();
 
-public partial class Program { }
+//public partial class Program { }
 
 # endregion
 

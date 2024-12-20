@@ -1,44 +1,37 @@
 ﻿
 Info Infrastructure Project
 
-Last updated: 2024-12-12
+Last updated: 2024-12-20
 
 1. Dependencies - 
-   
-   Only one, dependent on Core, but indirectly then also use the Shared Project for CartItemToAddDto.
+   Core, but indirectly then also use the Shared Project for CartItemToAddDto.
 
 2. Data/Config - 
-   
+   Conf. tables
 
 3. Data/Repositories -
-
-   Trying out a Generic Interface(IRepositoryBase) in Core which then gets passed down to other Interfaces in a chain,
+   Trying out a Generic Interface(IRepositoryBase) which then gets passed down to other Interfaces in a chain,
    IProductRepository for instance, also inheriting from RepositoryBase Abstract Class. This "chain" is
    implemented here.
-
+   
    The Class RepositoryWrapper and its Interface IRepositoryWrapper is not being used right now.
 
    Some methods inside the repositories still use the productContext directly. 
-
-   My preferred way is using the productContext directly...but I will keep this mixed approach for now.
  
    
-4. GenericRepositoryRemake - 
-   
+4. GenericRepositoryRemake -    
    Late in development I found a nice example of an async Generic Repo on Carl Franklins Blazor Train site, 
    but did/do not use it - but using the APIresponses through a search.
 
   
 
-5. Identity -
-   
+5. Identity -  
    In order to avoid adding Entity Framework Core to Core Project, 
    I added the entity ApplicationUser to this project. It inherits
    from IdentityUser so it felt logical to do so. 
    Hence, the ITokeService which uses ApplicationUser ended up here too.
 
  6. Migrations - 
- 
     Self explanataroy.
 
 

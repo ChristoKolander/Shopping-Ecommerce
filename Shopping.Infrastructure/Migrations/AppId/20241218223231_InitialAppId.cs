@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Shopping.Infrastructure.Migrations.AppId
 {
-    public partial class Second : Migration
+    /// <inheritdoc />
+    public partial class InitialAppId : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -199,6 +201,7 @@ namespace Shopping.Infrastructure.Migrations.AppId
                 filter: "[NormalizedUserName] IS NOT NULL");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
