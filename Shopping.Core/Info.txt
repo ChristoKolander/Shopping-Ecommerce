@@ -11,6 +11,8 @@ Last updated: 2024-12-20
    No validation added! This is done via DTOs stored inside Shared Project. But I suppose these should
    be at the Class level itself for better control.
 
+   Note: People Entity was added late on in order to try out JSON column functionality in EF Core 8+
+
 4. Interfaces - 
    IRepositoryBase contains a generic approach to declare interfaces for both synchronous 
    and asynchronous implementation. Personally, I don't think this generic approach around EF Core

@@ -73,7 +73,6 @@ namespace Shopping.Api.Controllers
             return Ok(customers);
         }
 
-
         [HttpGet("ByVisitByYear2")]
         public async Task<ActionResult<List<Customer>>> GetCustomersByVisitByYear2()
         {
